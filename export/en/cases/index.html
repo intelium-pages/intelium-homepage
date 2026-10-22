@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Data Streaming case studies with Kafka and Confluent · Intelium</title>
+<meta name="description" content="How banks and large enterprises in Brazil modernized integration with Apache Kafka and Confluent: wave-based migrations, consolidated integrations and real-time events.">
+<link rel="canonical" href="https://intelium.ai/en/cases/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/cases/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/cases/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/cases/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Data Streaming case studies with Kafka and Confluent · Intelium">
+<meta property="og:description" content="How banks and large enterprises in Brazil modernized integration with Apache Kafka and Confluent: wave-based migrations, consolidated integrations and real-time events.">
+<meta property="og:url" content="https://intelium.ai/en/cases/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/ds/styles.css">
+<script src="/assets/ds/_ds_bundle.js"></script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes bar{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+@keyframes npulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes dash{to{stroke-dashoffset:-250}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="/en/" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(/assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<div style="flex:1;min-width:0;display:flex;justify-content:flex-end;gap:24px;overflow-x:auto;white-space:nowrap;font-size:14px">
+<a href="/en/about/" style="color:var(--color-neutral-200)">About</a>
+<a href="/en/services/" style="color:var(--color-neutral-200)">Services</a>
+<a href="/en/cases/" style="color:var(--color-text)">Cases</a>
+<a href="/en/events/" style="color:var(--color-neutral-200)">Events</a>
+<a href="/en/academy/" style="color:var(--color-neutral-200)">Academy</a>
+<a href="/en/contact/">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="/cases/" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(/assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(/assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<div aria-hidden="true" style="height:56px"></div>
+
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Success stories</span>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:980px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Real results <span style="color:var(--color-accent-300)">in critical environments.</span></h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">We help Brazil’s largest companies modernize their data architectures.</p>
+</div>
+</header><section style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)"><div style="display:flex;flex-direction:column">
+<article style="display:flex;flex-wrap:wrap;gap:28px 56px;align-items:center;padding:40px 0;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="flex:1 1 380px;min-width:0;order:0">
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px)">{{ diag0 }}</div>
+</div>
+<div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">Pharma Retail Case</span><span class="tag tag-accent">Retail</span></div>
+<span style="font-size:15px;color:var(--color-neutral-300)">Large Pharmacy Chain</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.01em">Real-Time Inventory Management</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200);max-width:52ch">Evolution of the Data Streaming architecture to handle volume peaks with resilience and governance.</p>
+
+</div>
+</article>
+<article style="display:flex;flex-wrap:wrap;gap:28px 56px;align-items:center;padding:40px 0;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="flex:1 1 380px;min-width:0;order:1">
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px)">{{ diag1 }}</div>
+</div>
+<div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">Trading Case</span><span class="tag tag-accent">Finance</span></div>
+<span style="font-size:15px;color:var(--color-neutral-300)">Largest Brokerage in LatAm</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.01em">Migration to Confluent Platform</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200);max-width:52ch">Lower operational complexity and stronger governance in a critical investment environment.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">#MIGRATION</span><span class="tag tag-neutral">#KAFKA</span><span class="tag tag-neutral">#GOVERNANCE</span></div>
+</div>
+</article>
+<article style="display:flex;flex-wrap:wrap;gap:28px 56px;align-items:center;padding:40px 0;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="flex:1 1 380px;min-width:0;order:0">
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px)">{{ diag2 }}</div>
+</div>
+<div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">Finance Case</span><span class="tag tag-accent">Banking</span></div>
+<span style="font-size:15px;color:var(--color-neutral-300)">Innovative Digital Bank</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.01em">Real-Time Event Architecture</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200);max-width:52ch">Turning point-to-point integrations into reusable assets with Confluent Cloud.</p>
+
+</div>
+</article>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:clamp(48px,6vw,80px) clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Global references</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.15;letter-spacing:-.015em">The power of Data Streaming &amp; Intelligence <span style="color:var(--color-accent-300)">around the world.</span></h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">See how the most innovative companies on the planet use technologies like Confluent, Kafka and Palantir to redefine their markets.</p>
+<p style="margin:0;font-size:13px;line-height:20px;color:var(--color-neutral-400);font-style:italic">*Public reference cases of the technology, not implemented by Intelium.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc(50% - 8px),calc((720px - 100%) * 999))),1fr));gap:16px">
+<article style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;aspect-ratio:20 / 9;background:radial-gradient(400px 200px at 70% 30%,color-mix(in srgb,var(--color-accent-900) 80%,transparent),transparent 70%),var(--color-neutral-900);overflow:hidden">{{ ref0 }}
+<div style="position:absolute;left:0;right:0;bottom:0;padding:48px 24px 18px;background:linear-gradient(to top,var(--color-neutral-900),transparent);display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-300)">Netflix</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">Keystone Data Pipeline</h3>
+</div>
+</div>
+<div style="padding:22px 24px 26px;display:flex;flex-direction:column;gap:16px;flex:1">
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Netflix processes trillions of events per day for personalized recommendations and infrastructure monitoring. Its Kafka-based architecture is a global benchmark for scale and resilience.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto"><span class="tag tag-neutral">Apache Kafka</span></div>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;aspect-ratio:20 / 9;background:radial-gradient(400px 200px at 70% 30%,color-mix(in srgb,var(--color-accent-900) 80%,transparent),transparent 70%),var(--color-neutral-900);overflow:hidden">{{ ref1 }}
+<div style="position:absolute;left:0;right:0;bottom:0;padding:48px 24px 18px;background:linear-gradient(to top,var(--color-neutral-900),transparent);display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-300)">OpenAI</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">Infrastructure for AI</h3>
+</div>
+</div>
+<div style="padding:22px 24px 26px;display:flex;flex-direction:column;gap:16px;flex:1">
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">To train models like GPT-4 and Sora, OpenAI relies on massive data pipelines where Kafka plays a crucial role in ingesting and pre-processing data at exabyte scale.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto"><span class="tag tag-neutral">Apache Kafka</span></div>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;aspect-ratio:20 / 9;background:radial-gradient(400px 200px at 70% 30%,color-mix(in srgb,var(--color-accent-900) 80%,transparent),transparent 70%),var(--color-neutral-900);overflow:hidden">{{ ref2 }}
+<div style="position:absolute;left:0;right:0;bottom:0;padding:48px 24px 18px;background:linear-gradient(to top,var(--color-neutral-900),transparent);display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-300)">Airbus</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">Skywise Platform</h3>
+</div>
+</div>
+<div style="padding:22px 24px 26px;display:flex;flex-direction:column;gap:16px;flex:1">
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">The Skywise platform integrates data from thousands of aircraft in operation. Using Palantir Foundry, Airbus optimizes predictive maintenance and reduces delays across the global aviation industry.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto"><span class="tag tag-neutral">Palantir Foundry</span><span class="tag tag-neutral">Digital Twin</span></div>
+</div>
+</article>
+<article style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;aspect-ratio:20 / 9;background:radial-gradient(400px 200px at 70% 30%,color-mix(in srgb,var(--color-accent-900) 80%,transparent),transparent 70%),var(--color-neutral-900);overflow:hidden">{{ ref3 }}
+<div style="position:absolute;left:0;right:0;bottom:0;padding:48px 24px 18px;background:linear-gradient(to top,var(--color-neutral-900),transparent);display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-300)">Scuderia Ferrari</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">F1 Data Analytics</h3>
+</div>
+</div>
+<div style="padding:22px 24px 26px;display:flex;flex-direction:column;gap:16px;flex:1">
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">In Formula 1, milliseconds decide races. Ferrari uses Palantir to analyze telemetry in real time, correlating track, wind tunnel and simulation data for instant strategy decisions.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto"><span class="tag tag-neutral">Real-Time Strategy</span><span class="tag tag-neutral">Performance Optimization</span></div>
+</div>
+</article>
+</div>
+</section>
+
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(/assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="/en/about/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="/en/services/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="/en/cases/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="/en/events/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="/en/labs/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="/en/academy/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP · Brazil</span>
+<a href="/en/contact/" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return en; }
+  svg(key, label, kids) { return React.createElement('svg', { key, viewBox: '0 0 400 200', width: '100%', role: 'img', 'aria-label': label, style: { display: 'block', height: 'auto' } }, ...kids); }
+  txt(k, x, y, s, anchor) { return React.createElement('text', { key: k, x, y, textAnchor: anchor || 'start', style: { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.12em', fill: 'var(--color-neutral-400)' } }, s); }
+  dot(k, path, dur, begin) { const h = React.createElement; return h('circle', { key: k, r: 2.6, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 4px var(--color-accent))' } }, h('animateMotion', { dur: dur + 's', begin: begin + 's', repeatCount: 'indefinite', path })); }
+  build() {
+    if (this._d) return this._d;
+    const h = React.createElement; let n = 0; const k = () => 'e' + n++;
+    // 0 · volume peaks
+    const d0 = [this.txt(k(), 16, 24, this.t('EVENTOS / S', 'EVENTS / S')), this.txt(k(), 384, 36, this.t('CAPACIDADE ELÁSTICA', 'ELASTIC CAPACITY'), 'end'),
+      h('line', { key: k(), x1: 16, x2: 384, y1: 44, y2: 44, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1, strokeDasharray: '4 5' } }),
+      h('line', { key: k(), x1: 16, x2: 384, y1: 176, y2: 176, style: { stroke: 'var(--color-neutral-600)', strokeWidth: 1 } })];
+    for (let i = 0; i < 28; i++) d0.push(h('rect', { key: k(), x: 18 + i * 13.1, y: 56, width: 8, height: 120, rx: 2, style: { fill: 'var(--color-accent-500)', opacity: 0.35 + (i % 4) * 0.15, transformBox: 'fill-box', transformOrigin: 'bottom', animation: `bar ${1.8 + (i % 5) * 0.35}s ease-in-out ${-(i * 0.21).toFixed(2)}s infinite` } }));
+    // 1 · migration
+    const d1 = [this.txt(k(), 70, 22, this.t('LEGADO', 'LEGACY'), 'middle'), this.txt(k(), 330, 22, 'CONFLUENT PLATFORM', 'middle')];
+    [0, 1, 2].forEach(j => { const y = 40 + j * 50;
+      d1.push(h('rect', { key: k(), x: 30, y, width: 80, height: 34, rx: 6, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)', strokeDasharray: '3 3' } }), this.txt(k(), 70, y + 21, 'broker ' + (j + 1), 'middle'));
+      d1.push(h('rect', { key: k(), x: 290, y, width: 80, height: 34, rx: 6, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-accent-500)', animation: `npulse 2.6s ease-in-out ${j * 0.4}s infinite` } }), h('text', { key: k(), x: 330, y: y + 21, textAnchor: 'middle', style: { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.12em', fill: 'var(--color-accent-100)' } }, 'broker ' + (j + 1)));
+      const p = `M110 ${y + 17} C 200 ${y - 13}, 200 ${y - 13}, 290 ${y + 17}`;
+      d1.push(h('path', { key: k(), d: p, style: { fill: 'none', stroke: 'var(--color-accent-700)', strokeWidth: 1 } }), this.dot(k(), p, 2.4 + j * 0.3, -j * 0.7), this.dot(k(), p, 2.4 + j * 0.3, -j * 0.7 - 1.2)); });
+    // 2 · point-to-point -> reusable
+    const d2 = [this.txt(k(), 90, 22, this.t('PONTO A PONTO', 'POINT-TO-POINT'), 'middle'), this.txt(k(), 300, 22, this.t('ATIVOS REUTILIZÁVEIS', 'REUSABLE ASSETS'), 'middle')];
+    const ring = (cx, cy, r) => [0, 1, 2, 3, 4].map(i => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; });
+    const L = ring(90, 112, 62), R = ring(300, 112, 70);
+    for (let i = 0; i < 5; i++) for (let j = i + 1; j < 5; j++) d2.push(h('line', { key: k(), x1: L[i][0], y1: L[i][1], x2: L[j][0], y2: L[j][1], style: { stroke: 'var(--color-neutral-600)', strokeWidth: 1, strokeDasharray: '3 4' } }));
+    L.forEach(([x, y]) => d2.push(h('circle', { key: k(), cx: x, cy: y, r: 7, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-500)' } })));
+    d2.push(h('polyline', { key: k(), points: '178,112 204,112', style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } }), h('polyline', { key: k(), points: '198,107 205,112 198,117', style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } }));
+    R.forEach(([x, y], i) => { const p = `M300 112 L${x.toFixed(1)} ${y.toFixed(1)}`;
+      d2.push(h('line', { key: k(), x1: 300, y1: 112, x2: x, y2: y, style: { stroke: 'var(--color-accent-700)', strokeWidth: 1 } }), this.dot(k(), p, 1.8, -i * 0.36));
+      d2.push(h('circle', { key: k(), cx: x, cy: y, r: 7, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-accent-300)' } })); });
+    d2.push(h('rect', { key: k(), x: 276, y: 101, width: 48, height: 22, rx: 6, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent)', animation: 'npulse 2.4s ease-in-out infinite' } }),
+      h('text', { key: k(), x: 300, y: 116, textAnchor: 'middle', style: { fontFamily: 'var(--font-body)', fontSize: 10, letterSpacing: '.08em', fill: 'var(--color-accent-100)' } }, this.t('TÓPICO', 'TOPIC')));
+    this._d = [this.svg('s0', this.t('Volume de eventos com picos absorvidos pela capacidade elástica', 'Event volume with peaks absorbed by elastic capacity'), d0),
+      this.svg('s1', this.t('Brokers migrando do legado para Confluent Platform', 'Brokers migrating from legacy to Confluent Platform'), d1),
+      this.svg('s2', this.t('Integrações ponto a ponto substituídas por um tópico compartilhado', 'Point-to-point integrations replaced by a shared topic'), d2)];
+    return this._d;
+  }
+  refs() {
+    if (this._r) return this._r;
+    const h = React.createElement; let n = 0; const k = () => 'r' + n++;
+    const S = (key, kids) => React.createElement('svg', { key, viewBox: '0 0 400 180', width: '100%', 'aria-hidden': 'true', preserveAspectRatio: 'xMidYMid slice', style: { display: 'block', height: '100%' } }, ...kids);
+    const ln = { stroke: 'var(--color-accent-700)', strokeWidth: 1, fill: 'none' };
+    // Netflix: one pipeline fanning out to many screens
+    const a = [h('circle', { key: k(), cx: 60, cy: 90, r: 14, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent)', animation: 'npulse 2.4s ease-in-out infinite' } })];
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) { const x = 230 + c * 38, y = 30 + r * 36, p = `M74 90 C 150 90, 160 ${y + 10}, ${x} ${y + 10}`;
+      a.push(h('path', { key: k(), d: p, style: { ...ln, opacity: .6 } }), h('rect', { key: k(), x, y, width: 28, height: 20, rx: 3, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-accent-300)', strokeWidth: .8, animation: `npulse 2.8s ease-in-out ${((r * 4 + c) * 0.17).toFixed(2)}s infinite` } }));
+      if ((r + c) % 2 === 0) a.push(this.dot(k(), p, 2 + (c % 3) * 0.4, -(r * 0.5 + c * 0.3))); }
+    // OpenAI: many streams converging into a model
+    const b = [];
+    for (let i = 0; i < 12; i++) { const y = 14 + i * 14, p = `M0 ${y} C 140 ${y}, 170 90, 270 90`; b.push(h('path', { key: k(), d: p, style: { ...ln, opacity: .5 + (i % 3) * .15 } }), h('path', { key: k(), d: p, style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.4, strokeLinecap: 'round', strokeDasharray: '2 24', animation: `dash ${2.4 + (i % 4) * .5}s linear ${-(i * .3)}s infinite` } })); }
+    [[300, 50], [340, 70], [340, 110], [300, 130], [380, 90]].forEach(([x, y]) => b.push(h('line', { key: k(), x1: 274, y1: 90, x2: x, y2: y, style: { stroke: 'var(--color-accent-300)', strokeWidth: .7, opacity: .4 } })));
+    [[274, 90], [300, 50], [340, 70], [340, 110], [300, 130], [380, 90]].forEach(([x, y], i) => b.push(h('circle', { key: k(), cx: x, cy: y, r: i ? 6 : 9, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent-300)', animation: `npulse 2.6s ease-in-out ${i * .3}s infinite` } })));
+    // Airbus: globe with flight orbits
+    const c = [h('circle', { key: k(), cx: 200, cy: 90, r: 62, style: { fill: 'none', stroke: 'var(--color-accent-500)', strokeWidth: 1 } })];
+    [20, 45].forEach(ry => c.push(h('ellipse', { key: k(), cx: 200, cy: 90, rx: 62, ry, style: { ...ln, strokeDasharray: '2 4' } })));
+    [18, 40].forEach(rx => c.push(h('ellipse', { key: k(), cx: 200, cy: 90, rx, ry: 62, style: { ...ln, strokeDasharray: '2 4' } })));
+    [[-18, 120, 36], [24, 140, 44], [64, 110, 30]].forEach(([rot, rx, ry], i) => { const p = `M${200 - rx} 90 a ${rx} ${ry} 0 1 0 ${2 * rx} 0 a ${rx} ${ry} 0 1 0 ${-2 * rx} 0`;
+      c.push(h('g', { key: k(), transform: `rotate(${rot} 200 90)` }, h('path', { d: p, style: { ...ln, stroke: 'var(--color-accent-300)', opacity: .7 } }), this.dot('p', p, 6 + i * 1.5, -i * 2), this.dot('q', p, 6 + i * 1.5, -i * 2 - 3))); });
+    // Ferrari: speed lines + telemetry wave
+    const d = [];
+    for (let i = 0; i < 10; i++) { const y = 20 + i * 12, p = `M0 ${y + 30} C 120 ${y + 30}, 220 ${y}, 400 ${y - 6}`; d.push(h('path', { key: k(), d: p, style: { fill: 'none', stroke: i % 3 ? 'var(--color-accent-700)' : 'var(--color-accent-300)', strokeWidth: i % 3 ? 1 : 1.6, strokeDasharray: i % 3 ? 'none' : '40 60', animation: i % 3 ? 'none' : `dash ${1.2 + i * .1}s linear infinite` } })); }
+    let w = 'M0 150'; for (let x = 0; x <= 400; x += 8) w += ` L${x} ${150 - Math.abs(Math.sin(x / 17) * 14 + Math.sin(x / 5) * 5)}`;
+    d.push(h('path', { key: k(), d: w, style: { fill: 'none', stroke: 'var(--color-accent-100)', strokeWidth: 1.2, strokeDasharray: '420 420', animation: 'dash 3s linear infinite' } }));
+    this._r = [S('ra', a), S('rb', b), S('rc', c), S('rd', d)];
+    return this._r;
+  }
+  renderVals() { const d = this.build(), r = this.refs(); return { diag0: d[0], diag1: d[1], diag2: d[2], ref0: r[0], ref1: r[1], ref2: r[2], ref3: r[3] }; }
+}
+</script>
+</body>
+</html>

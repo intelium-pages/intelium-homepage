@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Treinamentos de Apache Kafka, Confluent e Flink · Intelium Academy</title>
+<meta name="description" content="Trilhas técnicas de Apache Kafka, Confluent Cloud, Schema Registry, Confluent Platform e Flink, do fundamento à operação avançada. Workshops e turmas dedicadas.">
+<link rel="canonical" href="https://intelium.ai/academy/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/academy/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/academy/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/academy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Treinamentos de Apache Kafka, Confluent e Flink · Intelium Academy">
+<meta property="og:description" content="Trilhas técnicas de Apache Kafka, Confluent Cloud, Schema Registry, Confluent Platform e Flink, do fundamento à operação avançada. Workshops e turmas dedicadas.">
+<meta property="og:url" content="https://intelium.ai/academy/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Course","name":"Fundamentos de Apache Kafka","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}},{"@type":"ListItem","position":2,"item":{"@type":"Course","name":"Fundamentos de Confluent Cloud e Event-Driven Architecture","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}},{"@type":"ListItem","position":3,"item":{"@type":"Course","name":"Melhores Práticas de Producer e Consumer utilizando Data Contracts com Schema Registry","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}},{"@type":"ListItem","position":4,"item":{"@type":"Course","name":"Deployment Avançado de Confluent Platform e Confluent Private Cloud","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}},{"@type":"ListItem","position":5,"item":{"@type":"Course","name":"Processos avançados de Confluent Cloud","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}},{"@type":"ListItem","position":6,"item":{"@type":"Course","name":"Flink Processing para entrega de Shift-left","inLanguage":"pt-BR","provider":{"@type":"Organization","name":"Intelium","sameAs":"https://intelium.ai/"}}}]}</script>
+<script>document.documentElement.lang='pt-BR'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/ds/styles.css">
+<script src="/assets/ds/_ds_bundle.js"></script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="/" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(/assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<div style="flex:1;min-width:0;display:flex;justify-content:flex-end;gap:24px;overflow-x:auto;white-space:nowrap;font-size:14px">
+<a href="/sobre/" style="color:var(--color-neutral-200)">Sobre</a>
+<a href="/servicos/" style="color:var(--color-neutral-200)">Serviços</a>
+<a href="/cases/" style="color:var(--color-neutral-200)">Cases</a>
+<a href="/eventos/" style="color:var(--color-neutral-200)">Eventos</a>
+<a href="/academy/" style="color:var(--color-text)">Academy</a>
+<a href="/contato/">Contato</a>
+<span style="display:flex;gap:6px;align-items:center"><span title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(/assets/ui/flag-br.svg)) center/contain no-repeat"></span></span><a href="/en/academy/" title="English (US)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(/assets/ui/flag-us.svg)) center/contain no-repeat"></span></a></span>
+</div>
+</nav>
+<div aria-hidden="true" style="height:56px"></div>
+
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Intelium Academy</span>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:980px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Formamos a próxima geração <span style="color:var(--color-accent-300)">de especialistas em Data Streaming.</span></h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">Treinamentos e labs práticos em São Paulo e no Brasil.</p>
+</div>
+</header>
+
+<section style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,5vw,72px) 0">
+<div style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Formatos</span><h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Do workshop rápido à turma dedicada.</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc(50% - 8px),calc((640px - 100%) * 999))),1fr));gap:16px">
+<article class="card" style="display:flex;flex-direction:column;gap:12px;padding:clamp(22px,2.6vw,30px);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span class="card-kicker">Workshops</span>
+<h3 style="margin:0;font-weight:500;font-size:clamp(26px,2.6vw,34px);line-height:1.2">1 a 3 horas</h3>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Sessões objetivas para alinhar times e decisões.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Confluent</span><span class="tag tag-neutral">Event-driven Architecture</span></div>
+</article>
+<article class="card" style="display:flex;flex-direction:column;gap:12px;padding:clamp(22px,2.6vw,30px);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span class="card-kicker">Turmas fechadas</span>
+<h3 style="margin:0;font-weight:500;font-size:clamp(26px,2.6vw,34px);line-height:1.2">Capacitação de clientes</h3>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Treinamento exclusivo para o seu time, construído a partir dos casos de uso do seu negócio.</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Casos de uso do cliente</span><span class="tag tag-neutral">Hands-on</span></div>
+</article>
+</div>
+</div>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,5vw,72px) 0">
+<div style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Cursos</span><h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Trilhas técnicas, do fundamento à operação avançada.</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((900px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">01</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Fundamentos de Apache Kafka</h3>
+<span style="font-size:13px;color:var(--color-neutral-300)">40h · online e presencial</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Apache Kafka</span></div>
+</article>
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">02</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Fundamentos de Confluent Cloud e Event-Driven Architecture</h3>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Confluent Cloud</span><span class="tag tag-neutral">EDA</span></div>
+</article>
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">03</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Melhores Práticas de Producer e Consumer utilizando Data Contracts com Schema Registry</h3>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Data Contracts</span><span class="tag tag-neutral">Schema Registry</span></div>
+</article>
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">04</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Deployment Avançado de Confluent Platform e Confluent Private Cloud</h3>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Confluent Platform</span><span class="tag tag-neutral">Private Cloud</span></div>
+</article>
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">05</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Processos avançados de Confluent Cloud</h3>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Confluent Cloud</span></div>
+</article>
+<article style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">06</span>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:25px">Flink Processing para entrega de Shift-left</h3>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px"><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Shift-left</span></div>
+</article>
+</div>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)">
+<div style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:720px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Blog técnico</span><h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Escrito por engenheiros para engenheiros.</h2><p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Artigos aprofundados sobre arquiteturas de dados, streaming, governança e as melhores práticas da indústria. Conteúdo técnico escrito por engenheiros para engenheiros.</p></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(25% - 12px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<a href="https://mateus-oliveira.medium.com/data-lineage-rastreando-dados-de-ponta-a-ponta-7e8d16350e38" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Governança</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Data Lineage: Rastreando Dados de Ponta a Ponta</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Como implementar rastreabilidade completa em pipelines de streaming para governança, compliance e confiança nos dados.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/data-catalog-descoberta-e-documenta%C3%A7%C3%A3o-de-dados-em-streaming-521bae75c45b" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Governança</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Data Catalog: Descoberta e Documentação de Dados em Streaming</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Como catalogar, documentar e descobrir dados em arquiteturas Kafka para acelerar desenvolvimento e garantir governança.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/lenses-developer-experience-para-apache-kafka-c0446416ae93" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Ferramentas</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Lenses: Developer Experience para Apache Kafka</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Nossa experiência trabalhando com o time da Lenses e como a plataforma transforma o dia a dia de quem desenvolve com Kafka.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/data-contracts-o-alicerce-da-governan%C3%A7a-em-streaming-d226d6611138" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Governança</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Data Contracts: O Alicerce da Governança em Streaming</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Como acordos formais entre produtores e consumidores garantem qualidade, consistência e confiança em arquiteturas de dados em tempo real.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/confluent-o-ecossistema-enterprise-para-apache-kafka-da7cb215cc48" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Plataforma</span><span style="font-size:12px;color:var(--color-neutral-400);font-feature-settings:'tnum' 1">10 min</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Confluent Platform: O ecossistema enterprise para Kafka</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Descubra como a Confluent Platform estende o Apache Kafka com recursos enterprise de governança, monitoramento e integração.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/arquitetura-kafka-brokers-topics-partitions-e-offset-be4d95512924" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Arquitetura</span><span style="font-size:12px;color:var(--color-neutral-400);font-feature-settings:'tnum' 1">12 min</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Arquitetura Kafka: Brokers, Topics, Partitions e Offsets</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Mergulhe profundamente nos componentes fundamentais do Kafka e aprenda como eles trabalham juntos para garantir escalabilidade e resiliência.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/apache-kafka-o-cora%C3%A7%C3%A3o-do-streaming-moderno-ef0f7a5ac6e5" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Fundamentos</span><span style="font-size:12px;color:var(--color-neutral-400);font-feature-settings:'tnum' 1">4 min</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Apache Kafka: O coração do streaming moderno</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Entenda por que o Kafka se tornou o padrão de facto para arquiteturas de streaming e como ele revolucionou a forma como empresas processam dados em tempo real.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+<a href="https://mateus-oliveira.medium.com/produzindo-dados-no-apache-kafka-com-python-d072b6aae298" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">Hands-on</span></div>
+<h3 style="margin:0;font-weight:500;font-size:18px;line-height:24px">Produzindo Dados no Apache Kafka com Python</h3>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">Um dos grandes desafios em se utilizar Apache Kafka pelo time de dados é programar em Java. Aqui, como produzir dados no Kafka com Python.</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler no Medium<span aria-hidden="true">↗</span></div>
+</a>
+</div>
+<a href="https://mateus-oliveira.medium.com/" target="_blank" rel="noopener" style="align-self:flex-start;font-size:15px">Ver todos os artigos no Medium ↗</a>
+</div>
+</section>
+
+
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(/assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="/sobre/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Sobre</a><a href="/servicos/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Serviços</a><a href="/cases/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="/eventos/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Eventos</a><a href="/labs/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="/academy/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contato</span>
+<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="/contato/" style="font-size:15px;margin-top:6px">Fale com o CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+</body>
+</html>

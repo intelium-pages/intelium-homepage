@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Intelium · Centro de excelência em Data Streaming, Apache Kafka e Confluent</title>
+<meta name="description" content="Centro de excelência brasileiro em Data Streaming. Arquitetura, implantação e operação de Apache Kafka e Confluent para Real-Time AI. Confluent Elite Partner.">
+<link rel="canonical" href="https://intelium.ai/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Intelium · Centro de excelência em Data Streaming, Apache Kafka e Confluent">
+<meta property="og:description" content="Centro de excelência brasileiro em Data Streaming. Arquitetura, implantação e operação de Apache Kafka e Confluent para Real-Time AI. Confluent Elite Partner.">
+<meta property="og:url" content="https://intelium.ai/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.lang='pt-BR'</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Intelium","url":"https://intelium.ai/","logo":"https://intelium.ai/assets/ui/logo.png","email":"backoffice@intelium.ai","telephone":"+55-11-2844-8000","address":{"@type":"PostalAddress","streetAddress":"Av. Pres. Juscelino Kubitschek, 2041, Bloco B","addressLocality":"São Paulo","addressRegion":"SP","addressCountry":"BR"},"areaServed":"Latin America","knowsAbout":["Data Streaming","Apache Kafka","Confluent","Apache Flink","Real-Time AI","Event-Driven Architecture"]}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/ds/styles.css">
+<script src="/assets/ds/_ds_bundle.js"></script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes glow{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes dash{to{stroke-dashoffset:-250}}
+@keyframes npulse{0%,100%{opacity:.18}50%{opacity:1}}
+@keyframes bar{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes flow{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% - 5px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="#topo" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(/assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<div style="flex:1;min-width:0;display:flex;justify-content:flex-end;gap:24px;overflow-x:auto;white-space:nowrap;font-size:14px">
+<a href="/sobre/" style="color:var(--color-neutral-200)">Sobre</a>
+<a href="/servicos/" style="color:var(--color-neutral-200)">Serviços</a>
+<a href="/cases/" style="color:var(--color-neutral-200)">Cases</a>
+<a href="/eventos/" style="color:var(--color-neutral-200)">Eventos</a>
+<a href="/academy/" style="color:var(--color-neutral-200)">Academy</a>
+<a href="/contato/">Contato</a>
+<span style="display:flex;gap:6px;align-items:center"><span title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(/assets/ui/flag-br.svg)) center/contain no-repeat"></span></span><a href="/en/" title="English (US)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(/assets/ui/flag-us.svg)) center/contain no-repeat"></span></a></span>
+</div>
+</nav>
+
+<div aria-hidden="true" style="height:56px"></div>
+<header id="topo" style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) 40px;display:flex;flex-direction:column;gap:28px">
+<h1 style="margin:0 0 0 -.06em;font-weight:500;font-size:clamp(40px,7vw,84px);line-height:1.1;letter-spacing:-.02em;max-width:1040px"><span style="display:block;animation:rise 1s cubic-bezier(.2,.7,.2,1) .1s both">O centro de excelência brasileiro</span><span style="display:block;color:var(--color-accent-300);animation:rise 1s cubic-bezier(.2,.7,.2,1) .3s both">em Data Streaming.</span></h1>
+<div style="display:flex;gap:24px 64px;align-items:flex-end;flex-wrap:wrap;animation:rise 1s cubic-bezier(.2,.7,.2,1) .55s both">
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:560px;color:var(--color-neutral-200)">Especialistas em Apache Kafka, Confluent e Real-Time AI. Parceiros estratégicos da Confluent, da IBM e da Palantir.</p>
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">São Paulo · LATAM</span>
+</div>
+</div>
+<div style="position:relative;max-width:1280px;margin:0 auto;padding:0 clamp(12px,3vw,40px) 56px;animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .7s both">{{ heroDiagram }}</div>
+</header>
+
+<div style="overflow:hidden;padding:20px 0;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat;mask-image:linear-gradient(to right,transparent,black 120px calc(100% - 120px),transparent)">
+<div style="display:flex;gap:48px;width:max-content;animation:marquee 40s linear infinite;will-change:transform;font-size:15px;color:var(--color-neutral-300);white-space:nowrap">
+<sc-for list="{{ marquee }}" as="m" hint-placeholder-count="12"><span style="display:flex;gap:48px;align-items:center">{{ m }}<span style="width:4px;height:4px;border-radius:50%;background:var(--color-accent-500)"></span></span></sc-for>
+</div>
+</div>
+
+<section aria-label="Intelium em números" style="background:radial-gradient(900px 420px at 85% -40%,color-mix(in srgb,var(--color-section-glow) 70%,transparent),transparent 64%),var(--color-section)">
+<div style="max-width:1200px;margin:0 auto;padding:56px clamp(20px,5vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:32px 24px">
+<sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+<div><p style="margin:0;font-size:clamp(40px,4vw,52px);line-height:1.1;font-weight:500;font-feature-settings:'tnum' 1">{{ st.v }}</p><p style="margin:12px 0 0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ st.l }}</p></div>
+</sc-for>
+</div>
+</section>
+<section aria-label="Setores" style="max-width:1200px;margin:0 auto;padding:28px clamp(20px,5vw,72px) 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 32px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Atuamos em</span>
+<div style="display:flex;flex-wrap:wrap;gap:8px 28px;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span>Serviços financeiros</span><span>Seguros</span><span>Saúde</span><span>Varejo</span><span>Energia</span><span>Setor público</span></div>
+</section>
+
+<section id="servicos" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Serviços</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(28px,3.4vw,40px);line-height:1.2;letter-spacing:-.015em">Não existe IA sem dados em movimento.</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Três frentes, do fundamento ao topo da pirâmide.</p>
+<a href="/servicos/" style="font-size:15px">Ver serviços em detalhe →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+<div class="card" style="display:flex;flex-direction:column;gap:12px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">{{ s.n }}</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">{{ s.title }}</h3>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-300)">{{ s.copy }}</p>
+<ul style="list-style:none;margin:4px 0 0;padding:16px 0 0;display:flex;flex-direction:column;gap:10px;background:linear-gradient(to right,var(--color-neutral-700),transparent) top/100% 1px no-repeat">
+<sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3"><li style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:20px;color:var(--color-neutral-200)"><span style="flex:0 0 auto;width:12px;height:1px;background:var(--color-accent);transform:translateY(-4px)"></span>{{ it }}</li></sc-for>
+</ul>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="fde" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Forward Deployed Engineer</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(28px,3.4vw,40px);line-height:1.2;letter-spacing:-.015em">Saímos deixando capacidade instalada, não dependência.</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Engenheiros sêniores trabalham dentro do seu ambiente, integrados ao squad.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px 40px">
+<sc-for list="{{ phases }}" as="p" hint-placeholder-count="3">
+<div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-top:24px;opacity:{{ p.op }};transition:opacity .6s;background:linear-gradient(var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">{{ p.bar }}
+<span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">{{ p.n }}</span>
+<h3 style="margin:0;font-weight:500;font-size:22px;line-height:28px">{{ p.title }}</h3>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-300)">{{ p.copy }}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="cases" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Cases</span><h2 style="margin:0;font-weight:500;font-size:clamp(28px,3.2vw,36px);line-height:1.2;letter-spacing:-.015em">Do batch ao evento, em produção.</h2></div>
+<a href="/cases/" style="font-size:15px">Ver todos os cases →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px 24px">
+<sc-for list="{{ caseTabs }}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{ t.select }}" style="position:relative;text-align:left;padding:14px 0 18px;background:none;border:0;cursor:pointer;font:inherit;color:{{ t.color }};display:flex;flex-direction:column;gap:6px;transition:color .3s" style-hover="color:var(--color-text)">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400);font-feature-settings:'tnum' 1">{{ t.n }} · {{ t.front }}</span>
+<span style="font-size:22px;font-weight:500;line-height:28px">{{ t.sector }}</span>
+<span style="position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--color-neutral-700)"></span>
+{{ t.bar }}
+</button>
+</sc-for>
+</div>
+<div key="{{ caseKey }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px;align-items:start;animation:rise .7s cubic-bezier(.2,.7,.2,1) both">
+<div style="display:flex;flex-direction:column;gap:22px">
+<sc-for list="{{ cur.fields }}" as="f" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:baseline">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">{{ f.label }}</span>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-100)">{{ f.text }}</p>
+</div>
+</sc-for>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ cur.stack }}" as="s" hint-placeholder-count="3"><span class="tag tag-neutral">{{ s }}</span></sc-for></div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);overflow:hidden;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 24px calc(100% - 24px),transparent) bottom/100% 1px no-repeat">
+<span style="font-size:13px;color:var(--color-neutral-200)">{{ cur.diagramTitle }}</span>
+<span style="font-size:12px;color:var(--color-neutral-400)">Diagrama ilustrativo</span>
+</div>
+<div style="overflow:hidden">
+<sc-if value="{{ is0 }}" hint-placeholder-val="{{ true }}">
+<div style="padding:24px;display:grid;grid-template-columns:minmax(72px,104px) minmax(0,1fr) minmax(104px,150px);gap:clamp(10px,2vw,20px);align-items:center">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-400)">Produtores</span><sc-for list="{{ d0.producers }}" as="x" hint-placeholder-count="3"><div style="padding:8px 10px;border-radius:var(--radius-md);background:var(--color-neutral-800);font-size:12px;transition:box-shadow .4s,color .4s;box-shadow:{{ x.ring }};color:{{ x.color }}">{{ x.name }}</div></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">{{ d0.topic }}</span>
+<sc-for list="{{ d0.parts }}" as="pt" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:22px minmax(0,1fr) 40px;gap:8px;align-items:center">
+<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--color-neutral-400)">{{ pt.name }}</span>
+<div style="display:flex;gap:3px;justify-content:flex-end;overflow:hidden"><sc-for list="{{ pt.cells }}" as="c" hint-placeholder-count="14"><span style="flex:0 0 auto;width:12px;height:22px;border-radius:3px;background:{{ c.bg }};box-shadow:{{ c.glow }};transition:background .5s,box-shadow .5s"></span></sc-for></div>
+<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:var(--color-neutral-300);text-align:right">{{ pt.head }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-400)">Grupos de consumo</span><sc-for list="{{ d0.consumers }}" as="x" hint-placeholder-count="3"><div style="padding:8px 10px;border-radius:var(--radius-md);background:var(--color-neutral-800);font-size:12px;transition:box-shadow .4s,color .4s;display:flex;justify-content:space-between;gap:8px"><span>{{ x.name }}</span><span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:{{ x.lagColor }}">lag {{ x.lag }}</span></div></sc-for></div>
+</div>
+</sc-if>
+<sc-if value="{{ is1 }}" hint-placeholder-val="{{ false }}">
+<div style="padding:24px;display:flex;flex-direction:column;gap:18px">
+<div style="position:relative;height:200px">
+<div style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-400)"><span>Legado · IBM MQ / Tibco</span><span>{{ d1.legacyCount }} sistemas</span></div>
+<div style="position:absolute;left:0;right:0;top:28px;border-top:1px dashed var(--color-neutral-600)"></div>
+<div style="position:absolute;left:0;right:0;top:168px">{{ d1.rail }}</div>
+<div style="position:absolute;left:0;right:0;top:182px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em;text-transform:uppercase"><span style="color:var(--color-accent-300)">Confluent · Kafka Connect</span><span style="color:var(--color-neutral-400)">{{ d1.newCount }} sistemas</span></div>
+<div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px">
+<sc-for list="{{ d1.systems }}" as="s" hint-placeholder-count="6"><div style="position:relative"><div style="position:absolute;left:0;right:0;top:{{ s.top }};padding:8px 6px;border-radius:var(--radius-md);background:var(--color-neutral-800);font-size:clamp(10px,1.2vw,11.5px);line-height:14px;text-align:center;overflow-wrap:anywhere;box-shadow:{{ s.ring }};color:{{ s.color }};transition:top .9s cubic-bezier(.5,0,.2,1),box-shadow .5s,color .5s">{{ s.name }}</div></div></sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px"><sc-for list="{{ d1.waves }}" as="w" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:4px;padding-top:10px;box-shadow:inset 0 1px 0 {{ w.line }};transition:box-shadow .5s"><span style="font-size:12px;color:{{ w.color }};transition:color .5s">{{ w.name }}</span><span style="font-size:11px;color:var(--color-neutral-400)">{{ w.note }}</span></div></sc-for></div>
+</div>
+</sc-if>
+<sc-if value="{{ is2 }}" hint-placeholder-val="{{ false }}">
+<div style="padding:28px 24px 24px;display:flex;flex-direction:column;gap:20px">
+<div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(calc(25% - 12px),calc((520px - 100%) * 999),calc(50% - 8px)),1fr));gap:16px">
+<div style="position:absolute;left:10%;right:10%;top:50%">{{ d2.track }}</div>
+<sc-for list="{{ d2.stages }}" as="st" hint-placeholder-count="4"><div style="position:relative;padding:14px;border-radius:var(--radius-lg);background:var(--color-neutral-800);display:flex;flex-direction:column;gap:6px;box-shadow:{{ st.ring }};transition:box-shadow .4s;min-width:0"><span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-400)">{{ st.n }}</span><span style="font-size:15px;font-weight:500">{{ st.name }}</span><span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--color-neutral-300);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.sub }}</span><span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--color-accent-300)">{{ st.ms }} ms</span></div></sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;padding:12px 14px;border-radius:var(--radius-md);background:var(--color-neutral-900);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px">
+<span style="color:var(--color-neutral-400)">evt {{ d2.id }}</span><span>score {{ d2.score }}</span><span style="color:{{ d2.decColor }}">{{ d2.decision }}</span><span style="color:var(--color-accent-300)">total {{ d2.total }} ms</span>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="padding:0 24px 18px;font-size:12px;color:var(--color-neutral-400)">{{ cur.caption }}</div>
+</div>
+</div>
+<div aria-label="Histórico" style="display:flex;flex-direction:column;gap:14px;padding-top:16px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:24px"><div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:clamp(32px,3.4vw,44px);line-height:1.1;font-weight:500;color:var(--color-neutral-500);font-feature-settings:'tnum' 1">—</span><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-300)">Clusters em produção</span></div><div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:clamp(32px,3.4vw,44px);line-height:1.1;font-weight:500;color:var(--color-neutral-500);font-feature-settings:'tnum' 1">—</span><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-300)">Migrações concluídas</span></div><div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:clamp(32px,3.4vw,44px);line-height:1.1;font-weight:500;color:var(--color-neutral-500);font-feature-settings:'tnum' 1">—</span><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-300)">Tópicos migrados</span></div></div>
+<span style="font-size:12px;color:var(--color-neutral-400)">Placeholder: números a fornecer pelo time.</span>
+</div>
+</section>
+
+<section id="labs" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 300px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Intelium Labs</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,32px);line-height:1.25">Produtos e frameworks criados pelo nosso time.</h2>
+<a href="/labs/" style="font-size:15px">Ver como funcionam →</a>
+</div>
+<div style="flex:2 1 480px;display:flex;flex-direction:column;min-width:0">
+<sc-for list="{{ labs }}" as="l" hint-placeholder-count="2">
+<a href="/labs/" style="display:flex;justify-content:space-between;gap:24px;padding:22px 0;color:var(--color-text);background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) bottom/100% 1px no-repeat;transition:padding .3s" style-hover="padding-left:8px">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">{{ l.kind }}</span><span style="font-size:20px;font-weight:500">{{ l.title }}</span><span style="font-size:15px;line-height:24px;color:var(--color-neutral-300);max-width:60ch">{{ l.desc }}</span></span>
+<span style="color:var(--color-accent-300);align-self:center">→</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section aria-label="Parceiros" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:24px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Parceiros estratégicos</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+<sc-for list="{{ partners }}" as="pt" hint-placeholder-count="3">
+<div class="card" style="display:flex;flex-direction:column;gap:6px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)"><span style="font-size:20px;font-weight:500">{{ pt.name }}</span><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ pt.role }}</span></div>
+</sc-for>
+</div>
+</section>
+
+<footer id="contato" style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(/assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="/sobre/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Sobre</a><a href="/servicos/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Serviços</a><a href="/cases/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="/eventos/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Eventos</a><a href="/labs/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="/academy/" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contato</span>
+<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="/contato/" style="font-size:15px;margin-top:6px">Fale com o CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { seq: 0, p: 0, caseIdx: 0, tabNonce: 0 };
+  casesData = [
+    { sector: 'Farmacêutica', front: 'Streaming Foundation', stack: ['Confluent', 'Kafka Connect', 'Schema Registry'], sources: ['ERP', 'WMS', 'E-commerce'], sinks: ['Lakehouse', 'Painéis', 'Apps'] },
+    { sector: 'Corretora', front: 'Legacy Modernization', stack: ['#MIGRATION', '#KAFKA', '#GOVERNANCE'] },
+    { sector: 'Banco digital', front: 'Real-Time AI/ML', stack: ['Flink', 'Confluent', 'Palantir'] }
+  ];
+  componentDidMount() {
+    this.onResize = () => { const wide = window.innerWidth > 720; if (wide !== this.state.wide) this.setState({ wide }); };
+    this.onResize(); window.addEventListener('resize', this.onResize);
+    this.t = setInterval(() => { if (!document.hidden) this.setState(s => ({ seq: s.seq + 1 })); }, 900);
+    this.startCases();
+    const t0 = performance.now() + 500;
+    let last = 0;
+    const step = now => { const p = Math.min(1, Math.max(0, (now - t0) / 1800)); if (now - last > 60 || p === 1) { last = now; this.setState({ p }); } if (p < 1) this.raf = requestAnimationFrame(step); };
+    this.raf = requestAnimationFrame(step);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); clearInterval(this.t); clearInterval(this.ct); cancelAnimationFrame(this.raf); }
+  startCases() { clearInterval(this.ct); this.ct = setInterval(() => { if (!document.hidden) this.setState(s => ({ caseIdx: (s.caseIdx + 1) % 3 })); }, 12000); }
+  selectCase(i) { this.setState(s => ({ caseIdx: i, tabNonce: s.tabNonce + 1 })); this.startCases(); }
+  lane(i, k, n = 2, dur = 2.2 + i * 0.15) {
+    return React.createElement('div', { key: k + i, style: { position: 'relative', height: 1, margin: '0 12px', background: 'linear-gradient(to right, var(--color-neutral-700), var(--color-accent-700), var(--color-neutral-700))' } },
+      Array.from({ length: n }, (_, j) => React.createElement('span', { key: j, style: { position: 'absolute', top: -2, left: 0, width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', boxShadow: '0 0 10px var(--color-accent)', animation: `flow ${dur}s linear ${i * 0.4 + j * (dur / n)}s infinite both` } })));
+  }
+  hl(list, a) { return list.map((name, i) => ({ name, ring: i === a ? '0 0 0 1px var(--color-accent-500)' : '0 0 0 1px transparent', color: i === a ? 'var(--color-accent-100)' : 'var(--color-text)' })); }
+  bar(key, dur) { return React.createElement('span', { key, style: { position: 'absolute', left: 0, right: 0, height: 1, background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)', transformOrigin: 'left', animation: `grow ${dur}s linear both` } }); }
+  heroSvg() {
+    const wide = this.state.wide !== false; if (this._hero && this._heroWide === wide) return this._hero; this._heroWide = wide;
+    const h = React.createElement, W = 1200, H = 540, cy = 270, k = (() => { let i = 0; return () => 'h' + i++; })();
+    const lbl = { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.14em', fill: 'var(--color-neutral-400)', display: wide ? 'inline' : 'none' };
+    const els = [h('defs', { key: k() },
+      h('linearGradient', { id: 'hsFade', x1: 0, x2: 1, y1: 0, y2: 0 },
+        h('stop', { offset: '0', style: { stopColor: 'var(--color-accent)', stopOpacity: 0 } }),
+        h('stop', { offset: '.3', style: { stopColor: 'var(--color-accent)', stopOpacity: .5 } }),
+        h('stop', { offset: '1', style: { stopColor: 'var(--color-accent-200)', stopOpacity: .95 } })),
+      h('radialGradient', { id: 'hsGlow' },
+        h('stop', { offset: '0', style: { stopColor: 'var(--color-accent-200)', stopOpacity: .7 } }),
+        h('stop', { offset: '1', style: { stopColor: 'var(--color-accent-200)', stopOpacity: 0 } })))];
+    const thin = { stroke: 'var(--color-neutral-600)', strokeWidth: 0.8, fill: 'none' };
+    [130, 250, 370, 480].forEach(x => els.push(h('line', { key: k(), x1: x, x2: x, y1: 60, y2: 500, style: { ...thin, stroke: 'var(--color-neutral-700)', strokeDasharray: '2 6' } })));
+    const dim = (x1, x2, y, text) => [
+      h('line', { key: k(), x1, x2, y1: y, y2: y, style: thin }),
+      h('line', { key: k(), x1, x2: x1, y1: y - 5, y2: y + 5, style: thin }),
+      h('line', { key: k(), x1: x2, x2, y1: y - 5, y2: y + 5, style: thin }),
+      h('text', { key: k(), x: (x1 + x2) / 2, y: y - 8, textAnchor: 'middle', style: lbl }, text)];
+    els.push(...dim(250, 600, 44, 'PIPELINE DE DADOS'), ...dim(250, 600, 512, 'PIPELINE DE DADOS'), ...dim(660, 1130, 18, 'FLUXO DE INTELIGÊNCIA EM TEMPO REAL'), ...dim(760, 1020, 528, 'ATIVAÇÃO DOS NÓS'));
+    // streams
+    const ys = Array.from({ length: 12 }, (_, i) => 70 + i * (400 / 11));
+    const paths = ys.map(y => { const ey = cy + (y - cy) * 0.13; return `M0 ${y.toFixed(1)} C 330 ${y.toFixed(1)}, 360 ${ey.toFixed(1)}, 640 ${ey.toFixed(1)}`; });
+    paths.forEach((d, i) => {
+      els.push(h('path', { key: k(), d, style: { fill: 'none', stroke: 'url(#hsFade)', strokeWidth: i % 3 === 0 ? 1.4 : 0.8, opacity: 0.55 + (i % 4) * 0.12 } }));
+      if (i % 2 === 0) els.push(h('path', { key: k(), d, style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.6, strokeLinecap: 'round', strokeDasharray: '2 28', opacity: 0.8, animation: `dash ${2.6 + (i % 5) * 0.5}s linear ${-(i * 0.3)}s infinite` } }));
+    });
+    paths.forEach((d, i) => { if (i % 3) return;
+      els.push(h('circle', { key: k(), r: 2.4, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 4px var(--color-accent))' } },
+        h('animateMotion', { dur: (3.2 + (i % 5) * 0.6) + 's', begin: -(i * 0.41) + 's', repeatCount: 'indefinite', path: d }))); });
+    [1, 5, 8, 10].forEach((i, n) => els.push(h('g', { key: k() },
+      h('g', { transform: 'translate(-8 -6)' },
+        h('rect', { width: 16, height: 12, rx: 2, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent-300)', strokeWidth: 1 } }),
+        h('polyline', { points: '1,1 8,7 15,1', style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1 } })),
+      h('animateMotion', { dur: (5 + n * 0.7) + 's', begin: -(n * 1.3) + 's', repeatCount: 'indefinite', path: paths[i] }))));
+    // kafka chip
+    els.push(h('g', { key: k(), transform: `translate(118 ${cy - 19})` },
+      h('rect', { width: 116, height: 38, rx: 8, style: { fill: 'var(--color-surface)', stroke: 'var(--color-accent-700)', strokeWidth: 1 } }),
+      h('circle', { cx: 20, cy: 19, r: 4, style: { fill: 'var(--color-accent)', animation: 'npulse 1.6s ease-in-out infinite' } }),
+      h('text', { x: 34, y: 24, style: { fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 500, fill: 'var(--color-text)' } }, 'Confluent')));
+    // arrows into network
+    [-36, -18, 0, 18, 36].forEach(dy => { const y = cy + dy;
+      els.push(h('line', { key: k(), x1: 606, x2: 650, y1: y, y2: y, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2, opacity: .8 } }));
+      els.push(h('polyline', { key: k(), points: `644,${y - 4} 651,${y} 644,${y + 4}`, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } })); });
+    // network
+    const layers = [{ x: 700, n: 2, sp: 180 }, { x: 800, n: 5, sp: 72 }, { x: 900, n: 7, sp: 62 }, { x: 1000, n: 5, sp: 72 }, { x: 1100, n: 3, sp: 84 }]
+      .map(L => ({ ...L, ys: Array.from({ length: L.n }, (_, j) => cy + (j - (L.n - 1) / 2) * L.sp) }));
+    const edge = { stroke: 'var(--color-accent-300)', strokeWidth: 0.7, opacity: 0.22 };
+    layers[0].ys.forEach(y => els.push(h('line', { key: k(), x1: 652, y1: cy, x2: layers[0].x, y2: y, style: edge })));
+    for (let l = 0; l < layers.length - 1; l++) layers[l].ys.forEach(y1 => layers[l + 1].ys.forEach(y2 => els.push(h('line', { key: k(), x1: layers[l].x, y1, x2: layers[l + 1].x, y2, style: edge }))));
+    layers[4].ys.forEach(y => { els.push(h('line', { key: k(), x1: 1112, x2: 1168, y1: y, y2: y, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } }));
+      els.push(h('polyline', { key: k(), points: `1162,${y - 4} 1170,${y} 1162,${y + 4}`, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } })); });
+    layers.forEach((L, li) => L.ys.forEach((y, j) => {
+      const delay = (li * 0.35 + j * 0.04).toFixed(2) + 's', anim = `npulse 2.8s ease-in-out ${delay} infinite`;
+      els.push(h('circle', { key: k(), cx: L.x, cy: y, r: 24, style: { fill: 'url(#hsGlow)', animation: anim } }));
+      els.push(h('circle', { key: k(), cx: L.x, cy: y, r: 10, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } }));
+      els.push(h('circle', { key: k(), cx: L.x, cy: y, r: 6, style: { fill: 'var(--color-accent-200)', animation: anim } }));
+    }));
+    // leaders
+    const leader = (x1, y1, x2, y2, text, anchor) => [h('line', { key: k(), x1, y1, x2, y2, style: thin }), h('text', { key: k(), x: x1 + (anchor === 'end' ? -6 : 6), y: y1 + 4, textAnchor: anchor || 'start', style: lbl }, text)];
+    els.push(...leader(1036, 100, 1008, 128, 'ENTRADA DA IA'), ...leader(1036, 440, 1008, 412, 'ENTRADA DA IA'));
+    els.push(h('line', { key: k(), x1: 1188, x2: 1188, y1: 96, y2: 444, style: thin }),
+      h('text', { key: k(), x: 1196, y: cy, textAnchor: 'middle', transform: `rotate(90 1196 ${cy})`, style: lbl }, 'INTELIGÊNCIA EM TEMPO REAL'));
+    this._hero = h('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Fluxos de eventos convergindo no Kafka e alimentando um modelo de IA em tempo real', style: { display: 'block', height: 'auto', overflow: 'visible' } }, ...els);
+    return this._hero;
+  }
+  caseVals() {
+    const ci = this.state.caseIdx, c = this.casesData[ci], seq = this.state.seq, on = 'var(--color-accent-500)';
+    const parts = [0, 1, 2].map(p => {
+      const head = 1200 + p * 317 + Math.floor((seq + (3 - p)) / 3), fresh = seq % 3 === p;
+      return { name: 'P' + p, head: head.toLocaleString('pt-BR'), cells: Array.from({ length: 14 }, (_, k) => {
+        const newest = k === 13, age = 13 - k;
+        return { bg: newest && fresh ? on : `color-mix(in srgb, var(--color-accent-700) ${Math.max(10, 85 - age * 7)}%, var(--color-neutral-800))`, glow: newest && fresh ? '0 0 10px var(--color-accent)' : 'none' };
+      }) };
+    });
+    const d0 = { topic: 'prd.operacoes.pedido.criado.v1 · 3 partições', producers: this.hl(this.casesData[0].sources, seq % 3), parts,
+      consumers: this.casesData[0].sinks.map((name, i) => { const lag = (seq + i) % 4 === 0 ? 1 : 0; return { name, lag, lagColor: lag ? 'var(--color-accent-300)' : 'var(--color-neutral-400)' }; }) };
+    const w = Math.floor(seq / 4) % 4;
+    const sys = [['Ordens', 1], ['Posições', 1], ['Cotações', 2], ['Risco', 2], ['Back office', 3], ['App investidor', 3]];
+    const migrated = sys.filter(s => w >= s[1]).length;
+    const d1 = { legacyCount: 6 - migrated, newCount: migrated, rail: this.lane(0, 'rail', 4, 5),
+      systems: sys.map(([name, wave]) => { const m = w >= wave; return { name, top: m ? '128px' : '44px', ring: m ? '0 0 0 1px var(--color-accent-500), 0 0 14px color-mix(in srgb, var(--color-accent) 30%, transparent)' : '0 0 0 1px var(--color-neutral-600)', color: m ? 'var(--color-accent-100)' : 'var(--color-neutral-300)' }; }),
+      waves: [['Onda 1', 'Ordens e posições'], ['Onda 2', 'Cotações e risco'], ['Onda 3', 'Back office e app']].map(([name, note], i) => ({ name, note, line: w === i + 1 ? 'var(--color-accent)' : w > i + 1 ? 'var(--color-accent-700)' : 'var(--color-neutral-700)', color: w >= i + 1 ? 'var(--color-text)' : 'var(--color-neutral-400)' })) };
+    const id = Math.floor(seq / 4), st = seq % 4, r = k => 2 + ((id * (k + 3) * 13) % 9);
+    const ms = [r(0), r(1) + 4, r(2) + 6, r(3)], score = ((id * 37) % 100) / 100;
+    const d2 = { id: (880000 + id).toString(36), score: score.toFixed(2), decision: score > 0.8 ? 'enviar para revisão' : 'aprovada', decColor: score > 0.8 ? 'var(--color-accent-300)' : 'var(--color-text)', total: ms.reduce((a, b) => a + b, 0), track: this.lane(0, 'trk', 1, 3.6),
+      stages: [['01 · Evento', 'Transação', 'pagamentos.transacao.criada'], ['02 · Flink', 'Features', 'janela 5 min · por cliente'], ['03 · Modelo', 'Score', 'modelo antifraude'], ['04 · Ação', 'Decisão', 'ia.decisao.registrada']].map(([n, name, sub], i) => ({ n, name, sub, ms: i <= st ? ms[i] : '·', ring: i === st ? '0 0 0 1px var(--color-accent-500)' : '0 0 0 1px transparent' })) };
+    const ph = 'a preencher';
+    return {
+      caseKey: 'case' + ci, is0: ci === 0, is1: ci === 1, is2: ci === 2, d0, d1, d2,
+      caseTabs: this.casesData.map((d, i) => ({ n: '0' + (i + 1), sector: d.sector, front: d.front, color: i === ci ? 'var(--color-text)' : 'var(--color-neutral-400)', select: () => this.selectCase(i),
+        bar: i === ci ? React.createElement('span', { key: 'b' + ci + this.state.tabNonce, style: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 1, background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)', transformOrigin: 'left', animation: 'grow 12s linear both' } }) : null })),
+      cur: {
+        fields: [[{"label":"Cliente","text":"Grande Rede Farmacêutica"},{"label":"Projeto","text":"Gestão de Estoque em Tempo Real"},{"label":"Resumo","text":"Evolução da arquitetura de Data Streaming para suportar picos de volume com resiliência e governança."}],[{"label":"Cliente","text":"Maior Corretora da LatAm"},{"label":"Projeto","text":"Migração para Confluent Platform"},{"label":"Resumo","text":"Redução de complexidade operacional e aumento de governança em ambiente crítico de investimentos."}],[{"label":"Cliente","text":"Banco Digital Inovador"},{"label":"Projeto","text":"Arquitetura de Eventos em Tempo Real"},{"label":"Resumo","text":"Transformação de integrações ponto a ponto em ativos reutilizáveis com Confluent Cloud."}]][ci],
+        stack: c.stack,
+        diagramTitle: ['Tópico particionado · fan-out', 'Migração em ondas · coexistência', 'Pipeline de decisão em tempo real'][ci],
+        caption: ['Cada sistema publica uma vez; cada área consome no próprio ritmo, com lag monitorado.', 'Legado e Kafka coexistem: cada onda move um grupo de sistemas até o corte.', 'Cada transação passa por features, score e decisão antes de ser concluída.'][ci]
+      }
+    };
+  }
+  renderVals() {
+    const seq = this.state.seq, ease = 1 - Math.pow(1 - this.state.p, 3), pa = Math.floor(seq / 3) % 3;
+    const stack = ['Apache Kafka', 'Confluent Cloud', 'Confluent Platform', 'Apache Flink', 'ksqlDB', 'Kafka Connect', 'Schema Registry', 'Tableflow', 'Apache Iceberg', 'IBM', 'Palantir', 'Lenses.io'];
+    return {
+      ...this.caseVals(),
+      heroDiagram: this.heroSvg(),
+      lanesIn: [0, 1, 2, 3].map(i => this.lane(i, 'in')),
+      lanesOut: [0, 1, 2, 3].map(i => this.lane(i, 'out')),
+      sources: this.hl(['Core bancário', 'IBM MQ', 'ERP / Tibco', 'Apps e APIs'], seq % 4),
+      sinks: this.hl(['Modelos de IA', 'Palantir', 'Lakehouse', 'Apps em tempo real'], (seq + 2) % 4),
+      topics: ['pagamentos.transacao.criada', 'clientes.cadastro.atualizado', 'estoque.item.movimentado', 'ia.feature.calculada'].map((name, i) => ({ name, rate: (1200 + ((seq * (i + 3) * 37) % 900)).toLocaleString('pt-BR') })),
+      marquee: [...stack, ...stack],
+      stats: [{ v: Math.round(70 * ease) + '%', l: 'Entregas mais rápidas com FDE' }, { v: Math.round(85 * ease) + '%', l: 'Menos falhas' }, { v: Math.round(100 * ease) + '%', l: 'Do time certificado' }, { v: 'Elite', l: 'Confluent Partner' }, { v: 'Silver', l: 'IBM Partner' }],
+      services: [
+        { n: '01', title: 'Streaming Foundation', copy: 'Implementação e avaliação de arquiteturas de dados em tempo real com Confluent e Kafka.', items: ['Setup Confluent Cloud/Platform', 'Governança de Dados', 'Observabilidade'] },
+        { n: '02', title: 'Legacy Modernization', copy: 'Migração de sistemas legados (MQ, Tibco, ETL batch) para arquiteturas modernas orientadas a eventos.', items: ['De Batch para Real-time', 'Desacoplamento de Mainframe', 'Arquitetura de Microsserviços'] },
+        { n: '03', title: 'Real-Time AI/ML', copy: 'Arquiteturas para alimentar modelos de IA com dados contextuais em tempo real, na stack Confluent + Palantir.', items: ['Feature Stores em Tempo Real', 'Inferência de Baixa Latência', 'RAG com Streaming'] }
+      ],
+      phases: [
+        { n: '01', title: 'Imersão Total', copy: 'Entramos no seu ambiente e no seu squad para entender sistemas, times e restrições.' },
+        { n: '02', title: 'Execução Hands-on', copy: 'Engenheiros sêniores constroem junto com o seu time, em produção.' },
+        { n: '03', title: 'Transferência de Conhecimento', copy: 'Seu time assume a operação com capacidade instalada.' }
+      ].map((p, i) => ({ ...p, op: i === pa ? 1 : 0.45, bar: i === pa ? this.bar('pb' + Math.floor(seq / 3), 2.7) : null })),
+      partners: [
+        { name: 'Confluent', role: 'Elite Partner. Eixo principal da oferta de streaming.' },
+        { name: 'IBM', role: 'Silver Partner. Ecossistema de dados IBM, incluindo Event Streams.' },
+        { name: 'Palantir', role: 'Real-Time AI e operacionalização de dados.' },
+        { name: 'Lenses.io', role: 'Observabilidade e governança de Kafka.' }
+      ],
+      labs: [
+        { kind: 'Framework', title: 'Migração IBM Event Streams → Confluent', desc: 'O caminho oficial da IBM com método repetível: 50 regras, gates de segurança e scripts testados antes da entrega.' },
+        { kind: 'Produto', title: 'Infra Forge', desc: 'Runbooks de PoC e implantação validados em lab, que outra pessoa executa sem suporte.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
