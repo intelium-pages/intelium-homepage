@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Capital One: real-time banking experiences for 100 million customers · Intelium Blog</title>
+<meta name="description" content="How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity.">
+<link rel="canonical" href="https://intelium.ai/en/blog/capital-one">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/blog/capital-one">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/blog/capital-one">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/blog/capital-one">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Capital One: real-time banking experiences for 100 million customers · Intelium Blog">
+<meta property="og:description" content="How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity.">
+<meta property="og:url" content="https://intelium.ai/en/blog/capital-one">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Capital One: real-time banking experiences for 100 million customers","description":"How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity.","inLanguage":"en","url":"https://intelium.ai/en/blog/capital-one","author":{"@type":"Organization","name":"Intelium"},"publisher":{"@type":"Organization","name":"Intelium","url":"https://intelium.ai/"},"citation":"https://www.confluent.io/data-streaming/"}</script>
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../assets/ds/styles.css">
+<script src="../../../assets/ds/_ds_bundle.js"></script>
+<script src="../../../viz.js"></script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-240}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)">About</a>
+<a href="../../../en/services/index.html" style="color:var(--color-neutral-200)">Services</a>
+<a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../../en/events/index.html" style="color:var(--color-neutral-200)">Events</a>
+<a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../../en/blog/index.html" style="color:var(--color-text)">Blog</a>
+<a href="../../../en/contact/index.html" style="color:var(--color-neutral-200)">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="../../../blog/index.html" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:20px">
+<a href="../../../en/blog/business/index.html" style="font-size:14px;animation:rise 1s cubic-bezier(.2,.7,.2,1) both">← Business use cases</a>
+<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;animation:rise 1s cubic-bezier(.2,.7,.2,1) .05s both"><span class="tag tag-accent">Real-Time AI</span><span class="tag tag-neutral">Banking · US</span><span style="font-size:12px;color:var(--color-neutral-400)">7 min read</span></div>
+<h1 style="margin:0 0 0 -.03em;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.12;letter-spacing:-.02em;max-width:880px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Capital One: real-time banking experiences for 100 million customers</h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:720px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .3s both">How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity.</p>
+</div>
+</header>
+<article style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:40px">
+<div style="position:relative;width:100%;max-width:880px;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);background:var(--color-neutral-800)">{{ cover }}</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:40px;max-width:720px">
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Context</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Capital One is one of the largest banks in the United States and one of the first big banks to call itself a technology company that runs a bank. It serves around 100 million customers across cards, accounts, credit and digital services, and completed a full migration to the public cloud, closing its data centers.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">That tech-first strategy puts real-time data at the center: every transaction, login, app interaction and network signal is an event that can feed a product, risk or security decision at the same instant.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">The problem</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Fraud and cyberattacks happen in seconds. A cloned card is used several times within minutes; an account-takeover attempt produces dozens of signals in sequence. Models and rules fed by yesterday’s data, in nightly batches, detect the problem after the loss has already happened.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">The same applies to customer experience: a relevant offer or alert only has value if it arrives in the right context, at the moment the customer is acting, not the next day.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">The solution</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">According to Confluent, Capital One uses its data streaming platform to power real-time innovation: personalized and secure experiences for millions of customers, including fraud detection and cybersecurity on events as they happen. Transaction and security-signal streams are processed as they arrive, feeding models that decide before the operation completes.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">The same event base serves both ends: protecting the customer and serving them better. It is the tech-first strategy made concrete in financial services, with streaming as the common layer between channels, risk and product.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Results</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Real-time banking experiences for about 100 million customers, with fraud and cybersecurity handled in the event flow rather than in later batches. Confluent presents the case as an example of how a technology-centered strategy uses data streaming to drive innovation at a large bank.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Architecture details and internal figures are not public; what Confluent documents is the scope and the business outcome. We treat the case here as a reference for direction, not as a blueprint.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">What this means for your team</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">With PIX, Brazil’s fraud decision window is seconds: the transfer settles within ten seconds and is irrevocable. No nightly batch solves that. The pattern is the same as Capital One’s: transaction events, enrichment with history and context in Flink, a model score and a decision before settlement.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">It is the use case we implement most often in banks. What is usually missing is not the model but the right data at the right moment: features computed in the stream, with up-to-date customer context, instead of a feature store that reflects yesterday.</p></section>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:24px;background:linear-gradient(to right,var(--color-neutral-700),transparent) top/100% 1px no-repeat"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Source</span><a href="https://www.confluent.io/data-streaming/" target="_blank" rel="noopener" style="font-size:14px;word-break:break-all">www.confluent.io/data-streaming/ ↗</a><span style="font-size:13px;line-height:20px;color:var(--color-neutral-400)">Public case documented by Confluent. Summary and reading by Intelium.</span></div>
+<div class="card" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px"><span style="font-size:16px;font-weight:500">Want to apply this in your context?</span><a href="../../../en/contact/index.html" class="btn btn-primary">Talk to the CoE →</a></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:20px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">More use cases</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ more }}" as="u" hint-placeholder-count="3">
+<a href="{{ u.href }}" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ u.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">{{ u.tag }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ u.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ u.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ u.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Read use case<span aria-hidden="true">→</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+</article>
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Monthly: what changed in Confluent, Kafka and Flink, and what it means for teams running streaming in production.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="you@company.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Subscribe</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Thanks. You are on the list for the next issue.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@intelium" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="../../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return en; }
+  scene(name, pt) {
+    if (!this._sc) this._sc = {};
+    if (this._sc[name]) return this._sc[name];
+    const h = React.createElement; let n = 0; const k = () => name + n++;
+    const C = { a9: 'var(--color-accent-900)', a8: 'var(--color-accent-800)', a7: 'var(--color-accent-700)', a5: 'var(--color-accent-500)', a3: 'var(--color-accent-300)', a1: 'var(--color-accent-100)', n8: 'var(--color-neutral-800)', n7: 'var(--color-neutral-700)', n6: 'var(--color-neutral-600)', n5: 'var(--color-neutral-500)', n4: 'var(--color-neutral-400)', n3: 'var(--color-neutral-300)', n1: 'var(--color-neutral-100)', bg: 'var(--color-bg)' };
+    const tx = (x, y, s, o = {}) => h('text', { key: k(), x, y, textAnchor: o.a || 'middle', style: { fontFamily: 'var(--font-body)', fontSize: o.s || 9, letterSpacing: o.ls || '.08em', fill: o.c || C.n4, fontWeight: o.w || 400 } }, s);
+    const box = (x, y, w, hh, o = {}) => h('rect', { key: k(), x, y, width: w, height: hh, rx: o.rx ?? 6, fill: o.f || C.n8, stroke: o.s || C.n6, strokeWidth: o.sw || 1, strokeDasharray: o.d || 'none', opacity: o.o ?? 1 });
+    const ln = (d, o = {}) => h('path', { key: k(), d, fill: 'none', stroke: o.s || C.a7, strokeWidth: o.w || 1.2, strokeDasharray: o.d || 'none', opacity: o.o ?? 1, strokeLinecap: 'round' });
+    const dot = (path, dur, begin, r = 2.4, c = C.a1) => h('circle', { key: k(), r, fill: c, style: { filter: 'drop-shadow(0 0 4px var(--color-accent))' } }, h('animateMotion', { dur: dur + 's', begin: begin + 's', repeatCount: 'indefinite', path }));
+    const pulse = (x, y, r, dur = 2.4) => h('circle', { key: k(), cx: x, cy: y, r, fill: 'none', stroke: C.a5, strokeWidth: 1, style: { transformBox: 'fill-box', transformOrigin: 'center', animation: 'ring ' + dur + 's ease-out infinite' } });
+    const kids = [h('defs', { key: 'd' }, h('linearGradient', { id: 'bg' + name, x1: 0, y1: 0, x2: 1, y2: 1 }, h('stop', { offset: 0, stopColor: C.a9 }), h('stop', { offset: 1, stopColor: C.n8 })), h('radialGradient', { id: 'gl' + name }, h('stop', { offset: 0, stopColor: C.a7, stopOpacity: .55 }), h('stop', { offset: 1, stopColor: C.a7, stopOpacity: 0 }))), h('rect', { key: 'b', width: 400, height: 225, fill: 'url(#bg' + name + ')' }), h('circle', { key: 'g', cx: 300, cy: 60, r: 160, fill: 'url(#gl' + name + ')' })];
+    const T = (a, b) => pt ? a : b;
+    if (name === 'fraud') {
+      // stream of card transactions, one flagged
+      for (let i = 0; i < 6; i++) { const y = 40 + i * 30, p = 'M-20 ' + y + ' L 230 ' + y; kids.push(ln(p, { s: C.n6, w: 1 }), dot(p, 2.6 + i * .3, -i * .7, 2, i === 3 ? C.a1 : C.a3)); for (let c = 0; c < 4; c++) kids.push(box(20 + c * 52 + (i % 2) * 20, y - 7, 34, 14, { rx: 3, f: C.n8, s: i === 3 && c === 2 ? C.a5 : C.n6 })); }
+      kids.push(box(240, 56, 120, 112, { f: C.a9, s: C.a5, rx: 10 }), tx(300, 80, 'FLINK · ML', { c: C.a3 }), tx(300, 96, T('score de risco', 'risk score'), { s: 8, c: C.a3 }));
+      for (let i = 0; i < 5; i++) kids.push(h('rect', { key: k(), x: 262 + i * 16, y: 150 - (14 + i * 9), width: 10, height: 14 + i * 9, rx: 2, fill: i === 4 ? C.a1 : C.a5, opacity: .6 + i * .1 }));
+      kids.push(h('circle', { key: k(), cx: 300, cy: 190, r: 12, fill: C.bg, stroke: C.a1, strokeWidth: 1.4 }), ln('M294 190 L306 190 M300 184 L300 196', { s: C.a1, w: 1.6 }), h('g', { key: k(), transform: 'rotate(45 300 190)' }, ln('M292 190 L308 190', { s: C.a1, w: 1.6 })), pulse(300, 190, 12), tx(300, 214, T('bloqueado em 40 ms', 'blocked in 40 ms'), { s: 8, c: C.a1 }));
+      kids.push(tx(20, 24, T('TRANSAÇÕES AO VIVO', 'LIVE TRANSACTIONS'), { a: 'start' }), tx(380, 24, T('DECISÃO', 'DECISION'), { a: 'end' }));
+    }
+    if (name === 'retail') {
+      kids.push(tx(70, 24, T('LOJA', 'STORE')), tx(200, 24, 'E-COMMERCE'), tx(330, 24, T('ESTOQUE', 'INVENTORY')));
+      kids.push(box(30, 36, 80, 56, { rx: 4 }), ln('M30 50 L110 50', { s: C.n6, w: 1 }), box(40, 60, 18, 24, { rx: 2, f: C.a8, s: C.a7 }), box(64, 60, 18, 24, { rx: 2, f: C.a8, s: C.a7 }), box(88, 60, 12, 24, { rx: 2, f: C.n7, s: C.n6 }));
+      kids.push(box(160, 36, 80, 56, { rx: 6 }), box(170, 46, 60, 28, { rx: 2, f: C.a9, s: C.a7 }), tx(200, 64, T('carrinho', 'cart'), { s: 8, c: C.a3 }), box(180, 80, 40, 6, { rx: 3, f: C.a5, s: 'none' }));
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) kids.push(box(292 + c * 20, 40 + r * 18, 16, 14, { rx: 2, f: (r * 4 + c) % 5 ? C.a8 : C.n7, s: (r * 4 + c) % 5 ? C.a7 : C.n6 }));
+      const hub = 'M70 92 C 70 140, 200 140, 200 160', hub2 = 'M200 92 L200 160', hub3 = 'M330 92 C 330 140, 200 140, 200 160';
+      [hub, hub2, hub3].forEach((p, i) => kids.push(ln(p), dot(p, 2 + i * .4, -i * .6)));
+      kids.push(box(120, 160, 160, 40, { f: C.a9, s: C.a5, rx: 8 }), tx(200, 178, 'KAFKA · ' + T('EVENTOS', 'EVENTS'), { c: C.a3 }), tx(200, 192, T('estoque, preço e pedido no mesmo segundo', 'stock, price and order in the same second'), { s: 7.5, c: C.a1 }));
+      kids.push(tx(200, 216, T('vs. batch às 23h59', 'vs. batch at 11:59 pm'), { s: 8, c: C.n4 }));
+    }
+    if (name === 'mesh') {
+      const D = [[90, 70, T('Vendas', 'Sales')], [310, 70, T('Produção', 'Production')], [90, 170, T('Logística', 'Logistics')], [310, 170, T('Qualidade', 'Quality')]];
+      D.forEach(([x, y, l], i) => { kids.push(h('circle', { key: k(), cx: x, cy: y, r: 36, fill: C.a9, stroke: C.a5, strokeWidth: 1 }), tx(x, y - 2, l, { s: 9.5, c: C.a1, ls: '.02em' }), tx(x, y + 12, T('dono dos dados', 'owns its data'), { s: 7, c: C.a3 })); for (let j = 0; j < 3; j++) kids.push(box(x - 22 + j * 16, y + 20, 12, 8, { rx: 1.5, f: C.a8, s: C.a7 })); });
+      [[0, 1], [0, 2], [1, 3], [2, 3], [0, 3], [1, 2]].forEach(([a, b], i) => { const p = 'M' + D[a][0] + ' ' + D[a][1] + ' L' + D[b][0] + ' ' + D[b][1]; kids.push(ln(p, { s: C.a7, w: 1, d: i > 3 ? '3 4' : 'none', o: .8 }), dot(p, 3 + i * .3, -i * .5, 2)); });
+      kids.push(box(160, 100, 80, 40, { f: C.bg, s: C.a3, rx: 8 }), tx(200, 117, T('CONTRATOS', 'CONTRACTS'), { c: C.a1, s: 8.5 }), tx(200, 130, 'Schema Registry', { s: 7.5, c: C.a3 }));
+      kids.push(tx(200, 24, T('SEM SILO CENTRAL · PRODUTOS DE DADOS POR DOMÍNIO', 'NO CENTRAL SILO · DATA PRODUCTS BY DOMAIN'), { s: 8 }));
+    }
+    if (name === 'genbi') {
+      kids.push(box(24, 40, 170, 150, { rx: 8 }), tx(109, 60, 'DASHBOARD', { s: 8 }));
+      for (let i = 0; i < 7; i++) kids.push(h('rect', { key: k(), x: 40 + i * 20, y: 150 - (20 + ((i * 37) % 60)), width: 12, height: 20 + ((i * 37) % 60), rx: 2, fill: C.n6 }));
+      kids.push(ln('M40 170 L180 170', { s: C.n6, w: 1 }), tx(109, 183, T('ontem', 'yesterday'), { s: 7.5, c: C.n5 }));
+      kids.push(ln('M200 115 L226 115', { s: C.a3, w: 1.4 }), ln('M220 109 L226 115 L220 121', { s: C.a3, w: 1.4 }));
+      kids.push(box(236, 40, 140, 150, { f: C.a9, s: C.a5, rx: 8 }), tx(306, 60, 'GenBI', { c: C.a1, s: 10, ls: '.04em' }));
+      kids.push(box(248, 72, 116, 30, { rx: 15, f: C.bg, s: C.a7 }), tx(306, 91, T('"quanto vendemos agora?"', '"how much did we sell now?"'), { s: 7.5, c: C.a1, ls: 0 }));
+      kids.push(box(248, 112, 116, 64, { rx: 6, f: C.a8, s: C.a7 }), tx(306, 134, 'R$ 1.284.930', { s: 14, c: C.a1, w: 500, ls: 0 }), tx(306, 150, T('últimos 60 s · +12% vs. ontem', 'last 60 s · +12% vs. yesterday'), { s: 7.5, c: C.a3, ls: 0 }));
+      let w = 'M254 170'; for (let x = 0; x <= 104; x += 8) w += ' L' + (254 + x) + ' ' + (170 - Math.abs(Math.sin(x / 11)) * 8); kids.push(h('path', { key: k(), d: w, fill: 'none', stroke: C.a3, strokeWidth: 1.2, strokeDasharray: '40 200', style: { animation: 'dash 3s linear infinite' } }));
+      kids.push(h('circle', { key: k(), cx: 358, cy: 162, r: 3, fill: C.a1 }), pulse(358, 162, 3, 2));
+      kids.push(tx(200, 212, T('da pergunta à resposta sobre dados ao vivo', 'from question to answer on live data'), { s: 8 }));
+    }
+    if (name === 'ibm') {
+      kids.push(box(24, 60, 130, 110, { rx: 8 }), tx(89, 80, 'IBM', { c: C.n1, s: 11, w: 500, ls: '.14em' }));
+      ['MQ', 'Mainframe', 'Event Streams', 'Cloud Pak'].forEach((s, i) => kids.push(box(36, 90 + i * 18, 106, 13, { rx: 2, f: C.n7, s: C.n6 }), tx(89, 100 + i * 18, s, { s: 7.5, c: C.n3, ls: '.02em' })));
+      kids.push(box(246, 60, 130, 110, { f: C.a9, s: C.a5, rx: 8 }), tx(311, 80, 'CONFLUENT', { c: C.a1, s: 11, w: 500, ls: '.14em' }));
+      ['Kafka', 'Flink', 'Schema Registry', 'Tableflow'].forEach((s, i) => kids.push(box(258, 90 + i * 18, 106, 13, { rx: 2, f: C.a8, s: C.a7 }), tx(311, 100 + i * 18, s, { s: 7.5, c: C.a1, ls: '.02em' })));
+      kids.push(h('path', { key: k(), d: 'M154 115 C 190 115, 210 115, 246 115', fill: 'none', stroke: C.a5, strokeWidth: 2 }), dot('M154 115 L246 115', 1.8, 0), dot('M246 115 L154 115', 1.8, -.9, 2.4, C.a3));
+      kids.push(h('path', { key: k(), d: 'M24 44 L376 44', fill: 'none', stroke: C.a7, strokeWidth: 1, strokeDasharray: '4 4' }), box(150, 30, 100, 26, { rx: 13, f: C.bg, s: C.a3 }), tx(200, 47, T('UM GUARDA-CHUVA', 'ONE UMBRELLA'), { s: 8, c: C.a1 }));
+      kids.push(tx(200, 200, T('o que muda para quem roda Kafka no Brasil', 'what changes for teams running Kafka in production'), { s: 8 }));
+    }
+    if (name === 'gov') {
+      const p = 'M0 112 L400 112'; kids.push(ln(p, { s: C.a7, w: 1.4 })); for (let i = 0; i < 5; i++) kids.push(dot(p, 4, -i * .8, 2.2));
+      [[70, T('qualidade', 'quality'), T('schema válido', 'valid schema')], [200, T('LGPD', 'LGPD'), T('mascaramento', 'masking')], [330, T('auditoria', 'audit'), T('quem acessou', 'who accessed')]].forEach(([x, a, b], i) => {
+        kids.push(h('rect', { key: k(), x: x - 30, y: 76, width: 60, height: 72, rx: 8, fill: C.a9, stroke: C.a5, strokeWidth: 1 }), h('path', { key: k(), d: 'M' + (x - 10) + ' 100 L' + (x + 10) + ' 100 L' + (x + 10) + ' 112 Q' + (x + 10) + ' 126 ' + x + ' 130 Q' + (x - 10) + ' 126 ' + (x - 10) + ' 112 Z', fill: C.a8, stroke: C.a3, strokeWidth: 1 }), ln('M' + (x - 5) + ' 113 L' + (x - 1) + ' 117 L' + (x + 6) + ' 108', { s: C.a1, w: 1.5 }), tx(x, 62, a.toUpperCase(), { s: 8, c: C.a3 }), tx(x, 164, b, { s: 7.5, c: C.n3, ls: '.02em' }));
+      });
+      kids.push(tx(200, 24, T('APLICADA NO FLUXO, NÃO DEPOIS', 'ENFORCED IN THE FLOW, NOT AFTERWARDS'), { s: 8 }), tx(20, 196, T('eventos', 'events'), { a: 'start', s: 8, c: C.n4 }), tx(380, 196, T('consumidores confiáveis', 'trusted consumers'), { a: 'end', s: 8, c: C.a1 }));
+    }
+    if (name === 'current') {
+      kids.push(tx(200, 24, 'CURRENT 2025 · NEW ORLEANS', { s: 8, c: C.a3 }));
+      // stage + audience
+      kids.push(box(60, 44, 280, 90, { rx: 6, f: C.a9, s: C.a5 }), tx(200, 70, 'KEYNOTE', { c: C.a1, s: 9 }));
+      ['Flink', 'Tableflow', 'Agents', 'WarpStream'].forEach((s, i) => kids.push(box(78 + i * 64, 84, 56, 36, { rx: 4, f: C.a8, s: C.a7 }), tx(106 + i * 64, 106, s, { s: 8, c: C.a1, ls: '.02em' })));
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 14; c++) kids.push(h('circle', { key: k(), cx: 48 + c * 23.5, cy: 152 + r * 16, r: 4, fill: (r * 14 + c) % 7 === 3 ? C.a5 : C.n6 }));
+      const p = 'M200 134 C 200 180, 320 180, 372 200'; kids.push(ln(p, { d: '3 4' }), dot(p, 2.4, 0), box(330, 192, 60, 20, { rx: 10, f: C.bg, s: C.a3 }), tx(360, 205, T('clientes', 'customers'), { s: 7.5, c: C.a1 }));
+    }
+    if (name === 'delivery') {
+      kids.push(tx(200, 24, T('60 MI PEDIDOS/MÊS · 1.200 CIDADES', '60M ORDERS/MONTH · 1,200 CITIES'), { s: 8, c: C.a3 }));
+      for (let i = 0; i < 6; i++) for (let j = 0; j < 3; j++) kids.push(ln('M' + (30 + i * 68) + ' ' + (50 + j * 50) + ' L' + (30 + i * 68 + 50) + ' ' + (50 + j * 50), { s: C.n7, w: 1 }), ln('M' + (30 + i * 68) + ' ' + (50 + j * 50) + ' L' + (30 + i * 68) + ' ' + (50 + j * 50 + 40), { s: C.n7, w: 1 }));
+      const pins = [[70, 70], [190, 110], [330, 80], [120, 170], [280, 160]];
+      pins.forEach(([x, y], i) => kids.push(h('path', { key: k(), d: 'M' + x + ' ' + y + ' m0 -14 a8 8 0 1 1 0.01 0 M' + x + ' ' + (y - 6) + ' L' + x + ' ' + y, fill: 'none', stroke: i === 1 ? C.a1 : C.a3, strokeWidth: 1.4 }), pulse(x, y - 14, 8, 2.4 + i * .3)));
+      [[0, 1], [1, 2], [1, 3], [1, 4]].forEach(([a, c], i) => { const p = 'M' + pins[a][0] + ' ' + pins[a][1] + ' Q ' + (pins[a][0] + pins[c][0]) / 2 + ' ' + (Math.min(pins[a][1], pins[c][1]) - 30) + ' ' + pins[c][0] + ' ' + pins[c][1]; kids.push(ln(p, { d: '3 4', o: .8 }), dot(p, 2.2 + i * .4, -i * .5)); });
+      kids.push(box(130, 190, 140, 22, { rx: 11, f: C.a9, s: C.a5 }), tx(200, 204, T('rastreamento ao vivo · ksqlDB', 'live tracking · ksqlDB'), { s: 7.5, c: C.a1 }));
+    }
+    if (name === 'payments') {
+      kids.push(tx(90, 24, T('ANTES · COLCHA DE RETALHOS', 'BEFORE · PATCHWORK'), { s: 8 }), tx(310, 24, T('DEPOIS · PLATAFORMA', 'AFTER · PLATFORM'), { s: 8, c: C.a3 }));
+      for (let i = 0; i < 7; i++) kids.push(box(24 + (i % 3) * 46, 44 + Math.floor(i / 3) * 44, 38, 30, { rx: 4, f: C.n8, s: C.n5, d: i % 2 ? '3 3' : 'none' }));
+      [[43, 59, 135, 103], [89, 103, 43, 147], [135, 59, 89, 147], [43, 103, 135, 147]].forEach(([a, b2, c, d]) => kids.push(ln('M' + a + ' ' + b2 + ' L' + c + ' ' + d, { s: C.n5, w: 1 })));
+      kids.push(ln('M176 100 L222 100', { s: C.a3, w: 1.6 }), ln('M216 94 L222 100 L216 106', { s: C.a3, w: 1.6 }));
+      kids.push(box(236, 40, 148, 130, { rx: 10, f: C.a9, s: C.a5 }), tx(310, 60, 'CONFLUENT CLOUD', { c: C.a1, s: 8.5 }));
+      [T('cartão', 'card'), 'PIX', T('virtual', 'virtual')].forEach((s, i) => { const y = 78 + i * 26; kids.push(box(248, y, 60, 18, { rx: 9, f: C.a8, s: C.a7 }), tx(278, y + 12, s, { s: 7.5, c: C.a1 }), ln('M308 ' + (y + 9) + ' L344 ' + (y + 9)), dot('M308 ' + (y + 9) + ' L344 ' + (y + 9), 1.6, -i * .4, 2)); });
+      kids.push(box(344, 78, 30, 70, { rx: 4, f: C.a8, s: C.a3 }), tx(359, 118, 'SR', { s: 8, c: C.a1 }));
+      kids.push(tx(200, 200, T('1.500+ desenvolvedores em uma só plataforma', '1,500+ developers on one platform'), { s: 8 }));
+    }
+    if (name === 'supply') {
+      kids.push(tx(200, 24, T('CADEIA DE SUPRIMENTOS EM TEMPO REAL', 'REAL-TIME SUPPLY CHAIN'), { s: 8 }));
+      const st = [[50, T('fornecedor', 'supplier')], [150, T('CD', 'DC')], [250, T('loja', 'store')], [350, T('cliente', 'customer')]];
+      st.forEach(([x, l], i) => { kids.push(box(x - 32, 70, 64, 48, { rx: 6, f: i === 2 ? C.a9 : C.n8, s: i === 2 ? C.a5 : C.n6 })); for (let j = 0; j < 3; j++) kids.push(box(x - 22 + j * 15, 80, 11, 11, { rx: 1.5, f: C.a8, s: C.a7 })); kids.push(tx(x, 134, l.toUpperCase(), { s: 7.5 })); if (i) { const p = 'M' + (x - 68) + ' 94 L' + (x - 32) + ' 94'; kids.push(ln(p), dot(p, 1.6, -i * .3)); } });
+      let w = 'M30 190'; for (let x = 0; x <= 340; x += 10) w += ' L' + (30 + x) + ' ' + (190 - x * .12 - Math.sin(x / 18) * 6); kids.push(ln(w, { s: C.a3, w: 1.4 }), h('path', { key: k(), d: w, fill: 'none', stroke: C.a1, strokeWidth: 1.6, strokeDasharray: '30 600', style: { animation: 'dash 4s linear infinite' } }), tx(60, 210, T('previsão · 600 bi de linhas', 'forecast · 600B rows'), { s: 7.5, a: 'start', c: C.a3 }));
+    }
+    if (name === 'scale') {
+      kids.push(tx(200, 24, T('10 ANOS DE CRESCIMENTO EM 6 SEMANAS', '10 YEARS OF GROWTH IN 6 WEEKS'), { s: 8, c: C.a3 }));
+      ln('M30 190 L370 190', { s: C.n6 }); kids.push(ln('M30 190 L370 190', { s: C.n6, w: 1 }), ln('M30 190 L30 40', { s: C.n6, w: 1 }));
+      let g = 'M30 185'; for (let x = 0; x <= 340; x += 10) g += ' L' + (30 + x) + ' ' + (185 - Math.pow(x / 340, 2.6) * 135); kids.push(h('path', { key: k(), d: g + ' L370 190 L30 190 Z', fill: C.a9, opacity: .8 }), ln(g, { s: C.a3, w: 1.6 }));
+      for (let i = 0; i < 8; i++) kids.push(h('rect', { key: k(), x: 36 + i * 42, y: 190 - (10 + i * 3), width: 24, height: 10 + i * 3, rx: 2, fill: C.a7, opacity: .7 }));
+      kids.push(h('circle', { key: k(), cx: 370, cy: 50, r: 4, fill: C.a1 }), pulse(370, 50, 4, 2), box(262, 36, 100, 22, { rx: 11, f: C.bg, s: C.a3 }), tx(312, 50, T('59 mil locais', '59k locations'), { s: 7.5, c: C.a1 }));
+      kids.push(tx(200, 212, T('capacidade elástica sem refazer a arquitetura', 'elastic capacity without redoing the architecture'), { s: 8 }));
+    }
+    return this._sc[name] = h('svg', { viewBox: '0 0 400 225', width: '100%', 'aria-hidden': 'true', style: { position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' } }, ...kids);
+  }
+  cover(kind, seed) {
+    if (!this._cv) this._cv = {};
+    const key = kind + seed; if (this._cv[key]) return this._cv[key];
+    const h = React.createElement, k = seed * 7919, r = n => ((k * (n + 1) * 2654435761) % 1000) / 1000;
+    const A = ['var(--color-accent-700)', 'var(--color-accent-500)', 'var(--color-accent-300)', 'var(--color-neutral-600)'];
+    const kids = [h('defs', { key: 'd' }, h('linearGradient', { id: 'g' + key, x1: 0, y1: 0, x2: 1, y2: 1 }, h('stop', { offset: 0, stopColor: 'var(--color-accent-900)' }), h('stop', { offset: 1, stopColor: 'var(--color-neutral-800)' }))), h('rect', { key: 'bg', width: 400, height: 225, fill: 'url(#g' + key + ')' })];
+    if (kind === 'waves') for (let i = 0; i < 7; i++) { let d = 'M0 ' + (60 + i * 18); for (let x = 0; x <= 400; x += 20) d += ' Q' + (x + 10) + ' ' + (60 + i * 18 + (i % 2 ? -1 : 1) * (14 + 10 * r(i))) + ' ' + (x + 20) + ' ' + (60 + i * 18); kids.push(h('path', { key: 'w' + i, d, fill: 'none', stroke: A[i % 3], strokeWidth: 1.2, opacity: .5 + .07 * i })); }
+    if (kind === 'grid') for (let i = 0; i < 48; i++) { const c = i % 8, w = Math.floor(i / 8), on = r(i) > .55; kids.push(h('rect', { key: 'g' + i, x: 24 + c * 46, y: 22 + w * 32, width: 36, height: 22, rx: 3, fill: on ? A[0] : 'none', stroke: on ? A[1] : A[3], strokeWidth: 1 })); }
+    if (kind === 'rings') for (let i = 0; i < 9; i++) kids.push(h('circle', { key: 'r' + i, cx: 290, cy: 112, r: 18 + i * 22, fill: 'none', stroke: A[i % 3], strokeWidth: 1, strokeDasharray: i % 2 ? '4 6' : 'none', opacity: .9 - i * .07 }));
+    if (kind === 'bars') for (let i = 0; i < 16; i++) { const hh = 30 + 150 * r(i); kids.push(h('rect', { key: 'b' + i, x: 20 + i * 23, y: 205 - hh, width: 14, height: hh, rx: 2, fill: i % 4 === 3 ? A[1] : A[0], opacity: .7 + .3 * r(i + 20) })); }
+    if (kind === 'nodes') { const P = []; for (let i = 0; i < 12; i++) P.push([30 + 340 * r(i), 25 + 175 * r(i + 30)]); P.forEach((p, i) => P.forEach((q, j) => { if (j > i && Math.hypot(p[0] - q[0], p[1] - q[1]) < 130) kids.push(h('line', { key: 'l' + i + '_' + j, x1: p[0], y1: p[1], x2: q[0], y2: q[1], stroke: A[0], strokeWidth: 1 })); })); P.forEach((p, i) => kids.push(h('circle', { key: 'n' + i, cx: p[0], cy: p[1], r: i % 3 ? 3 : 6, fill: i % 3 ? A[2] : A[1] }))); }
+    if (kind === 'diagonal') for (let i = 0; i < 18; i++) kids.push(h('line', { key: 'd' + i, x1: -60 + i * 30, y1: 225, x2: 40 + i * 30, y2: 0, stroke: i % 5 === 2 ? A[1] : A[0], strokeWidth: i % 5 === 2 ? 2 : 1, opacity: .4 + .6 * r(i) }));
+    if (kind === 'dots') for (let i = 0; i < 120; i++) { const c = i % 15, w = Math.floor(i / 15), v = r(i); kids.push(h('circle', { key: 'p' + i, cx: 20 + c * 26, cy: 22 + w * 26, r: 1.5 + 4 * v, fill: v > .8 ? A[2] : A[0], opacity: .5 + .5 * v })); }
+    if (kind === 'flow') for (let i = 0; i < 6; i++) kids.push(h('path', { key: 'f' + i, d: 'M0 ' + (30 + i * 33) + ' C 130 ' + (30 + i * 33) + ', 160 ' + (112) + ', 400 ' + (60 + 60 * r(i)), fill: 'none', stroke: A[i % 2], strokeWidth: 1.4, opacity: .55 + .08 * i }));
+    return this._cv[key] = h('svg', { viewBox: '0 0 400 225', width: '100%', 'aria-hidden': 'true', style: { position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' } }, ...kids);
+  }
+  renderVals() { return { cover: this.scene('fraud', false), more: [{"href":"Intelium Blog iFood EN.dc.html","scene":"delivery","tag":"Event-driven pipelines","meta":"Delivery · Brazil","t":"iFood: from batch pipelines to 60 million real-time orders a month","d":"How iFood decoupled 2,000 microservices, left MSK and started tracking deliveries and orders per second with Confluent Cloud."},{"href":"Intelium Blog Stone EN.dc.html","scene":"payments","tag":"Streaming platform","meta":"Payments · Brazil","t":"Stone: from a patchwork of systems to one event platform for 1,500 developers","d":"How Stone’s platform team standardized card, PIX and virtual-payment streaming on Confluent Cloud."},{"href":"Intelium Blog Walmart EN.dc.html","scene":"retail","tag":"Real-time analytics","meta":"Retail · global","t":"Walmart: real-time inventory and replenishment on 500 million events a day","d":"How the world’s largest retailer replaced batch inventory and replenishment with streaming so stores never run out."}].map(u => ({ ...u, cover: this.scene(u.scene, false) })) }; }
+}
+</script>
+</body>
+</html>
