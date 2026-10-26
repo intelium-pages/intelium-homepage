@@ -25,7 +25,8 @@
 <script>document.documentElement.lang='en'</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../assets/ds/styles.css">
-<script src="../../assets/ds/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<script src="../../assets/ds/ds-bundle.js"></script>
 <script src="../../viz.js"></script>
 <style>
 html{scroll-behavior:smooth;scroll-padding-top:72px}
@@ -137,7 +138,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  // Assuntos pré-selecionáveis via hash: Intelium Contato.dc.html#assessment | #bolsa | #convite ...
+  // Assuntos pré-selecionáveis via hash: /contato/#assessment | #bolsa | #convite ...
   keys = ['foundation','fde','assessment','legacy','ai','bolsa','convite','labs','academy','outro'];
   fromHash() { const k = (location.hash || '').split(/[#/]/).pop(); return this.keys.includes(k) ? k : null; }
   state = { sent: false, subject: this.fromHash() || 'foundation' };

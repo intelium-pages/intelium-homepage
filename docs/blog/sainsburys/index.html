@@ -26,7 +26,8 @@
 <script>document.documentElement.lang='pt-BR'</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../assets/ds/styles.css">
-<script src="../../assets/ds/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<script src="../../assets/ds/ds-bundle.js"></script>
 <script src="../../viz.js"></script>
 <style>
 html{scroll-behavior:smooth;scroll-padding-top:72px}
@@ -267,7 +268,7 @@ class Component extends DCLogic {
     if (kind === 'flow') for (let i = 0; i < 6; i++) kids.push(h('path', { key: 'f' + i, d: 'M0 ' + (30 + i * 33) + ' C 130 ' + (30 + i * 33) + ', 160 ' + (112) + ', 400 ' + (60 + 60 * r(i)), fill: 'none', stroke: A[i % 2], strokeWidth: 1.4, opacity: .55 + .08 * i }));
     return this._cv[key] = h('svg', { viewBox: '0 0 400 225', width: '100%', 'aria-hidden': 'true', style: { position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' } }, ...kids);
   }
-  renderVals() { return { cover: this.scene('supply', true), more: [{"href":"Intelium Blog iFood.dc.html","scene":"delivery","tag":"Pipelines event-driven","meta":"Delivery · Brasil","t":"iFood: de pipelines batch a 60 milhões de pedidos por mês em tempo real","d":"Como o iFood desacoplou 2.000 microsserviços, saiu do MSK e passou a rastrear entregas e pedidos por segundo com Confluent Cloud."},{"href":"Intelium Blog Stone.dc.html","scene":"payments","tag":"Plataforma de streaming","meta":"Pagamentos · Brasil","t":"Stone: de uma colcha de retalhos a uma plataforma única de eventos para 1.500 desenvolvedores","d":"Como o time de plataforma da Stone padronizou o streaming de cartão, PIX e pagamentos virtuais em Confluent Cloud."},{"href":"Intelium Blog Walmart.dc.html","scene":"retail","tag":"Analytics em tempo real","meta":"Varejo · global","t":"Walmart: inventário e reposição em tempo real com 500 milhões de eventos por dia","d":"Como o maior varejista do mundo trocou inventário e reposição em batch por streaming para que a loja nunca fique sem produto."}].map(u => ({ ...u, cover: this.scene(u.scene, true) })) }; }
+  renderVals() { return { cover: this.scene('supply', true), more: [{"href":"../../blog/ifood/index.html","scene":"delivery","tag":"Pipelines event-driven","meta":"Delivery · Brasil","t":"iFood: de pipelines batch a 60 milhões de pedidos por mês em tempo real","d":"Como o iFood desacoplou 2.000 microsserviços, saiu do MSK e passou a rastrear entregas e pedidos por segundo com Confluent Cloud."},{"href":"../../blog/stone/index.html","scene":"payments","tag":"Plataforma de streaming","meta":"Pagamentos · Brasil","t":"Stone: de uma colcha de retalhos a uma plataforma única de eventos para 1.500 desenvolvedores","d":"Como o time de plataforma da Stone padronizou o streaming de cartão, PIX e pagamentos virtuais em Confluent Cloud."},{"href":"../../blog/walmart/index.html","scene":"retail","tag":"Analytics em tempo real","meta":"Varejo · global","t":"Walmart: inventário e reposição em tempo real com 500 milhões de eventos por dia","d":"Como o maior varejista do mundo trocou inventário e reposição em batch por streaming para que a loja nunca fique sem produto."}].map(u => ({ ...u, cover: this.scene(u.scene, true) })) }; }
 }
 </script>
 </body>
