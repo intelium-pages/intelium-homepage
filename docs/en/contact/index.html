@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
 <script src="../../support.js"></script>
+<script src="../../viz.js" data-early=""></script>
 <script src="../../lead-api.js" defer></script>
 </head>
 <body>
@@ -26,10 +28,11 @@
 <script>document.documentElement.lang='en'</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../assets/ds/styles.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+
 <script src="../../assets/ds/ds-bundle.js"></script>
 <script src="../../viz.js"></script>
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
 a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
@@ -60,6 +63,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 .nl-form:has(.nl-check:checked) .nl-fields{display:none}
 .nl-form:has(.nl-check:checked) .nl-done{display:flex}
 </style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 </helmet>
 <nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
 <a href="../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
@@ -95,7 +99,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div class="field" style="grid-column:1 / -1"><label for="f-assunto">Topic</label><select id="f-assunto" class="input" value="{{ subject }}" onChange="{{ setSubject }}"><option value="foundation">Streaming Foundation</option><option value="fde">FDE squad · Forward Deployed Engineer</option><option value="assessment">Assessment / Health Check</option><option value="legacy">Legacy Modernization</option><option value="ai">Real-Time AI/ML</option><option value="bolsa">Expert Retainer</option><option value="convite">Events · executive invitation</option><option value="labs">Intelium Labs</option><option value="academy">Intelium Academy</option><option value="outro">Other</option></select></div>
 <div class="field" style="grid-column:1 / -1"><label for="f-msg">Message</label><textarea id="f-msg" name="mensagem" class="input" rows="5" maxlength="4000" style="resize:vertical;font:inherit"></textarea></div>
 <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="f-site">Website</label><input id="f-site" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-<label for="f-lgpd" style="grid-column:1 / -1;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:22px;color:var(--color-neutral-200);cursor:pointer"><input id="f-lgpd" name="lgpd" type="checkbox" required="required" style="flex:0 0 auto;width:16px;height:16px;margin:3px 0 0;accent-color:var(--color-accent)"><span>I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at backoffice@intelium.ai.</span></label>
+<label for="f-lgpd" style="grid-column:1 / -1;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:22px;color:var(--color-neutral-200);cursor:pointer"><input id="f-lgpd" name="lgpd" type="checkbox" required="required" style="flex:0 0 auto;width:16px;height:16px;margin:3px 0 0;accent-color:var(--color-accent)"><span>I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at contato@intelium.ai.</span></label>
 <div style="grid-column:1 / -1;display:flex"><button type="submit" class="btn btn-primary" disabled="{{ sending }}">{{ btnLabel }}</button></div>
 <sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}"><p role="alert" style="grid-column:1 / -1;margin:0;padding:14px 16px;border-radius:var(--radius-md);background:var(--color-neutral-800);color:var(--color-neutral-100);font-size:15px;line-height:22px;box-shadow:inset 0 0 0 1px var(--color-neutral-600)">{{ errorMsg }}</p></sc-if>
 <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><p role="status" style="grid-column:1 / -1;margin:0;padding:14px 16px;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-100);font-size:15px;line-height:22px;animation:rise .5s cubic-bezier(.2,.7,.2,1) both">Message received. An engineer from the CoE will get back to you.</p></sc-if>
@@ -104,9 +108,8 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <span style="font-size:20px;font-weight:500">CoE Intelium.ai</span>
 <span style="font-size:15px;line-height:24px;color:var(--color-neutral-300)">São Paulo · Global</span>
 <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:24px">
-<a href="mailto:backoffice@intelium.ai">backoffice@intelium.ai</a>
+<a href="mailto:contato@intelium.ai">contato@intelium.ai</a>
 <a href="tel:+551128448000">+55 (11) 2844-8000</a>
-<a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener">Intelium on LinkedIn ↗</a>
 </div>
 <address style="font-style:normal;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP · Brazil</address>
 </aside>
@@ -133,7 +136,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
 <a href="../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
-<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@intelium" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
 <span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP · Brazil</span>
 <a href="../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
 </div>
@@ -154,7 +157,7 @@ class Component extends DCLogic {
       setSubject: e => this.setState({ subject: e.target.value }),
       sending: this.state.status === 'sending', failed: this.state.status === 'error',
       btnLabel: this.state.status === 'sending' ? "Sending…" : "Send",
-      errorMsg: this.state.personal ? (window.InteliumLeads ? window.InteliumLeads.personalMsg() : '') : this.state.rateLimited ? "Too many attempts in a short time. Please wait a few minutes and try again." : "We could not send your message right now. Please try again or write to backoffice@intelium.ai.",
+      errorMsg: this.state.personal ? (window.InteliumLeads ? window.InteliumLeads.personalMsg() : '') : this.state.rateLimited ? "Too many attempts in a short time. Please wait a few minutes and try again." : "We could not send your message right now. Please try again or write to contato@intelium.ai.",
       submit: e => {
         e.preventDefault();
         const f = e.currentTarget, v = id => (f.querySelector('#' + id)?.value || '').trim();
@@ -168,7 +171,7 @@ class Component extends DCLogic {
         window.InteliumLeads.submit('contatos', {
           nome: v('f-nome'), email: v('f-email').toLowerCase(), empresa: v('f-empresa') || null, cargo: v('f-cargo') || null,
           assunto: this.state.subject, mensagem: v('f-msg') || null,
-          consentimento_lgpd: f.querySelector('#f-lgpd').checked, consentimento_texto: "I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at backoffice@intelium.ai."
+          consentimento_lgpd: f.querySelector('#f-lgpd').checked, consentimento_texto: "I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at contato@intelium.ai."
         }).then(r => {
           if (r.ok) { f.reset(); this.setState({ status: 'sent', sent: true }); }
           else this.setState({ status: 'error', rateLimited: !!r.rateLimited, personal: !!r.personal });

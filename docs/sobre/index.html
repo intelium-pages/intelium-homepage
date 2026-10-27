@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
 <script src="../support.js"></script>
+<script src="../viz.js" data-early=""></script>
 <script src="../lead-api.js" defer></script>
 </head>
 <body>
@@ -26,10 +28,11 @@
 <script>document.documentElement.lang='pt-BR'</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../assets/ds/styles.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+
 <script src="../assets/ds/ds-bundle.js"></script>
 <script src="../viz.js"></script>
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/inter-latin.woff2) format('woff2')}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
 a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
@@ -60,6 +63,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 .nl-form:has(.nl-check:checked) .nl-fields{display:none}
 .nl-form:has(.nl-check:checked) .nl-done{display:flex}
 </style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 </helmet>
 <nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
 <a href="../index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../assets/ui/logo.png)) center/contain no-repeat"></span></a>
@@ -110,6 +114,17 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="flex:2 1 480px;display:flex;flex-direction:column;gap:20px;min-width:0">
 <p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-200)">Engenheiros sêniores trabalham dentro do ambiente do cliente, integrados ao squad, em três fases: Imersão Total, Execução Hands-on e Transferência de Conhecimento. Saímos deixando capacidade instalada, não dependência.</p>
 <a href="../servicos/index.html#fde" style="font-size:15px">Ver o modelo FDE →</a>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 300px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Comunidade</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Especialistas que também estão no palco.</h2>
+</div>
+<div style="flex:2 1 480px;display:flex;flex-direction:column;gap:20px;min-width:0">
+<p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-200)">Nossos especialistas são speakers em Data Streaming, impulsionam comunidades locais de Apache Kafka e participam de programas como o Confluent Community Catalyst.</p>
+<a href="../eventos/index.html" style="font-size:15px">Ver eventos →</a>
 </div>
 </section>
 
@@ -188,7 +203,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
 <a href="../sobre/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Sobre</a><a href="../servicos/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Serviços</a><a href="../cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../eventos/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Eventos</a><a href="../labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contato</span>
-<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@intelium" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
 <span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
 <a href="../contato/index.html" style="font-size:15px;margin-top:6px">Fale com o CoE →</a></div>
 </div>

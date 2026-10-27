@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../scenes.js"></script>
 <script src="../../support.js"></script>
+<script src="../../viz.js" data-early=""></script>
 <script src="../../lead-api.js" defer></script>
 </head>
 <body>
@@ -26,10 +29,11 @@
 <script>document.documentElement.lang='en'</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../assets/ds/styles.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+
 <script src="../../assets/ds/ds-bundle.js"></script>
 <script src="../../viz.js"></script>
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
 a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
@@ -62,7 +66,10 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 .nl-done{display:none}
 .nl-form:has(.nl-check:checked) .nl-fields{display:none}
 .nl-form:has(.nl-check:checked) .nl-done{display:flex}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 </helmet>
 <nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
 <a href="../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
@@ -83,10 +90,13 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 
 <header style="position:relative;overflow:hidden">
 <div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
-<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:center;gap:32px 48px">
+<div style="display:flex;flex-direction:column;gap:28px">
 <span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Success stories</span>
-<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:980px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Real results <span style="color:var(--color-accent-300)">in critical environments.</span></h1>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:620px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Real results <span style="color:var(--color-accent-300)">in critical environments.</span></h1>
 <p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">We help large enterprises modernize their data architectures.</p>
+</div>
+<div class="lighten" style="animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .5s both"><img src="../../assets/cases-lideres.webp" width="1600" height="900" fetchpriority="high" decoding="async" alt="Data Streaming use cases presentation for business leaders" style="display:block;width:100%;height:auto;max-width:640px;margin-left:auto;border-radius:var(--radius-lg);-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)"></div>
 </div>
 </header><section style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)"><div style="display:flex;flex-direction:column">
 <article style="display:flex;flex-wrap:wrap;gap:28px 56px;align-items:center;padding:40px 0;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
@@ -125,6 +135,39 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 
 </div>
 </article>
+</div>
+</section>
+
+<section aria-label="Reference scenarios" style="max-width:1200px;margin:0 auto;padding:clamp(48px,6vw,80px) clamp(20px,5vw,72px) 0;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Reference scenarios</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.15;letter-spacing:-.015em">Where streaming changes operations, <span style="color:var(--color-accent-300)">sector by sector.</span></h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Architectures we design and implement again and again. Each scenario shows the problem we usually find, the event flow and what becomes possible.</p>
+<p style="margin:0;font-size:13px;line-height:20px;color:var(--color-neutral-400);font-style:italic">*Intelium model architectures by sector. They do not represent specific customers.</p>
+</div>
+<div role="group" aria-label="Filter by sector" style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="8">
+<sc-if value="{{ f.active }}" hint-placeholder-val="{{ false }}"><button type="button" aria-pressed="true" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:7px 14px;border-radius:999px;border:0;cursor:pointer;background:var(--color-accent-800);color:var(--color-accent-100);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.idle }}" hint-placeholder-val="{{ true }}"><button type="button" aria-pressed="false" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:7px 14px;border-radius:999px;border:0;cursor:pointer;background:transparent;color:var(--color-neutral-200);box-shadow:inset 0 0 0 1px var(--color-neutral-600)" style-hover="color:var(--color-text);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="6">
+<article style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ s.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<span class="tag tag-accent" style="align-self:flex-start;white-space:nowrap">{{ s.sector }}</span>
+<h3 style="margin:0;font-weight:500;font-size:19px;line-height:25px">{{ s.t }}</h3>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Challenge</span><p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ s.ch }}</p></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">What changes</span>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ s.out }}" as="o" hint-placeholder-count="3"><li style="display:flex;gap:10px;font-size:14px;line-height:21px;color:var(--color-neutral-100)"><span aria-hidden="true" style="flex:0 0 auto;width:12px;height:1px;margin-top:10px;background:var(--color-accent)"></span><span>{{ o }}</span></li></sc-for>
+</ul></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px"><sc-for list="{{ s.stack }}" as="st" hint-placeholder-count="3"><span class="tag tag-neutral">{{ st }}</span></sc-for></div>
+</div>
+<a href="{{ s.href }}" style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Talk about this scenario<span aria-hidden="true">→</span></a>
+</article>
+</sc-for>
 </div>
 </section>
 
@@ -207,7 +250,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
 <a href="../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
 <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
-<a href="mailto:backoffice@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">backoffice@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/intelium/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@intelium" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
 <span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP · Brazil</span>
 <a href="../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
 </div>
@@ -216,6 +259,10 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  state = { sec: 'all' };
+  scenarioData = [{"id":"ecommerce","scene":"ecommerce","sec":"var","sector":"Retail & E-commerce","t":"E-commerce that holds up on Black Friday","ch":"Stock, price and recommendations computed in batch leave the site selling items that are gone and showing offers that no longer make sense at peak traffic.","out":["Available stock updated on every sale, across all channels","Price and promotions reacting to demand within minutes","Peaks absorbed by Kafka without taking checkout down"],"stack":["Kafka","Flink","CDC","Schema Registry"],"href":"../../en/contact/index.html#foundation"},{"id":"iot","scene":"iot","sec":"ind","sector":"Manufacturing & IoT","t":"Industrial telemetry and predictive maintenance","ch":"Machine sensors produce thousands of readings per second, but the data reaches maintenance in next-day reports, when the failure has already stopped the line.","out":["Anomalies detected in minute windows, not days","Work orders opened automatically in the ERP","Telemetry history available to train models"],"stack":["MQTT","Kafka","Flink","Tableflow"],"href":"../../en/contact/index.html#ai"},{"id":"frota","scene":"fleet","sec":"log","sector":"Logistics","t":"Fleet tracking and live ETA","ch":"Vehicle positions reach the control center late and the delivery time given to the customer is a fixed estimate that ignores traffic, stops or detours.","out":["ETA recomputed on every new position","Alerts on route deviation or unplanned stops","Customer and support seeing the same live status"],"stack":["Kafka","Flink","Kafka Connect"],"href":"../../en/contact/index.html#foundation"},{"id":"pix","scene":"pix","sec":"fin","sector":"Payments","t":"Instant payments with fraud checks before settlement","ch":"Instant payments settle in seconds and cannot be reversed. Rules and models fed with yesterday’s data let scams through that only surface when the customer complains.","out":["Payment order enriched with device, history and payee in the stream","Settle-or-hold decision inside the instant payment window","Auditable event trail for the regulator"],"stack":["Kafka","Flink","ML","Schema Registry"],"href":"../../en/contact/index.html#ai"},{"id":"sinistro","scene":"claims","sec":"seg","sector":"Insurance","t":"Real-time claims","ch":"First notice of loss goes through forms, emails and queues between systems. Customers wait days without a status, and signs of fraud only show up in audit.","out":["First notice of loss becomes an event instantly","Simple claims auto-approved, suspicious ones routed","Customer follows every step in the app"],"stack":["Kafka","Flink","Kafka Connect"],"href":"../../en/contact/index.html#foundation"},{"id":"mainframe","scene":"mainframe","sec":"fin","sector":"Banking","t":"Mainframe offload with CDC","ch":"Every balance and statement lookup in the app goes to the mainframe. MIPS cost grows with digital usage and every new product depends on a legacy integration.","out":["Reads served from Kafka, off the mainframe","Lower MIPS cost without rewriting the core","New products consuming events instead of calling legacy"],"stack":["CDC","Kafka","Kafka Connect","Schema Registry"],"href":"../../en/contact/index.html#legacy"},{"id":"omnichannel","scene":"retail","sec":"var","sector":"Retail & E-commerce","t":"Unified omnichannel inventory","ch":"Physical stores, website and marketplace each have their own view of stock. The result is stock-outs in one channel and overstock in another, plus orders cancelled for lack of product.","out":["A single stock view per store and DC","Click-and-collect and ship-from-store on reliable data","Replenishment triggered by the sale, not end-of-day close"],"stack":["Kafka","CDC","Flink"],"href":"../../en/contact/index.html#foundation"},{"id":"clinico","scene":"hospital","sec":"sau","sector":"Healthcare","t":"Clinical alerts from health record events","ch":"Lab results and vital signs sit in the health record, but risk models run on periodic extracts and the alert arrives when the team has already noticed the problem.","out":["HL7/FHIR events from the health record flowing into Kafka","Risk model triggered on every change in the patient","Masking and access control in the flow itself"],"stack":["HL7/FHIR","Kafka","Flink","ML"],"href":"../../en/contact/index.html#ai"},{"id":"telecom","scene":"eventmesh","sec":"tel","sector":"Telecom","t":"Network assurance with real-time alarms","ch":"Alarms from thousands of devices arrive through different systems with no correlation. Operations find out about the outage from the volume of calls to the contact center.","out":["Network alarms and telemetry on a single backbone","Event correlation to find the cause, not just the symptom","Customers notified proactively before they call"],"stack":["Kafka","Kafka Connect","Flink"],"href":"../../en/contact/index.html#foundation"}];
+  sectorLabels = {"all":"All","var":"Retail & E-commerce","ind":"Manufacturing & IoT","log":"Logistics","fin":"Financial","seg":"Insurance","sau":"Healthcare","tel":"Telecom"};
+  scene(name, pt) { return window.InteliumScene ? window.InteliumScene(name, pt, React) : null; }
   t(pt, en) { return en; }
   svg(key, label, kids) { return React.createElement('svg', { key, viewBox: '0 0 400 200', width: '100%', role: 'img', 'aria-label': label, style: { display: 'block', height: 'auto' } }, ...kids); }
   txt(k, x, y, s, anchor) { return React.createElement('text', { key: k, x, y, textAnchor: anchor || 'start', style: { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.12em', fill: 'var(--color-neutral-400)' } }, s); }
@@ -281,7 +328,7 @@ class Component extends DCLogic {
     this._r = [S('ra', a), S('rb', b), S('rc', c), S('rd', d)];
     return this._r;
   }
-  renderVals() { const d = this.build(), r = this.refs(); return { diag0: d[0], diag1: d[1], diag2: d[2], ref0: r[0], ref1: r[1], ref2: r[2], ref3: r[3] }; }
+  renderVals() { const d = this.build(), r = this.refs(); const sec = this.state.sec; const filters = Object.keys(this.sectorLabels).map(key => ({ label: this.sectorLabels[key], active: sec === key, idle: sec !== key, pick: () => this.setState({ sec: key }) })); const scenarios = this.scenarioData.filter(s => sec === 'all' || s.sec === sec).map(s => ({ ...s, cover: this.scene(s.scene, false) })); return { filters, scenarios, diag0: d[0], diag1: d[1], diag2: d[2], ref0: r[0], ref1: r[1], ref2: r[2], ref3: r[3] }; }
 }
 </script>
 </body>
