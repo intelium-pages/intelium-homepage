@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./lead-api.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -265,7 +266,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Parceiros estratégicos</span>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
 <sc-for list="{{ partners }}" as="pt" hint-placeholder-count="3">
-<div class="card" style="display:flex;flex-direction:column;gap:6px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)"><span style="font-size:20px;font-weight:500">{{ pt.name }}</span><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ pt.role }}</span></div>
+<div class="card" style="display:flex;flex-direction:column;gap:6px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)"><sc-if value="{{ pt.hasLogo }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:14px;height:28px;margin-bottom:4px"><sc-for list="{{ pt.logos }}" as="lg" hint-placeholder-count="0"><img src="{{ lg.src }}" alt="{{ lg.alt }}" loading="lazy" decoding="async" height="24" style="display:block;height:24px;width:auto"></sc-for></div></sc-if><sc-if value="{{ pt.noLogo }}" hint-placeholder-val="{{ true }}"><span style="font-size:20px;font-weight:500">{{ pt.name }}</span></sc-if><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ pt.role }}</span></div>
 </sc-for>
 </div>
 </section>
@@ -305,7 +306,7 @@ class Component extends DCLogic {
     { sector: 'Corretora', front: 'Legacy Modernization', stack: ['#MIGRATION', '#KAFKA', '#GOVERNANCE'] },
     { sector: 'Banco digital', front: 'Real-Time AI/ML', stack: ['Flink', 'Confluent', 'Palantir'] }
   ];
-  clients = [{"src":"./assets/clientes/sicredi.png","alt":"Sicredi"},{"src":"./assets/clientes/alelo.png","alt":"Alelo"},{"src":"./assets/clientes/bradesco.png","alt":"Bradesco"},{"src":"./assets/clientes/bradesco-seguros.png","alt":"Bradesco Seguros"},{"src":"./assets/clientes/martins.png","alt":"Martins"},{"src":"./assets/clientes/xp.png","alt":"XP"},{"src":"./assets/clientes/tjmg.png","alt":"TJMG"},{"src":"./assets/clientes/serpro.png","alt":"Serpro"},{"src":"./assets/clientes/unimed-bh.png","alt":"Unimed-BH"},{"src":"./assets/clientes/rd-saude.png","alt":"RD Saúde"},{"src":"./assets/clientes/grupo-santa-cruz.png","alt":"Grupo Santa Cruz"},{"src":"./assets/clientes/farmacia-sao-joao.png","alt":"Farmácia São João"}].map(c => { const id = 'cl-' + c.src.split('/').pop().replace(/\.png$/, ''); const r = window.__resources && window.__resources[id]; return { ...c, src: r || c.src }; });
+  clients = [{"src":"./assets/clientes/sicredi.webp","alt":"Sicredi"},{"src":"./assets/clientes/alelo.webp","alt":"Alelo"},{"src":"./assets/clientes/bradesco.webp","alt":"Bradesco"},{"src":"./assets/clientes/bradesco-seguros.webp","alt":"Bradesco Seguros"},{"src":"./assets/clientes/martins.webp","alt":"Martins"},{"src":"./assets/clientes/xp.webp","alt":"XP"},{"src":"./assets/clientes/tjmg.webp","alt":"TJMG"},{"src":"./assets/clientes/serpro.webp","alt":"Serpro"},{"src":"./assets/clientes/unimed-bh.webp","alt":"Unimed-BH"},{"src":"./assets/clientes/rd-saude.webp","alt":"RD Saúde"},{"src":"./assets/clientes/grupo-santa-cruz.webp","alt":"Grupo Santa Cruz"},{"src":"./assets/clientes/farmacia-sao-joao.webp","alt":"Farmácia São João"}].map(c => { const id = 'cl-' + c.src.split('/').pop().replace(/\.(png|webp)$/, ''); const r = window.__resources && window.__resources[id]; return { ...c, src: r || c.src }; });
   componentDidMount() {
     const R = window.__resources || {}; const st = document.documentElement.style;
     [['img-logo','a-ui-logo'],['img-isotipo','a-ui-isotipo'],['img-flag-br','a-ui-flag-br'],['img-flag-us','a-ui-flag-us']].forEach(([v, id]) => { if (R[id]) st.setProperty('--' + v, 'url(' + R[id] + ')'); });
@@ -427,6 +428,7 @@ class Component extends DCLogic {
       }
     };
   }
+  partnerLogos(list) { const R = window.__resources || {}; return list.map(p => { const logos = (p.logos || []).map(([n, alt]) => ({ src: R['a-parceiros-' + n] || './assets/parceiros/' + n + '.webp', alt })); return { ...p, logos, hasLogo: logos.length > 0, noLogo: logos.length === 0 }; }); }
   renderVals() {
     const seq = this.state.seq, ease = 1 - Math.pow(1 - this.state.p, 3), pa = Math.floor(seq / 3) % 3;
     const stack = ['Apache Kafka', 'Confluent Cloud', 'Confluent Platform', 'Apache Flink', 'ksqlDB', 'Kafka Connect', 'Schema Registry', 'Tableflow', 'Apache Iceberg', 'IBM', 'TD Synnex', 'Palantir', 'Lenses.io'];
@@ -451,12 +453,12 @@ class Component extends DCLogic {
         { n: '02', title: 'Execução Hands-on', copy: 'Engenheiros sêniores constroem junto com o seu time, em produção.' },
         { n: '03', title: 'Transferência de Conhecimento', copy: 'Seu time assume a operação com capacidade instalada.' }
       ].map((p, i) => ({ ...p, op: i === pa ? 1 : 0.45, bar: i === pa ? this.bar('pb' + Math.floor(seq / 3), 2.7) : null })),
-      partners: [
-        { name: 'IBM · Confluent', role: 'Parceiros IBM especializados em IBM Confluent. Eixo principal da oferta de streaming.' },
-        { name: 'TD Synnex', role: 'Distribuidor do ecossistema IBM Confluent no Brasil. Via comercial para licenciamento e procurement.' },
-        { name: 'Palantir', role: 'Real-Time AI e operacionalização de dados.' },
-        { name: 'Lenses.io', role: 'Observabilidade e governança de Kafka.' }
-      ],
+      partners: this.partnerLogos([
+        { name: 'IBM · Confluent', logos: [['ibm','IBM'],['confluent','Confluent']], role: 'Parceiros IBM especializados em IBM Confluent. Eixo principal da oferta de streaming.' },
+        { name: 'TD Synnex', logos: [['td-synnex','TD Synnex']], role: 'Distribuidor do ecossistema IBM Confluent no Brasil. Via comercial para licenciamento e procurement.' },
+        { name: 'Palantir', logos: [['palantir','Palantir']], role: 'Real-Time AI e operacionalização de dados.' },
+        { name: 'Lenses.io', logos: [['lenses','Lenses.io']], role: 'Observabilidade e governança de Kafka.' }
+      ]),
       labs: [
         { kind: 'Framework', title: 'Migração IBM Event Streams → Confluent', desc: 'O caminho oficial da IBM com método repetível: 50 regras, gates de segurança e scripts testados antes da entrega.' },
         { kind: 'Produto', title: 'Infra Forge', desc: 'Runbooks de PoC e implantação validados em lab, que outra pessoa executa sem suporte.' }

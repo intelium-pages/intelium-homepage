@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../../support.js"></script>
+<script src="../../lead-api.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -86,14 +87,17 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 </div>
 </header><section style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)">
 <div style="display:flex;flex-wrap:wrap;gap:40px 64px;align-items:flex-start">
-<form onSubmit="{{ submit }}" style="flex:2 1 420px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px">
-<div class="field"><label for="f-nome">Name</label><input id="f-nome" class="input" type="text" autocomplete="name"></div>
-<div class="field"><label for="f-email">Work email</label><input id="f-email" class="input" type="email" autocomplete="email"></div>
-<div class="field"><label for="f-empresa">Company</label><input id="f-empresa" class="input" type="text" autocomplete="organization"></div>
-<div class="field"><label for="f-cargo">Role</label><input id="f-cargo" class="input" type="text" autocomplete="organization-title"></div>
+<form onSubmit="{{ submit }}" style="position:relative;flex:2 1 420px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px">
+<div class="field"><label for="f-nome">Name</label><input id="f-nome" name="nome" class="input" type="text" autocomplete="name" required="required" minlength="2" maxlength="120"></div>
+<div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" data-corporate="true" class="input" type="email" autocomplete="email" required="required" maxlength="200"></div>
+<div class="field"><label for="f-empresa">Company</label><input id="f-empresa" name="empresa" class="input" type="text" autocomplete="organization" maxlength="160"></div>
+<div class="field"><label for="f-cargo">Role</label><input id="f-cargo" name="cargo" class="input" type="text" autocomplete="organization-title" maxlength="120"></div>
 <div class="field" style="grid-column:1 / -1"><label for="f-assunto">Topic</label><select id="f-assunto" class="input" value="{{ subject }}" onChange="{{ setSubject }}"><option value="foundation">Streaming Foundation</option><option value="fde">FDE squad · Forward Deployed Engineer</option><option value="assessment">Assessment / Health Check</option><option value="legacy">Legacy Modernization</option><option value="ai">Real-Time AI/ML</option><option value="bolsa">Expert Retainer</option><option value="convite">Events · executive invitation</option><option value="labs">Intelium Labs</option><option value="academy">Intelium Academy</option><option value="outro">Other</option></select></div>
-<div class="field" style="grid-column:1 / -1"><label for="f-msg">Message</label><textarea id="f-msg" class="input" rows="5" style="resize:vertical;font:inherit"></textarea></div>
-<div style="grid-column:1 / -1;display:flex"><button type="submit" class="btn btn-primary">Send</button></div>
+<div class="field" style="grid-column:1 / -1"><label for="f-msg">Message</label><textarea id="f-msg" name="mensagem" class="input" rows="5" maxlength="4000" style="resize:vertical;font:inherit"></textarea></div>
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="f-site">Website</label><input id="f-site" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<label for="f-lgpd" style="grid-column:1 / -1;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:22px;color:var(--color-neutral-200);cursor:pointer"><input id="f-lgpd" name="lgpd" type="checkbox" required="required" style="flex:0 0 auto;width:16px;height:16px;margin:3px 0 0;accent-color:var(--color-accent)"><span>I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at backoffice@intelium.ai.</span></label>
+<div style="grid-column:1 / -1;display:flex"><button type="submit" class="btn btn-primary" disabled="{{ sending }}">{{ btnLabel }}</button></div>
+<sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}"><p role="alert" style="grid-column:1 / -1;margin:0;padding:14px 16px;border-radius:var(--radius-md);background:var(--color-neutral-800);color:var(--color-neutral-100);font-size:15px;line-height:22px;box-shadow:inset 0 0 0 1px var(--color-neutral-600)">{{ errorMsg }}</p></sc-if>
 <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><p role="status" style="grid-column:1 / -1;margin:0;padding:14px 16px;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-100);font-size:15px;line-height:22px;animation:rise .5s cubic-bezier(.2,.7,.2,1) both">Message received. An engineer from the CoE will get back to you.</p></sc-if>
 </form>
 <aside style="flex:1 1 260px;display:flex;flex-direction:column;gap:16px;padding-top:20px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat">
@@ -138,21 +142,37 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  // Assuntos pré-selecionáveis via hash: /contato/#assessment | #bolsa | #convite ...
+  // Assuntos pré-selecionáveis via hash: Intelium Contato.dc.html#assessment | #bolsa | #convite ...
   keys = ['foundation','fde','assessment','legacy','ai','bolsa','convite','labs','academy','outro'];
   fromHash() { const k = (location.hash || '').split(/[#/]/).pop(); return this.keys.includes(k) ? k : null; }
-  state = { sent: false, subject: this.fromHash() || 'foundation' };
+  state = { sent: false, status: 'idle', rateLimited: false, subject: this.fromHash() || 'foundation' };
   componentDidMount() { this.onHash = () => { const k = this.fromHash(); if (k) this.setState({ subject: k }); }; window.addEventListener('hashchange', this.onHash); }
   componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); }
   renderVals() {
     return {
       sent: this.state.sent, subject: this.state.subject,
       setSubject: e => this.setState({ subject: e.target.value }),
+      sending: this.state.status === 'sending', failed: this.state.status === 'error',
+      btnLabel: this.state.status === 'sending' ? "Sending…" : "Send",
+      errorMsg: this.state.personal ? (window.InteliumLeads ? window.InteliumLeads.personalMsg() : '') : this.state.rateLimited ? "Too many attempts in a short time. Please wait a few minutes and try again." : "We could not send your message right now. Please try again or write to backoffice@intelium.ai.",
       submit: e => {
         e.preventDefault();
-        // PONTO DE INTEGRAÇÃO — antes de publicar, enviar os campos (f-nome, f-email, f-empresa, f-cargo, assunto, f-msg)
-        // para o destino real (serviço de formulário, e-mail backoffice@intelium.ai ou CRM). Hoje só troca o estado visual.
-        this.setState({ sent: true });
+        const f = e.currentTarget, v = id => (f.querySelector('#' + id)?.value || '').trim();
+        if (this.state.status === 'sending') return;
+        const em = f.querySelector('#f-email');
+        if (em && window.InteliumLeads) em.setCustomValidity(window.InteliumLeads.isPersonal(em.value) ? window.InteliumLeads.personalMsg() : '');
+        if (!f.reportValidity()) return;
+        if (v('f-site')) { this.setState({ status: 'sent', sent: true }); return; }
+        if (!window.InteliumLeads) { this.setState({ status: 'error', rateLimited: false }); return; }
+        this.setState({ status: 'sending' });
+        window.InteliumLeads.submit('contatos', {
+          nome: v('f-nome'), email: v('f-email').toLowerCase(), empresa: v('f-empresa') || null, cargo: v('f-cargo') || null,
+          assunto: this.state.subject, mensagem: v('f-msg') || null,
+          consentimento_lgpd: f.querySelector('#f-lgpd').checked, consentimento_texto: "I agree that Intelium may use this data to respond to my request, under Brazil’s LGPD (Law 13.709/2018). I can request deletion at any time at backoffice@intelium.ai."
+        }).then(r => {
+          if (r.ok) { f.reset(); this.setState({ status: 'sent', sent: true }); }
+          else this.setState({ status: 'error', rateLimited: !!r.rateLimited, personal: !!r.personal });
+        });
       }
     };
   }
