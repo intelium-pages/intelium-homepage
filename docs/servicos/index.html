@@ -34,7 +34,7 @@
 <style>
 @font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/inter-latin.woff2) format('woff2')}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
 a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
 @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
@@ -42,6 +42,9 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 @keyframes npulse{0%,100%{opacity:.45}50%{opacity:1}}
 @keyframes dash{to{stroke-dashoffset:-250}}
 @keyframes grow{from{transform:scaleX(.15)}to{transform:scaleX(1)}}
+@keyframes ringstep{0%{opacity:0}3%,16%{opacity:1}22%,100%{opacity:0}}
+@keyframes winfill{from{transform:scaleX(0)}95%{transform:scaleX(1);opacity:1}to{transform:scaleX(1);opacity:0}}
+@keyframes barnew{0%,8%{transform:scaleY(0)}30%,100%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 .nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
 .nav-toggle{display:none}
@@ -59,6 +62,14 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 .nav-toggle:checked~.nav-burger .ic-menu{display:none}
 .nav-toggle:checked~.nav-burger .ic-x{display:block}
 .nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
 }
 .nl-form{display:flex;gap:8px;flex-wrap:wrap}
 .nl-form .input{flex:1 1 220px;min-width:0}
@@ -129,7 +140,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Tecnologias</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Kafka Connect</span><span class="tag tag-neutral">Debezium · CDC</span><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Confluent Cloud</span><span class="tag tag-neutral">Terraform</span></div></div>
 </div>
 </div>
-<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;max-width:720px">{{ diag1 }}
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag1 }}
 <span style="font-size:12px;color:var(--color-neutral-400)">Diagrama ilustrativo</span>
 </div>
 </div>
@@ -147,7 +158,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Tecnologias</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Flink SQL</span><span class="tag tag-neutral">Tableflow</span><span class="tag tag-neutral">Apache Iceberg</span><span class="tag tag-neutral">Databricks · Snowflake · BigQuery</span><span class="tag tag-neutral">Grafana</span></div></div>
 </div>
 </div>
-<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;max-width:720px">{{ diag2 }}
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag2 }}
 <span style="font-size:12px;color:var(--color-neutral-400)">Diagrama ilustrativo</span>
 </div>
 </div>
@@ -215,7 +226,7 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Tecnologias</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Confluent</span><span class="tag tag-neutral">Feature store</span><span class="tag tag-neutral">Vector DB</span></div></div>
 </div>
 </div>
-<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;max-width:720px">{{ diag5 }}
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag5 }}
 <span style="font-size:12px;color:var(--color-neutral-400)">Diagrama ilustrativo</span>
 </div>
 </div>
@@ -336,11 +347,21 @@ class Component extends DCLogic {
     b.push(this.box(k(), 140, 84, 56, 32, 'CDC', false), this.box(k(), 214, 84, 60, 32, 'Flink', true, 'npulse 2.4s ease-in-out infinite'));
     [0, 1, 2, 3].forEach(i => b.push(h('line', { key: k(), x1: 196, x2: 214, y1: 90 + i * 7, y2: 90 + i * 7, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2, strokeDasharray: '2 3', animation: `dash ${1 + i * .2}s linear infinite` } })));
     [['API', 50], ['Lakehouse', 100], [T('Sistemas', 'Systems'), 150]].forEach(([lb, y], j) => { const p = `M274 100 C 306 100, 306 ${y}, 324 ${y}`; b.push(h('path', { key: k(), d: p, style: ln }), this.dot(k(), p, 1.8 + j * .3, -j * .6), this.box(k(), 324, y - 14, 70, 28, lb, false)); });
-    const c = [this.txt(k(), 16, 22, T('MÉTRICAS EM TEMPO REAL', 'REAL-TIME METRICS')), this.txt(k(), 384, 22, 'FLINK SQL · TABLEFLOW', 'end')];
-    let w = 'M0 120'; for (let x = 0; x <= 400; x += 8) w += ` L${x} ${120 - Math.abs(Math.sin(x / 23) * 30 + Math.sin(x / 7) * 8)}`;
-    [0, 1, 2, 3, 4].forEach(i => c.push(h('rect', { key: k(), x: 16 + i * 76, y: 40, width: 64, height: 96, rx: 4, style: { fill: 'var(--color-accent-900)', opacity: .35, stroke: 'var(--color-accent-700)', strokeDasharray: '3 3', animation: `npulse 3s ease-in-out ${i * .6}s infinite` } })));
-    c.push(h('path', { key: k(), d: w, style: { fill: 'none', stroke: 'var(--color-accent-700)', strokeWidth: 1 } }), h('path', { key: k(), d: w, style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.6, strokeDasharray: '60 400', animation: 'dash 4s linear infinite' } }));
-    for (let i = 0; i < 5; i++) c.push(h('rect', { key: k(), x: 30 + i * 76, y: 150, width: 36, height: 26, rx: 2, style: { fill: 'var(--color-accent-500)', opacity: .6, transformBox: 'fill-box', transformOrigin: 'bottom', animation: `bar ${2 + i * .3}s ease-in-out ${-(i * .4)}s infinite` } }), this.txt(k(), 48 + i * 76, 190, i === 4 ? 'now' : 't-' + (4 - i), 'middle'));
+    const c = [this.txt(k(), 16, 22, T('EVENTOS EM JANELAS DE 1 MIN', 'EVENTS IN 1-MIN WINDOWS')), this.txt(k(), 384, 22, 'FLINK SQL', 'end')];
+    const an = (attr, values, keyTimes) => h('animate', { attributeName: attr, values, keyTimes, dur: '4s', repeatCount: 'indefinite' });
+    const cnt = [5, 8, 6, 7, 11], base = 166, sc = 7.5, thr = base - 9 * sc;
+    cnt.forEach((n, i) => { const wx = 16 + i * 76, cur = i === 4;
+      c.push(h('rect', { key: k(), x: wx, y: 34, width: 68, height: 32, rx: 5, style: { fill: cur ? 'var(--color-accent-900)' : 'var(--color-neutral-800)', stroke: cur ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', strokeDasharray: cur ? '3 3' : 'none' } }, cur ? an('stroke-dasharray', '3 3;3 3;none;none', '0;.76;.78;1') : null));
+      for (let j = 0; j < n; j++) { const cx = wx + 8 + ((j * 37 + i * 11) % 52), cy = 41 + ((j * 23 + i * 7) % 18);
+        c.push(h('circle', { key: k(), cx, cy, r: 2.2, style: { fill: cur ? 'var(--color-accent-100)' : 'var(--color-neutral-400)' } }, cur ? an('opacity', '0;0;1;1;0', `0;${(j * .065).toFixed(3)};${(j * .065 + .02).toFixed(3)};.97;1`) : null)); }
+      const bx = wx + 22, bh = n * sc;
+      c.push(h('path', { key: k(), d: `M${wx + 34} 70 L${wx + 34} 78`, style: { fill: 'none', stroke: cur ? 'var(--color-accent-500)' : 'var(--color-neutral-600)' } }));
+      if (!cur) c.push(h('rect', { key: k(), x: bx, y: base - bh, width: 24, height: bh, rx: 2, style: { fill: 'var(--color-neutral-600)' } }));
+      else c.push(h('rect', { key: k(), x: bx, width: 24, rx: 2, style: { fill: 'var(--color-accent-400)' } }, an('height', `0;0;${bh};${bh};0`, '0;.78;.86;.97;1'), an('y', `${base};${base};${base - bh};${base - bh};${base}`, '0;.78;.86;.97;1')));
+      c.push(this.txt(k(), wx + 34, 180, cur ? T('agora', 'now') : 't-' + (4 - i), 'middle', cur ? 'var(--color-accent-300)' : null)); });
+    c.push(h('line', { key: k(), x1: 16, x2: 384, y1: base, y2: base, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 16, x2: 384, y1: thr, y2: thr, style: { stroke: 'var(--color-accent-300)', strokeDasharray: '4 4', opacity: .7 } }), this.txt(k(), 16, thr - 5, T('LIMITE', 'THRESHOLD'), 'start', 'var(--color-accent-300)'));
+    c.push(h('g', { key: k(), style: { opacity: 0 } }, an('opacity', '0;0;1;1;0', '0;.86;.88;.97;1'), h('rect', { x: 318, y: 74, width: 52, height: 16, rx: 8, style: { fill: 'var(--color-accent-700)', stroke: 'var(--color-accent-300)' } }), h('text', { x: 344, y: 85.5, textAnchor: 'middle', style: { fontFamily: 'var(--font-body)', fontSize: 9, fontWeight: 500, letterSpacing: '.08em', fill: 'var(--color-accent-100)' } }, T('ALERTA', 'ALERT'))));
+    c.push(this.txt(k(), 200, 196, T('CADA JANELA FECHADA VIRA UM PONTO NO PAINEL', 'EACH CLOSED WINDOW BECOMES A POINT ON THE DASHBOARD'), 'middle'));
     const d = [this.txt(k(), 200, 22, 'CONFLUENT · CLOUD · PLATFORM · CFK', 'middle')];
     d.push(h('circle', { key: k(), cx: 200, cy: 108, r: 48, style: { fill: 'none', stroke: 'var(--color-accent-500)', strokeDasharray: '3 5' } }));
     [[-14, -12], [14, -12], [0, 12]].forEach(([dx, dy], i) => d.push(h('rect', { key: k(), x: 200 + dx - 10, y: 108 + dy - 8, width: 20, height: 16, rx: 3, style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-300)', animation: `npulse 2.4s ease-in-out ${i * .5}s infinite` } })));
@@ -362,7 +383,7 @@ class Component extends DCLogic {
     const fb = 'M384 107 C 384 170, 190 170, 190 118'; f.push(h('path', { key: k(), d: fb, style: { ...ln, strokeDasharray: '3 4' } }), this.dot(k(), fb, 3.2, -1), this.txt(k(), 292, 178, 'FEEDBACK · DRIFT', 'middle'));
     this._d = [this.svg('s0', T('Eventos descobertos no Event Storming organizados em domínios e tópicos', 'Events discovered in Event Storming organized into domains and topics'), a),
       this.svg('s1', T('Bancos legados capturados via CDC, processados em Flink e entregues a APIs, lakehouse e sistemas', 'Legacy databases captured via CDC, processed in Flink and delivered to APIs, lakehouse and systems'), b),
-      this.svg('s2', T('Métricas em janelas de tempo real calculadas com Flink SQL', 'Real-time windowed metrics computed with Flink SQL'), c),
+      this.svg('s2', T('Eventos agrupados em janelas de 1 minuto pelo Flink SQL; cada janela fechada vira uma barra no painel e dispara alerta quando passa do limite', 'Events grouped into 1-minute windows by Flink SQL; each closed window becomes a bar on the dashboard and fires an alert when it crosses the threshold'), c),
       this.svg('s3', T('Cluster Confluent cercado por segurança, observabilidade, governança e FinOps', 'Confluent cluster surrounded by security, observability, governance and FinOps'), d),
       this.svg('s4', T('Migração em ondas do legado para Confluent, com coexistência', 'Wave-based migration from legacy to Confluent, with coexistence'), e),
       this.svg('s5', T('Eventos alimentam Flink e o modelo, que decide no evento e retroalimenta o ciclo', 'Events feed Flink and the model, which decides at the event and feeds back into the loop'), f)];
@@ -413,25 +434,93 @@ class Component extends DCLogic {
     [T('% de transações no caminho novo ↑', '% of transactions on the new path ↑'), T('MIPS e chamadas MQ ↓', 'MIPS and MQ calls ↓'), T('integrações do ESB desligadas ↑', 'ESB integrations switched off ↑'), T('jobs batch substituídos ↑', 'batch jobs replaced ↑')].forEach((s, i) => B.push(this.pill(k(), 14 + i * 194, 400, 186, 26, s)));
     // C · Platform as code (GitOps)
     const G = [this.tx(k(), 400, 34, T('O que não está no Git não existe.', 'If it is not in Git, it does not exist.'), { s: 18, w: 500, c: 'var(--color-text)' }), this.tx(k(), 400, 54, T('toda mudança de tópico, schema, permissão ou conector nasce em um pull request', 'every topic, schema, permission or connector change starts as a pull request'), { s: 10.5, c: 'var(--color-neutral-400)' })];
-    [[370, 330], [530, 270], [660, 210]].forEach(([x, y], i) => G.push(h('rect', { key: k(), x, y, width: [140, 150, 130][i], height: 342 - y, style: { fill: 'var(--color-neutral-800)', opacity: .6 } })));
+    [[346, 330, 156], [526, 284, 166], [692, 176, 88]].forEach(([x, y, w]) => G.push(h('rect', { key: k(), x, y, width: w, height: 342 - y, style: { fill: 'var(--color-neutral-800)', opacity: .6 } })));
     G.push(h('line', { key: k(), x1: 20, x2: 780, y1: 342, y2: 342, style: { stroke: 'var(--color-accent-500)', strokeWidth: 2 } }));
-    G.push(this.bx(k(), 20, 230, 130, 100, 'Git', [T('estado desejado', 'desired state'), 'topics · schemas · grants', 'connectors · flink'], false));
-    G.push(this.bx(k(), 190, 230, 140, 100, T('CI valida', 'CI validates'), [T('em cada pull request', 'on every pull request'), 'naming · compat BACKWARD', 'plan · contract tests'], true, 'npulse 2.8s ease-in-out infinite'));
-    G.push(this.bx(k(), 370, 230, 140, 100, 'DSV', [T('merge → apply automático', 'merge → automatic apply'), T('descartável: recriado do Git', 'disposable: rebuilt from Git')], false));
-    G.push(this.bx(k(), 530, 180, 150, 90, 'HML', [T('release → apply automático', 'release → automatic apply'), T('dados mascarados · rede privada', 'masked data · private network')], true));
-    G.push(this.bx(k(), 660, 120, 130, 90, 'PRD', [T('aprovação → apply manual', 'approval → manual apply'), T('auditoria por PR', 'audit trail per PR')], true, 'npulse 2.4s ease-in-out .5s infinite'));
-    const lbl = (x, y, s) => this.tx(k(), x, y, s, { s: 9.5, w: 500, c: 'var(--color-accent-200)' });
-    G.push(this.arr(k(), 'M150 280 L190 280', 1.4, 0), lbl(170, 272, 'PR'), this.arr(k(), 'M330 280 L370 280', 1.4, -.5), lbl(350, 272, 'merge'), this.arr(k(), 'M510 262 L530 240', 1.6, -1), lbl(500, 222, T('tag de release', 'release tag')), this.arr(k(), 'M680 200 L660 180', 1.4, -1.5), lbl(640, 164, T('aprovação humana', 'human approval')));
-    G.push(this.pill(k(), 598, 128, 54, 18, 'GATE', null, true), this.pill(k(), 195, 352, 130, 20, T('falhou → PR bloqueado', 'failed → PR blocked'), null, true));
-    const drift = 'M725 120 L725 84 L85 84 L85 230'; G.push(this.arr(k(), drift, 0, 0, true), this.dot(k(), drift, 6, 0, 2.2), this.tx(k(), 400, 76, T('drift detectado no cluster → vira pull request, nunca correção manual', 'drift detected in the cluster → becomes a pull request, never a manual fix'), { s: 9.5, i: 1, c: 'var(--color-neutral-400)' }));
+    G.push(this.bx(k(), 20, 240, 128, 90, 'Git', [T('estado desejado', 'desired state'), 'topics · schemas · grants', 'connectors · flink'], false));
+    G.push(this.bx(k(), 172, 240, 150, 90, T('CI valida', 'CI validates'), [T('em cada pull request', 'on every pull request'), 'naming · compat BACKWARD', 'plan · contract tests'], true, 'npulse 2.8s ease-in-out infinite'));
+    G.push(this.bx(k(), 346, 250, 156, 80, 'DSV', [T('merge → apply automático', 'merge → automatic apply'), T('descartável: recriado do Git', 'disposable: rebuilt from Git')], false));
+    G.push(this.bx(k(), 526, 204, 166, 80, 'HML', [T('release → apply automático', 'release → automatic apply'), T('dados mascarados · rede privada', 'masked data · private network')], true));
+    G.push(this.bx(k(), 640, 96, 140, 80, 'PRD', [T('aprovação → apply manual', 'approval → manual apply'), T('auditoria por PR', 'audit trail per PR')], true, 'npulse 2.4s ease-in-out .5s infinite'));
+    const lbl = (x, y, s, a) => this.tx(k(), x, y, s, { s: 9.5, w: 500, c: 'var(--color-accent-200)', a });
+    G.push(this.arr(k(), 'M148 285 L172 285', 1.4, 0), lbl(160, 234, 'PR'), this.arr(k(), 'M322 285 L346 285', 1.4, -.5), lbl(334, 232, 'merge'), this.arr(k(), 'M502 262 L526 248', 1.6, -1), lbl(476, 240, T('tag de release', 'release tag')), this.arr(k(), 'M670 204 L670 176', 1.4, -1.5), lbl(700, 194, T('aprovação humana', 'human approval'), 'start'));
+    G.push(this.pill(k(), 604, 181, 54, 18, 'GATE', null, true), this.pill(k(), 182, 352, 130, 20, T('falhou → PR bloqueado', 'failed → PR blocked'), null, true));
+    const drift = 'M710 96 L710 84 L84 84 L84 240'; G.push(this.arr(k(), drift, 0, 0, true), this.dot(k(), drift, 6, 0, 2.2), this.tx(k(), 400, 76, T('drift detectado no cluster → vira pull request, nunca correção manual', 'drift detected in the cluster → becomes a pull request, never a manual fix'), { s: 9.5, i: 1, c: 'var(--color-neutral-400)' }));
     G.push(lab(400, 392, T('APPLIER · O MESMO ESTADO DESEJADO, APLICADO PELO MECANISMO CERTO', 'APPLIER · THE SAME DESIRED STATE, APPLIED BY THE RIGHT MECHANISM')));
     [['Terraform · provider Confluent', 'Confluent Cloud'], ['CFK · CRDs', T('Confluent Platform em Kubernetes', 'Confluent Platform on Kubernetes')], ['cp-ansible + CLI', T('Confluent Platform em bare-metal', 'Confluent Platform on bare-metal')]].forEach(([a, b], i) => G.push(this.pill(k(), 20 + i * 256, 402, 248, 32, a, b)));
+    // D · Real-time AI (agent loop)
+    const D = [], R = 140, RX = 190, cx0 = 400, cy0 = 222;
+    D.push(h('ellipse', { key: k(), cx: cx0, cy: cy0, rx: RX, ry: R, style: { fill: 'none', stroke: 'var(--color-accent-700)', strokeDasharray: '2 6' } }));
+    const ring = `M${cx0} ${cy0 - R} a${RX} ${R} 0 1 1 0 ${2 * R} a${RX} ${R} 0 1 1 0 -${2 * R}`; D.push(this.dot(k(), ring, 10, 0, 3.2), this.dot(k(), ring, 10, -5, 3.2));
+    D.push(h('circle', { key: k(), cx: cx0, cy: cy0, r: 56, style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-500)', animation: 'npulse 3s ease-in-out infinite' } }), this.tx(k(), cx0, cy0 - 4, 'Streaming Agent', { s: 14, w: 500, c: 'var(--color-accent-100)' }), this.tx(k(), cx0, cy0 + 13, T('nativo no Flink', 'native to Flink'), { s: 9.5, c: 'var(--color-accent-300)' }), this.tx(k(), cx0, cy0 + 26, T('sempre ligado', 'always on'), { s: 9.5, c: 'var(--color-accent-300)' }));
+    const N = [[T('1 · Perceber', '1 · Sense'), [T('evento chega do Kafka', 'event arrives from Kafka')]], [T('2 · Contextualizar', '2 · Contextualize'), ['Real-Time Context Engine', T('consulta via MCP', 'queried via MCP')]], [T('3 · Raciocinar', '3 · Reason'), [T('LLM · modelo de escolha', 'LLM · model of choice')]], [T('4 · Agir', '4 · Act'), [T('tool calling via MCP', 'tool calling via MCP')]], [T('5 · Aprender', '5 · Learn'), [T('resultado volta como evento', 'outcome returns as an event')]]];
+    const pos = N.map((_, i) => { const a = (-90 + i * 72) * Math.PI / 180; return [cx0 + RX * Math.cos(a), cy0 + R * Math.sin(a)]; });
+    N.forEach(([t, ls], i) => { const [x, y] = pos[i], w = 150, hh = 56; D.push(h('rect', { key: k(), x: x - w / 2 - 3, y: y - hh / 2 - 3, width: w + 6, height: hh + 6, rx: 12, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${(i * 2 - .3).toFixed(1)}s infinite` } }), this.bx(k(), x - w / 2, y - hh / 2, w, hh, t, ls, i === 1)); });
+    D.push(lab(20, 30, T('STREAM DE EVENTOS', 'EVENT STREAM'), 'start'));
+    const lane = `M20 ${pos[0][1]} L${pos[0][0] - 75} ${pos[0][1]}`; D.push(h('path', { key: k(), d: lane, style: { fill: 'none', stroke: 'var(--color-accent-700)' } }));
+    [0, 1, 2, 3].forEach(i => D.push(this.dot(k(), lane, 2.4, -i * .6, 2.4)));
+    [T('pedidos', 'orders'), T('pagamentos', 'payments'), T('sessões', 'sessions'), T('sensores', 'sensors')].forEach((s, i) => D.push(this.tx(k(), 24 + i * 70, pos[0][1] - 10, s, { s: 9.5, a: 'start', c: 'var(--color-neutral-400)' })));
+    const px = 680, py = 96; D.push(h('rect', { key: k(), x: px, y: py, width: 108, height: 150, rx: 10, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), px + 12, py + 20, T('CONTEXTO VIVO', 'LIVE CONTEXT'), { s: 9.5, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    [T('cliente 360', 'customer 360'), T('saldo e limites', 'balance and limits'), T('últimas sessões', 'recent sessions'), T('pedidos abertos', 'open orders')].forEach((s, i) => { const y = py + 36 + i * 24; D.push(h('rect', { key: k(), x: px + 10, y, width: 88, height: 18, rx: 4, style: { fill: 'var(--color-accent-900)', animation: `npulse 2.4s ease-in-out ${(i * .6).toFixed(1)}s infinite` } }), this.tx(k(), px + 18, y + 12.5, s, { s: 9.5, a: 'start', c: 'var(--color-accent-100)' })); });
+    D.push(this.tx(k(), px + 54, py + 140, T('atualizado há 2 s', 'updated 2 s ago'), { s: 9, i: 1, c: 'var(--color-accent-300)' }));
+    const mcp = `M${px} ${pos[1][1]} L${pos[1][0] + 75} ${pos[1][1]}`; D.push(this.arr(k(), mcp, 1.2, 0), this.tx(k(), (px + pos[1][0] + 75) / 2, pos[1][1] - 6, 'MCP', { s: 9, w: 500, c: 'var(--color-accent-200)' }));
+    const gx = 20, gy = 250; D.push(this.tx(k(), gx, gy, T('GUARDRAILS', 'GUARDRAILS'), { s: 9.5, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    [T('RBAC por chamada', 'RBAC per call'), T('auditoria de cada decisão', 'audit of every decision'), T('humano no loop', 'human in the loop')].forEach((s, i) => D.push(this.pill(k(), gx, gy + 10 + i * 30, 150, 22, s, null, true)));
+    const act = `M${pos[3][0]} ${pos[3][1] + 28} L${pos[3][0]} 408`; D.push(this.arr(k(), act, 1.4, 0));
+    D.push(this.pill(k(), pos[3][0] - 110, 408, 220, 24, T('tópicos de ação · APIs · Lakehouse', 'action topics · APIs · Lakehouse')));
+    D.push(this.tx(k(), 780, 420, T('do evento à ação em segundos', 'from event to action in seconds'), { s: 10.5, a: 'end', i: 1, c: 'var(--color-neutral-300)' }));
+    // E · Pipeline: one record, station by station
+    const E = [lab(20, 24, T('UM UPDATE NO ORACLE, DA ORIGEM AO CONSUMO', 'ONE ORACLE UPDATE, FROM SOURCE TO CONSUMPTION'), 'start')];
+    const SX = [84, 242, 400, 558, 716], PY = 128;
+    const ST = [[T('Origem', 'Source'), 'Oracle · DB2 · mainframe'], ['CDC', 'Debezium · Kafka Connect'], [T('Contrato', 'Contract'), 'Schema Registry · shift-left'], ['Flink', T('enriquece · junta · filtra', 'enriches · joins · filters')], [T('Destinos', 'Sinks'), 'sink connectors']];
+    E.push(h('line', { key: k(), x1: 40, x2: 780, y1: PY, y2: PY, style: { stroke: 'var(--color-neutral-700)', strokeWidth: 6, strokeLinecap: 'round' } }), h('line', { key: k(), x1: 40, x2: 780, y1: PY, y2: PY, style: { stroke: 'var(--color-accent-500)', strokeWidth: 2, strokeDasharray: '2 10', animation: 'dash 8s linear infinite reverse' } }));
+    const CARDS = [[T('LINHA ALTERADA', 'ROW CHANGED'), [['UPDATE clientes'], ['SET limite = 8000', 1], ['WHERE id = 42']]], [T('EVENTO CDC', 'CDC EVENT'), [['op: u'], ['before.limite: 5000'], ['after.limite: 8000', 1], ['ts_ms: 12:04:07.381']]], [T('VALIDAÇÃO', 'VALIDATION'), [['schema v3 ✓', 1], ['compat. BACKWARD ✓', 1], [T('cpf tokenizado ✓', 'tax id tokenized ✓'), 1], [T('id obrigatório ✓', 'id required ✓'), 1]]], [T('ENRIQUECIDO', 'ENRICHED'), [['+ segmento: PJ', 1], ['+ score_risco: 0.82', 1], ['+ gerente: Ana L.', 1], [T('filtro: limite > 0', 'filter: limit > 0')]]], [T('ENTREGUE EM', 'DELIVERED TO'), [['• Snowflake'], ['• Elasticsearch'], [T('• API de crédito', '• Credit API')], ['• Lakehouse']]]];
+    SX.forEach((x, i) => { const dl = (i * 2 - .3).toFixed(1);
+      E.push(this.tx(k(), x, 50, '0' + (i + 1), { s: 10, c: 'var(--color-accent-300)' }), this.tx(k(), x, 70, ST[i][0], { s: 13, w: 500, c: 'var(--color-text)' }), this.tx(k(), x, 86, ST[i][1], { s: 9.5, c: 'var(--color-neutral-400)' }));
+      E.push(h('circle', { key: k(), cx: x, cy: PY, r: 19, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${dl}s infinite` } }), h('circle', { key: k(), cx: x, cy: PY, r: 11, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent-500)', strokeWidth: 1.5 } }), h('line', { key: k(), x1: x, x2: x, y1: PY + 12, y2: 158, style: { stroke: 'var(--color-neutral-600)' } }));
+      const [hd, ls] = CARDS[i], cxl = x - 72;
+      E.push(h('rect', { key: k(), x: cxl, y: 158, width: 144, height: 118, rx: 8, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), h('rect', { key: k(), x: cxl - 2, y: 156, width: 148, height: 122, rx: 9, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${dl}s infinite` } }), this.tx(k(), cxl + 12, 177, hd, { s: 9, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+      ls.forEach(([s, hi], j) => E.push(this.tx(k(), cxl + 12, 199 + j * 18, s, { s: 10.5, a: 'start', c: hi ? 'var(--color-accent-200)' : 'var(--color-neutral-200)' }))); });
+    E.push(h('rect', { key: k(), x: -8, y: -5, width: 16, height: 10, rx: 3, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 5px var(--color-accent))' } }, h('animateMotion', { dur: '10s', repeatCount: 'indefinite', path: `M84 ${PY} L874 ${PY}` })));
+    E.push(this.arr(k(), 'M400 276 L400 312', 0, 0, true), this.pill(k(), 315, 312, 170, 22, T('inválido → DLQ monitorada', 'invalid → monitored DLQ'), null, true));
+    E.push(h('line', { key: k(), x1: 84, x2: 716, y1: 368, y2: 368, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 84, x2: 84, y1: 362, y2: 374, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 716, x2: 716, y1: 362, y2: 374, style: { stroke: 'var(--color-neutral-600)' } }));
+    E.push(h('rect', { key: k(), x: 290, y: 358, width: 220, height: 20, rx: 10, style: { fill: 'var(--color-surface)' } }), this.tx(k(), 400, 372, T('≈ 800 ms da origem ao destino', '≈ 800 ms from source to sink'), { s: 10.5, i: 1, c: 'var(--color-neutral-300)' }));
+    [T('zero alteração na origem', 'zero change at the source'), T('contrato antes do consumo', 'contract before consumption'), T('reprocessável a partir do offset', 'replayable from any offset'), T('pipeline como código · CI/CD', 'pipeline as code · CI/CD')].forEach((s, i) => E.push(this.pill(k(), 14 + i * 194, 402, 186, 26, s)));
+    // L · Analytics: hot path + cold path
+    const L = [lab(20, 24, T('HOT PATH · SEGUNDOS', 'HOT PATH · SECONDS'), 'start')];
+    const LN = [[T('pedidos', 'orders'), 70], [T('pagamentos', 'payments'), 98], [T('cancelamentos', 'cancellations'), 126]], WX = [110, 190, 270, 350], cnt = [[5, 4, 1], [4, 5, 1], [6, 4, 1], [5, 3, 3]];
+    LN.forEach(([s, y]) => L.push(this.tx(k(), 20, y + 3, s, { s: 9.5, a: 'start', c: 'var(--color-neutral-400)' }), h('line', { key: k(), x1: 110, x2: 430, y1: y, y2: y, style: { stroke: 'var(--color-neutral-700)' } })));
+    const ani = (attr, values, keyTimes) => h('animate', { attributeName: attr, values, keyTimes, dur: '6s', repeatCount: 'indefinite' });
+    WX.forEach((x, w) => { const open = w === 3;
+      L.push(h('rect', { key: k(), x: x + 2, y: 54, width: 76, height: 88, rx: 5, style: { fill: open ? 'var(--color-accent-900)' : 'none', stroke: open ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', strokeDasharray: open ? '3 3' : 'none' } }));
+      LN.forEach(([, y], l) => { for (let j = 0; j < cnt[w][l]; j++) { const cx = x + 10 + ((j * 29 + l * 13 + w * 7) % 60); const ft = (j * .12 + l * .04).toFixed(2);
+        L.push(h('circle', { key: k(), cx, cy: y, r: 2.6, style: { fill: open ? (l === 2 ? 'var(--color-accent-300)' : 'var(--color-accent-100)') : 'var(--color-neutral-400)' } }, open ? ani('opacity', '0;0;1;1;0', `0;${ft};${(+ft + .02).toFixed(2)};.96;1`) : null)); } });
+      L.push(this.tx(k(), x + 40, 158, ['12:01', '12:02', '12:03', T('12:04 · aberta', '12:04 · open')][w], { s: 9.5, c: open ? 'var(--color-accent-200)' : 'var(--color-neutral-400)' })); });
+    L.push(this.arr(k(), 'M230 166 L230 190', 1, 0));
+    L.push(h('rect', { key: k(), x: 20, y: 190, width: 420, height: 116, rx: 8, style: { fill: 'var(--color-bg)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), 34, 210, 'FLINK SQL', { s: 9, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    const KW = 'var(--color-accent-300)', TXC = 'var(--color-neutral-100)';
+    const code = (y, x, parts) => h('text', { key: k(), x, y, style: { fontFamily: 'var(--font-body)', fontSize: 10.5, fontFeatureSettings: "'tnum' 1" } }, ...parts.map(([s, kw], i) => h('tspan', { key: i, style: { fill: kw ? KW : TXC } }, s)));
+    L.push(code(232, 34, [['SELECT ', 1], ['window_end, loja, '], ['COUNT', 1], ['(*) pedidos, '], ['SUM', 1], ['(valor) receita,']]), code(249, 74, [['AVG', 1], ['(cancelado) taxa_cancel']]), code(266, 34, [['FROM TABLE', 1], ['('], ['TUMBLE', 1], ['('], ['TABLE ', 1], ['pedidos, '], ['DESCRIPTOR', 1], ['(ts), '], ["INTERVAL '1' MINUTE", 1], ['))']]), code(283, 34, [['GROUP BY ', 1], ['window_start, window_end, loja']]));
+    L.push(this.arr(k(), 'M440 248 L480 248', 1.2, 0), this.tx(k(), 460, 229, T('a cada', 'every'), { s: 8.5, c: 'var(--color-accent-300)' }), this.tx(k(), 460, 240, T('janela', 'window'), { s: 8.5, c: 'var(--color-accent-300)' }));
+    const DX = 480; L.push(h('rect', { key: k(), x: DX, y: 44, width: 300, height: 262, rx: 10, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), DX + 16, 66, T('Painel · operação', 'Dashboard · operations'), { s: 12, w: 500, a: 'start', c: 'var(--color-text)' }), h('circle', { key: k(), cx: DX + 284, cy: 62, r: 4, style: { fill: 'var(--color-accent-300)', animation: 'npulse 1.4s ease-in-out infinite' } }), this.tx(k(), DX + 274, 66, T('ao vivo', 'live'), { s: 9.5, a: 'end', c: 'var(--color-accent-300)' }));
+    [[T('Pedidos/min', 'Orders/min'), '1.284', '▲ 6%'], [T('Receita/min', 'Revenue/min'), T('R$ 212 mil', 'R$ 212k'), '▲ 4%'], [T('Cancelamento', 'Cancellation'), '1,9%', T('limite 1,5%', 'limit 1.5%')]].forEach(([a, v, d], i) => { const x = DX + 16 + i * 92, al = i === 2;
+      L.push(h('rect', { key: k(), x, y: 80, width: 84, height: 62, rx: 6, style: { fill: al ? 'var(--color-accent-900)' : 'var(--color-bg)', stroke: al ? 'var(--color-accent-500)' : 'var(--color-neutral-700)', animation: al ? 'npulse 1.6s ease-in-out infinite' : 'none' } }), this.tx(k(), x + 10, 98, a, { s: 9, a: 'start', c: 'var(--color-neutral-400)' }), this.tx(k(), x + 10, 120, v, { s: 14, w: 500, a: 'start', c: al ? 'var(--color-accent-100)' : 'var(--color-text)' }), this.tx(k(), x + 10, 134, d, { s: 9, a: 'start', c: al ? 'var(--color-accent-300)' : 'var(--color-neutral-400)' })); });
+    L.push(this.tx(k(), DX + 16, 164, T('cancelamento por minuto', 'cancellation per minute'), { s: 9, a: 'start', c: 'var(--color-neutral-400)' }));
+    const vals = [1.1, 1.2, 1.0, 1.3, 1.2, 1.1, 1.4, 1.3, 1.2, 1.5, 1.7, 1.9], yv = v => 258 - (v - .8) * 62, xv = i => DX + 16 + i * 24.4;
+    L.push(h('line', { key: k(), x1: DX + 16, x2: DX + 284, y1: yv(1.5), y2: yv(1.5), style: { stroke: 'var(--color-accent-300)', strokeDasharray: '4 4', opacity: .7 } }), this.tx(k(), DX + 16, yv(1.5) - 5, T('limite', 'limit'), { s: 8.5, a: 'start', c: 'var(--color-accent-300)' }));
+    L.push(h('polyline', { key: k(), points: vals.map((v, i) => xv(i).toFixed(1) + ',' + yv(v).toFixed(1)).join(' '), style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.6, strokeLinejoin: 'round' } }), h('circle', { key: k(), cx: xv(11), cy: yv(1.9), r: 4, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 5px var(--color-accent))', animation: 'npulse 1.4s ease-in-out infinite' } }));
+    L.push(h('rect', { key: k(), x: DX + 16, y: 272, width: 268, height: 22, rx: 11, style: { fill: 'var(--color-accent-700)' } }), this.tx(k(), DX + 150, 287, T('alerta → squad de operações em 4 s', 'alert → operations squad in 4 s'), { s: 10, w: 500, c: 'var(--color-text)' }));
+    L.push(lab(20, 338, T('COLD PATH · HISTÓRICO SEM ETL', 'COLD PATH · HISTORY WITHOUT ETL'), 'start'));
+    L.push(this.bx(k(), 20, 350, 180, 50, T('Tópico pedidos', 'Orders topic'), ['Kafka · Confluent'], false), this.arr(k(), 'M200 375 L240 375', 1.4, 0), this.bx(k(), 240, 350, 200, 50, 'Tableflow', [T('o tópico vira tabela', 'the topic becomes a table')], true), this.arr(k(), 'M440 375 L480 375', 1.4, -.7), this.bx(k(), 480, 350, 300, 50, 'Apache Iceberg', ['Databricks · Snowflake · BigQuery · BI'], false));
+    L.push(this.tx(k(), 400, 428, T('o mesmo tópico alimenta o painel em segundos e o histórico para BI e modelos', 'the same topic feeds the dashboard in seconds and the history for BI and models'), { s: 10, i: 1, c: 'var(--color-neutral-400)' }));
     this._w = { eda: this.W('wa', T('Produtores, plataforma de eventos Confluent e consumidores, com governança transversal e garantias de produção', 'Producers, Confluent event platform and consumers, with cross-cutting governance and production guarantees'), A),
       legacy: this.W('wb', T('Quatro fases de modernização: capturar, coexistir, inverter e descomissionar', 'Four modernization phases: capture, coexist, invert and decommission'), B),
+      pipe: this.W('we', T('Um UPDATE no Oracle passa por CDC, validação de contrato no Schema Registry e enriquecimento no Flink até os destinos, em cerca de 800 ms', 'An Oracle UPDATE passes through CDC, Schema Registry contract validation and Flink enrichment to the sinks, in about 800 ms'), E),
+      live: this.W('wf', T('Hot path: eventos em janelas de 1 minuto no Flink SQL alimentam um painel ao vivo com alerta; cold path: o mesmo tópico vira tabela Iceberg via Tableflow', 'Hot path: events in 1-minute Flink SQL windows feed a live dashboard with alerting; cold path: the same topic becomes an Iceberg table via Tableflow'), L),
+      rtai: this.W('wd', T('Ciclo de um Streaming Agent: percebe o evento, busca contexto vivo no Real-Time Context Engine via MCP, raciocina com o LLM, age e devolve o resultado ao stream', 'A Streaming Agent loop: senses the event, pulls live context from the Real-Time Context Engine via MCP, reasons with the LLM, acts and returns the outcome to the stream'), D),
       gitops: this.W('wc', T('Fluxo GitOps: Git, CI, DSV, HML e PRD, com applier por ambiente', 'GitOps flow: Git, CI, DSV, HML and PRD, with an applier per environment'), G) };
     return this._w;
   }
-  renderVals() { const d = this.build(), w = this.wide(); return { diag0: w.eda, diag1: d[1], diag2: d[2], diag3: w.gitops, diag4: w.legacy, diag5: d[5] }; }
+  renderVals() { const d = this.build(), w = this.wide(); return { diag0: w.eda, diag1: w.pipe, diag2: w.live, diag3: w.gitops, diag4: w.legacy, diag5: w.rtai }; }
 }
 </script>
 </body>

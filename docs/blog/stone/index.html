@@ -36,7 +36,7 @@
 <style>
 @font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:radial-gradient(1200px 720px at 82% -160px,color-mix(in srgb,var(--color-accent-900) 75%,transparent),transparent 60%),var(--color-bg)}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
 a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
 @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
@@ -59,6 +59,14 @@ a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-a
 .nav-toggle:checked~.nav-burger .ic-menu{display:none}
 .nav-toggle:checked~.nav-burger .ic-x{display:block}
 .nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
 }
 .nl-form{display:flex;gap:8px;flex-wrap:wrap}
 .nl-form .input{flex:1 1 220px;min-width:0}

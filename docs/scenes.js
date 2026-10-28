@@ -5,7 +5,8 @@
     var ck = name + (pt ? ':pt' : ':en'); if (SC[ck]) return SC[ck];
     const h = R.createElement; let n = 0; const k = () => name + n++;
     const C = { a9: 'var(--color-accent-900)', a8: 'var(--color-accent-800)', a7: 'var(--color-accent-700)', a5: 'var(--color-accent-500)', a3: 'var(--color-accent-300)', a1: 'var(--color-accent-100)', n8: 'var(--color-neutral-800)', n7: 'var(--color-neutral-700)', n6: 'var(--color-neutral-600)', n5: 'var(--color-neutral-500)', n4: 'var(--color-neutral-400)', n3: 'var(--color-neutral-300)', n1: 'var(--color-neutral-100)', bg: 'var(--color-bg)' };
-    const tx = (x, y, s, o = {}) => h('text', { key: k(), x, y, textAnchor: o.a || 'middle', style: { fontFamily: 'var(--font-body)', fontSize: o.s || 9, letterSpacing: o.ls || '.08em', fill: o.c || C.n4, fontWeight: o.w || 400 } }, s);
+    const FM = window.matchMedia && matchMedia('(max-width:640px)').matches ? 1.2 : 1;
+    const tx = (x, y, s, o = {}) => h('text', { key: k(), x, y, textAnchor: o.a || 'middle', style: { fontFamily: 'var(--font-body)', fontSize: (o.s || 9) * FM, letterSpacing: FM > 1 ? '.04em' : (o.ls || '.08em'), fill: o.c || C.n4, fontWeight: o.w || 400 } }, s);
     const box = (x, y, w, hh, o = {}) => h('rect', { key: k(), x, y, width: w, height: hh, rx: o.rx ?? 6, fill: o.f || C.n8, stroke: o.s || C.n6, strokeWidth: o.sw || 1, strokeDasharray: o.d || 'none', opacity: o.o ?? 1 });
     const ln = (d, o = {}) => h('path', { key: k(), d, fill: 'none', stroke: o.s || C.a7, strokeWidth: o.w || 1.2, strokeDasharray: o.d || 'none', opacity: o.o ?? 1, strokeLinecap: 'round' });
     const dot = (path, dur, begin, r = 2.4, c = C.a1) => h('circle', { key: k(), r, fill: c, style: { filter: 'drop-shadow(0 0 4px var(--color-accent))' } }, h('animateMotion', { dur: dur + 's', begin: begin + 's', repeatCount: 'indefinite', path }));
