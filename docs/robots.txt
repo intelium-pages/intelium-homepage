@@ -1,4 +1,6 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://intelium.ai/sitemap.xml
+# Pre-launch. On domain cutover restore:
+# Allow: /
+# Sitemap: https://intelium.ai/sitemap.xml
