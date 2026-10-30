@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../../scenes.js"></script>
+<script src="../../../support.js"></script>
+<script src="../../../viz.js" data-early=""></script>
+<script src="../../../lead-api.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Sainsbury’s: the real-time supply chain that doubled engineering efficiency · Intelium Blog</title>
+<meta name="description" content="How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records.">
+<link rel="canonical" href="https://intelium.ai/en/blog/sainsburys/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/blog/sainsburys/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/blog/sainsburys/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/blog/sainsburys/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Sainsbury’s: the real-time supply chain that doubled engineering efficiency · Intelium Blog">
+<meta property="og:description" content="How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records.">
+<meta property="og:url" content="https://intelium.ai/en/blog/sainsburys/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Sainsbury’s: the real-time supply chain that doubled engineering efficiency","description":"How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records.","inLanguage":"en","url":"https://intelium.ai/en/blog/sainsburys/","author":{"@type":"Organization","name":"Intelium"},"publisher":{"@type":"Organization","name":"Intelium","url":"https://intelium.ai/"},"citation":"https://www.confluent.io/customers/sainsburys/"}</script>
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../assets/ds/styles.css">
+
+<script src="../../../assets/ds/ds-bundle.js"></script>
+<script src="../../../viz.js"></script>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../../assets/fonts/inter-latin.woff2) format('woff2')}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-240}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)">About</a>
+<a href="../../../en/services/index.html" style="color:var(--color-neutral-200)">Services</a>
+<a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../../en/labs/index.html" style="color:var(--color-neutral-200)">Labs</a>
+<a href="../../../en/events/index.html" style="color:var(--color-neutral-200)">Events</a>
+<a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../../en/blog/index.html" style="color:var(--color-text)">Blog</a>
+<a href="../../../en/contact/index.html" style="color:var(--color-neutral-200)">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="../../../blog/index.html" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:20px">
+<a href="../../../en/blog/business/index.html" style="font-size:14px;animation:rise 1s cubic-bezier(.2,.7,.2,1) both">← Business use cases</a>
+<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;animation:rise 1s cubic-bezier(.2,.7,.2,1) .05s both"><span class="tag tag-accent">Legacy modernization</span><span class="tag tag-neutral">Grocery · UK</span><span style="font-size:12px;color:var(--color-neutral-400)">7 min read</span></div>
+<h1 style="margin:0 0 0 -.03em;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.12;letter-spacing:-.02em;max-width:880px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Sainsbury’s: the real-time supply chain that doubled engineering efficiency</h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:720px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .3s both">How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records.</p>
+</div>
+</header>
+<article style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:40px">
+<div style="position:relative;width:100%;max-width:880px;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);background:var(--color-neutral-800)">{{ cover }}</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:40px;max-width:720px">
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Context</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Sainsbury’s is one of the pioneers of British grocery retail, founded in 1869, and the UK’s second-largest grocer, with more than 1,400 stores. The business’s success depends on the flexibility of its supply chain and logistics: product availability on the shelf is what defines margin, customer experience and retention.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">To support customer-facing initiatives, improve operational analytics and overhaul the supply chain’s digital systems, the company needed a modern data infrastructure that would transform its legacy architecture without interrupting the daily operation of hundreds of stores.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">The problem</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Legacy databases were slowing innovation. Sainsbury’s needed to handle huge event volumes and a platform that allowed real-time data access and connections between several databases and logistics systems. Every new integration on top of the legacy was slow, expensive and risky.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Demand forecasting, essential for replenishment and for cutting waste in fresh food, depended on data that arrived late and incomplete. Without real-time data, any machine-learning model was operating on yesterday’s reality.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">The solution</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Sainsbury’s chose Confluent as the streaming backbone of its digital transformation program, in a fully managed, cloud-native setup on AWS. The platform freed data from legacy systems and enabled a gradual transition to the cloud with no impact on daily operations.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">On top of those streams, the company acquired a SaaS forecasting solution with machine learning, trained on three years of history, about 600 billion rows of records, which now move alongside the new real-time streams. According to the program lead, Confluent gave the support needed to implement this and the tools to turn data into actionable insights for supply chain and commercial operations.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Results</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Cost savings observed across the whole supply chain. Engineering development efficiency more than doubled thanks to real-time data streams. 20+ sprint hours saved with Confluent’s managed support. Better forecasting and supply-chain management, with simple connections to AWS services.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">For Sainsbury’s senior engineering manager, “in retail, everything is becoming data-driven. It’s no longer just a facet of IT, it’s quickly become essential to the entire business. Kafka has become a company-wide nervous system for us, and Confluent has really taken it to the next level.”</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">What this means for your team</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Legacy modernization does not require a big bang. Sainsbury’s path is what we call waves: capture legacy data through CDC and connectors, let new systems coexist with the old ones, invert the dependency when the new becomes the source of truth and only then switch off what remains. That is how we structure our migration projects.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">The 600-billion-row figure matters for another reason: the same stream that feeds operations feeds the forecasting model. There is no separate pipeline for real time and another for AI. That is what we argue for when we talk about Real-Time AI.</p></section>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:24px;background:linear-gradient(to right,var(--color-neutral-700),transparent) top/100% 1px no-repeat"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Source</span><a href="https://www.confluent.io/customers/sainsburys/" target="_blank" rel="noopener" style="font-size:14px;word-break:break-all">www.confluent.io/customers/sainsburys/ ↗</a><span style="font-size:13px;line-height:20px;color:var(--color-neutral-400)">Public case documented by Confluent. Summary and reading by Intelium.</span></div>
+<div class="card" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px"><span style="font-size:16px;font-weight:500">Want to apply this in your context?</span><a href="../../../en/contact/index.html" class="btn btn-primary">Talk to the CoE →</a></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:20px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">More use cases</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ more }}" as="u" hint-placeholder-count="3">
+<a href="{{ u.href }}" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ u.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">{{ u.tag }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ u.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ u.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ u.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Read use case<span aria-hidden="true">→</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+</article>
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Monthly: what changed in Confluent, Kafka and Flink, and what it means for teams running streaming in production.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="you@company.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Subscribe</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Thanks. You are on the list for the next issue.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="../../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return en; }
+  scene(name, pt) { return window.InteliumScene ? window.InteliumScene(name, pt, React) : null; }
+  cover(kind, seed) { return window.InteliumCover ? window.InteliumCover(kind, seed, React) : null; }
+  renderVals() { return { cover: this.scene('supply', false), more: [{"href":"../../../en/blog/ifood/index.html","scene":"delivery","tag":"Event-driven pipelines","meta":"Delivery · Brazil","t":"iFood: from batch pipelines to 60 million real-time orders a month","d":"How iFood decoupled 2,000 microservices, left MSK and started tracking deliveries and orders per second with Confluent Cloud."},{"href":"../../../en/blog/stone/index.html","scene":"payments","tag":"Streaming platform","meta":"Payments · Brazil","t":"Stone: from a patchwork of systems to one event platform for 1,500 developers","d":"How Stone’s platform team standardized card, PIX and virtual-payment streaming on Confluent Cloud."},{"href":"../../../en/blog/walmart/index.html","scene":"retail","tag":"Real-time analytics","meta":"Retail · global","t":"Walmart: real-time inventory and replenishment on 500 million events a day","d":"How the world’s largest retailer replaced batch inventory and replenishment with streaming so stores never run out."}].map(u => ({ ...u, cover: this.scene(u.scene, false) })) }; }
+}
+</script>
+</body>
+</html>
