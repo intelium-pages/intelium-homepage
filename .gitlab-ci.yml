@@ -1,0 +1,88 @@
+# Excelium Website — GitLab CI/CD (Next.js 16)
+# Builds & validates the app on every push and merge request.
+# Deploy is scaffolded below as a manual job — wire it to your host (see notes).
+
+stages:
+  - build
+  - test
+  - deploy
+
+default:
+  image: node:22-bookworm-slim
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+      - .next/cache/
+
+variables:
+  NEXT_TELEMETRY_DISABLED: "1"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  GITLAB_ADVANCED_SAST_ENABLED: true
+  AST_ENABLE_MR_PIPELINES: true
+  SAST_EXCLUDED_PATHS: "spec, test, tests, tmp, .next, node_modules, dist, build"
+  DS_STATIC_REACHABILITY_ENABLED: true
+
+
+# Avoid duplicate pipelines (branch + MR) for the same commit.
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+# Include GitLab security scanning templates
+# These templates automatically create jobs for SAST, Secret Detection, and Dependency Scanning
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.v2.gitlab-ci.yml
+
+# Nothing was being linted between the Next 16 upgrade and 2026-07-30: the
+# script still called the removed `next lint`. Now a real ESLint run, in the
+# test stage so a failure does not block the build artifact.
+lint:
+  stage: test
+  interruptible: true
+  needs: []
+  script:
+    - npm ci --prefer-offline --no-audit --no-fund
+    - npm run lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+
+# node:test, no extra dependency. Covers the www -> apex redirect that server.js
+# answers before Next (lib/www-redirect.cjs), and checks that data/lastmod.json
+# matches the git history, which needs a full clone and the git binary (the
+# slim image has none).
+test:
+  stage: test
+  interruptible: true
+  needs: []
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends git > /dev/null
+    - npm ci --prefer-offline --no-audit --no-fund
+    - npm test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+
+build:
+  stage: build
+  interruptible: true
+  script:
+    - npm ci --prefer-offline --no-audit --no-fund
+    - npm run build
+  artifacts:
+    paths:
+      - .next/
+    expire_in: 1 week
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
