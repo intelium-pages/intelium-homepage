@@ -1,6 +1,7 @@
-# Excelium Website — GitLab CI/CD (Next.js 16)
+# Intelium website — GitLab CI (Next.js 16, static export to out/)
 # Builds & validates the app on every push and merge request.
-# Deploy is scaffolded below as a manual job — wire it to your host (see notes).
+# Deploy is not done here: Hostinger's Git auto-deploy builds main and
+# publishes out/ to public_html on every push.
 
 stages:
   - build
@@ -41,9 +42,7 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.v2.gitlab-ci.yml
 
-# Nothing was being linted between the Next 16 upgrade and 2026-07-30: the
-# script still called the removed `next lint`. Now a real ESLint run, in the
-# test stage so a failure does not block the build artifact.
+# ESLint in the test stage so a failure does not block the build artifact.
 lint:
   stage: test
   interruptible: true
@@ -55,19 +54,13 @@ lint:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH
 
-# node:test, no extra dependency. Covers the www -> apex redirect that server.js
-# answers before Next (lib/www-redirect.cjs), and checks that data/lastmod.json
-# matches the git history, which needs a full clone and the git binary (the
-# slim image has none).
+# node:test, no extra dependency. Checks the static export that Hostinger
+# publishes (tests/export.test.mjs), so it runs on the build job's out/.
 test:
   stage: test
   interruptible: true
-  needs: []
-  variables:
-    GIT_DEPTH: 0
+  needs: [build]
   script:
-    - apt-get update -qq && apt-get install -y -qq --no-install-recommends git > /dev/null
-    - npm ci --prefer-offline --no-audit --no-fund
     - npm test
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -81,7 +74,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - .next/
+      - out/
     expire_in: 1 week
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

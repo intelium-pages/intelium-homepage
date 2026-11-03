@@ -17,11 +17,16 @@ npm run dev       # http://localhost:3000
 npm run build     # gera a pasta out/
 npm run preview   # serve out/ em http://localhost:4173
 npm run package   # build + intelium-site.zip pronto para upload
+npm test          # testa o export em out/ (rode o build antes)
 ```
+
+O CI do GitLab (`.gitlab-ci.yml`) roda build, lint, `npm test` e os scans de segurança em cada push e MR.
 
 ## Deploy no Hostinger
 
-> **Atenção:** intelium.ai tem o deploy automático do Git ativo no Hostinger para a branch `main` deste repositório. Ele copia o repositório do jeito que está para `public_html/`, sem rodar o build. Com o código Next.js na `main`, o push publicaria o código-fonte em vez do site. Antes do merge, desative esse deploy automático no hPanel (ou troque por um deploy que rode `npm run build` e publique `out/`) e use o upload manual abaixo.
+O deploy é automático: a cada push na `main`, o Hostinger clona o repositório, roda `npm install` e `npm run build` (Node 22) e publica a pasta `out/` em `public_html/`. As configurações de build ficam no site (tipo de app `react`, isto é, frontend estático; o tipo `next` tentaria subir um servidor, que não existe com `output: "export"`).
+
+### Upload manual (alternativa)
 
 1. `npm run package`
 2. hPanel → **Sites** → intelium.ai → **Gerenciador de Arquivos** → `public_html/`
@@ -45,6 +50,8 @@ components/
 public/
   assets/             logo e isotipo
   .htaccess           config Apache/LiteSpeed do Hostinger
+tests/
+  export.test.mjs     testes do export estático (node:test)
 ```
 
 Keyframes usados por CSS Modules ficam no próprio módulo: o Turbopack renomeia nomes de animação dentro de `*.module.css`, então um keyframe global não seria encontrado. Só `dash` e `npulse`, usados em estilos inline do SVG, ficam em `globals.css`.
