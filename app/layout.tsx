@@ -9,9 +9,9 @@ const inter = localFont({
   variable: "--font-inter",
 });
 
-const title = "Intelium · Novo site em construção";
+const title = "Intelium · Centro de excelência em Data Streaming, Apache Kafka e Confluent";
 const description =
-  "O centro de excelência em Data Streaming está ganhando um novo site. Arquitetura, entrega e operação de Apache Kafka e Confluent para IA em Tempo Real.";
+  "Especialistas em Apache Kafka, Confluent e Real-Time AI. Arquitetura, entrega e operação de plataformas de Data Streaming.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://intelium.ai"),

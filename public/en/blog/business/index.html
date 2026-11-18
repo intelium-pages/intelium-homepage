@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../../scenes.js"></script>
+<script src="../../../support.js"></script>
+<script src="../../../viz.js" data-early=""></script>
+<script src="../../../lead-api.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Business use cases of Data Streaming · Intelium Blog</title>
+<meta name="description" content="Public cases of companies running data streaming in production, read from the decision maker’s point of view.">
+<link rel="canonical" href="https://intelium.ai/en/blog/business/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/blog/negocio/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/blog/business/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/blog/negocio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Business use cases of Data Streaming · Intelium Blog">
+<meta property="og:description" content="Public cases of companies running data streaming in production, read from the decision maker’s point of view.">
+<meta property="og:url" content="https://intelium.ai/en/blog/business/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../assets/ds/styles.css">
+
+<script src="../../../assets/ds/ds-bundle.js"></script>
+<script src="../../../viz.js"></script>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../../assets/fonts/inter-latin.woff2) format('woff2')}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-240}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)">About</a>
+<a href="../../../en/services/index.html" style="color:var(--color-neutral-200)">Services</a>
+<a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../../en/labs/index.html" style="color:var(--color-neutral-200)">Labs</a>
+<a href="../../../en/events/index.html" style="color:var(--color-neutral-200)">Events</a>
+<a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../../en/blog/index.html" style="color:var(--color-text)">Blog</a>
+<a href="../../../en/contact/index.html" style="color:var(--color-neutral-200)">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="../../../blog/index.html" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Business use cases</span>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:980px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Data streaming <span style="color:var(--color-accent-300)">in production, by industry.</span></h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">Public cases of companies running data streaming in production, read from the decision maker’s point of view.</p>
+</div>
+</header>
+<section style="max-width:1200px;margin:0 auto;padding:clamp(24px,3vw,40px) clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:28px">
+<a href="../../../en/blog/index.html" style="font-size:14px">← Blog</a>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400);min-width:72px">Partner</span>
+<sc-for list="{{ partners }}" as="f" hint-placeholder-count="4">
+<sc-if value="{{ f.active }}" hint-placeholder-val="{{ false }}"><button type="button" aria-pressed="true" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:6px 14px;border-radius:999px;border:0;cursor:pointer;background:var(--color-accent-800);color:var(--color-accent-100);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.idle }}" hint-placeholder-val="{{ true }}"><button type="button" aria-pressed="false" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:6px 14px;border-radius:999px;border:0;cursor:pointer;background:transparent;color:var(--color-neutral-200);box-shadow:inset 0 0 0 1px var(--color-neutral-600)" style-hover="color:var(--color-text);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+</sc-for></div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400);min-width:72px">Sector</span>
+<sc-for list="{{ sectors }}" as="f" hint-placeholder-count="4">
+<sc-if value="{{ f.active }}" hint-placeholder-val="{{ false }}"><button type="button" aria-pressed="true" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:6px 14px;border-radius:999px;border:0;cursor:pointer;background:var(--color-accent-800);color:var(--color-accent-100);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.idle }}" hint-placeholder-val="{{ true }}"><button type="button" aria-pressed="false" onClick="{{ f.pick }}" style="font:inherit;font-size:13px;line-height:18px;padding:6px 14px;border-radius:999px;border:0;cursor:pointer;background:transparent;color:var(--color-neutral-200);box-shadow:inset 0 0 0 1px var(--color-neutral-600)" style-hover="color:var(--color-text);box-shadow:inset 0 0 0 1px var(--color-accent-500)">{{ f.label }}</button></sc-if>
+</sc-for></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ useCases }}" as="u" hint-placeholder-count="6">
+<a href="{{ u.href }}" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ u.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-accent" style="white-space:nowrap">{{ u.tag }}</span><span class="tag tag-outline" style="white-space:nowrap">{{ u.partnerLabel }}</span></span><span style="font-size:12px;color:var(--color-neutral-400);white-space:nowrap">{{ u.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ u.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ u.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Read use case<span aria-hidden="true">→</span></div>
+</a>
+</sc-for>
+</div>
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:20px 22px;border-radius:var(--radius-lg);background:var(--color-neutral-800);box-shadow:inset 0 0 0 1px var(--color-neutral-700)"><span style="font-size:15px;color:var(--color-neutral-200)">No use cases for this combination.</span><button type="button" class="btn btn-secondary" onClick="{{ resetFilters }}" style="padding:6px 14px;font-size:13px">Clear filters</button></div></sc-if>
+</section>
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Monthly: what changed in Confluent, Kafka and Flink, and what it means for teams running streaming in production.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="you@company.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Subscribe</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Thanks. You are on the list for the next issue.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="../../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { partner: 'all', sector: 'all' };
+  filtered(list) { const p = this.state.partner, s = this.state.sector; return list.filter(u => (p === 'all' || u.partner === p) && (s === 'all' || u.sec === s)); }
+  mk(key, all, labels, present) { const cur = this.state[key]; return ['all', ...present].map(v => ({ label: v === 'all' ? all : labels[v], active: cur === v, idle: cur !== v, pick: () => this.setState({ [key]: v }) })); }
+  t(pt, en) { return en; }
+  scene(name, pt) { return window.InteliumScene ? window.InteliumScene(name, pt, React) : null; }
+  cover(kind, seed) { return window.InteliumCover ? window.InteliumCover(kind, seed, React) : null; }
+  renderVals() { return { useCases: this.filtered([{"href":"../../../en/blog/citizens-bank/index.html","scene":"citizens","tag":"Fraud","meta":"Banking · US","t":"Citizens Bank: from fraud found two weeks later to real-time blocking","d":"How a US regional bank cut fraud false positives by 15% and saves more than US$1 million a year with data streaming.","sec":"fin","partner":"confluent"},{"href":"../../../en/blog/michelin/index.html","scene":"mobility","tag":"Legacy modernization","meta":"Manufacturing · France","t":"Michelin: 35% savings by moving Kafka to Confluent Cloud","d":"How the tire maker scaled Kafka, adopted cloud-native streaming and started running inventory in real time.","sec":"ind","partner":"confluent"},{"href":"../../../en/blog/deutsche-bahn/index.html","scene":"rail","tag":"Logistics","meta":"Rail · Germany","t":"Deutsche Bahn: 180 million events a day to inform 5.7 million passengers","d":"How the German railway built a single source of truth for departures, platforms and delays with Kafka and Kafka Streams.","sec":"log","partner":"confluent"},{"href":"../../../en/blog/bri/index.html","scene":"credit","tag":"Real-time credit","meta":"Banking · Indonesia","t":"Bank Rakyat Indonesia: loans paid out in two minutes with real-time credit scoring","d":"How Indonesia’s largest bank used event-driven systems to decide on credit at the moment of the request.","sec":"fin","partner":"confluent"},{"href":"../../../en/blog/bt-group/index.html","scene":"eventmesh","tag":"Event mesh","meta":"Telecom · UK","t":"BT Group: an event mesh across a telco’s entire hybrid cloud","d":"How the British operator built a governed streaming backbone across on-premises, AWS, GCP and SaaS.","sec":"tel","partner":"confluent"},{"href":"../../../en/blog/city-of-hope/index.html","scene":"hospital","tag":"Real-Time AI","meta":"Healthcare · US","t":"City of Hope: real-time sepsis prediction for bone marrow transplant patients","d":"How one of the largest cancer centers in the US uses Kafka and Confluent Cloud to feed AI models with live clinical data.","sec":"sau","partner":"confluent"},{"href":"../../../en/blog/loreal/index.html","scene":"beauty","tag":"Event-driven","meta":"Retail · France","t":"L’Oréal: data streaming at global scale for time-sensitive operations","d":"How the world’s largest beauty group modernized its architecture and started moving data in real time between systems and applications.","sec":"var","partner":"confluent"},{"href":"../../../en/blog/ifood/index.html","scene":"delivery","tag":"Event-driven pipelines","meta":"Delivery · Brazil","t":"iFood: from batch pipelines to 60 million real-time orders a month","d":"How iFood decoupled 2,000 microservices, left MSK and started tracking deliveries and orders per second with Confluent Cloud.","sec":"log","partner":"confluent"},{"href":"../../../en/blog/stone/index.html","scene":"payments","tag":"Streaming platform","meta":"Payments · Brazil","t":"Stone: from a patchwork of systems to one event platform for 1,500 developers","d":"How Stone’s platform team standardized card, PIX and virtual-payment streaming on Confluent Cloud.","sec":"fin","partner":"confluent"},{"href":"../../../en/blog/walmart/index.html","scene":"retail","tag":"Real-time analytics","meta":"Retail · global","t":"Walmart: real-time inventory and replenishment on 500 million events a day","d":"How the world’s largest retailer replaced batch inventory and replenishment with streaming so stores never run out.","sec":"var","partner":"confluent"},{"href":"../../../en/blog/sainsburys/index.html","scene":"supply","tag":"Legacy modernization","meta":"Grocery · UK","t":"Sainsbury’s: the real-time supply chain that doubled engineering efficiency","d":"How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records.","sec":"var","partner":"confluent"},{"href":"../../../en/blog/instacart/index.html","scene":"scale","tag":"Streaming platform","meta":"E-commerce · US","t":"Instacart: ten years of growth in six weeks without redoing the architecture","d":"How the streaming platform absorbed half a million new customers in weeks and kept inventory accurate across 59,000 locations.","sec":"var","partner":"confluent"},{"href":"../../../en/blog/capital-one/index.html","scene":"fraud","tag":"Real-Time AI","meta":"Banking · US","t":"Capital One: real-time banking experiences for 100 million customers","d":"How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity.","sec":"fin","partner":"confluent"},{"href":"../../../en/blog/vortexa/index.html","scene":"lenses","tag":"Kafka observability","meta":"Energy · UK","t":"Vortexa: 15% fewer Kafka management hours and deploys in minutes","d":"How an energy analytics company gained visibility over its real-time data flows with Lenses on Amazon MSK.","sec":"log","partner":"lenses"},{"href":"../../../en/blog/viseca/index.html","scene":"devspeed","tag":"Developer experience","meta":"Payments · Switzerland","t":"Viseca: streaming apps delivered 10 times faster in a regulated environment","d":"How a Swiss payments provider took an event-driven marketing platform to production in under a year.","sec":"fin","partner":"lenses"},{"href":"../../../en/blog/avanza/index.html","scene":"gov","tag":"Data governance","meta":"Investments · Sweden","t":"Avanza: 20 teams on Kafka without giving up data protection","d":"How the Swedish investment platform separated operations from analytics and safely opened data to developers and analysts.","sec":"fin","partner":"lenses"},{"href":"../../../en/blog/playtika/index.html","scene":"teams","tag":"Engineering productivity","meta":"Gaming · Israel","t":"Playtika: 300 engineering hours gained per day with Kafka observability","d":"How a mobile gaming company with thousands of developers made Kafka productive for every team.","sec":"tec","partner":"lenses"}]).map(u => ({ ...u, partnerLabel: {"confluent":"Confluent","lenses":"Lenses.io"}[u.partner], cover: this.scene(u.scene, false) })), partners: this.mk('partner', "All", {"confluent":"Confluent","lenses":"Lenses.io"}, ['confluent','lenses']), sectors: this.mk('sector', "All", {"fin":"Financial","var":"Retail","ind":"Manufacturing","log":"Logistics","sau":"Healthcare","tel":"Telecom","tec":"Technology"}, ["fin","ind","log","tel","sau","var","tec"]), empty: this.filtered([{"sec":"fin","partner":"confluent"},{"sec":"ind","partner":"confluent"},{"sec":"log","partner":"confluent"},{"sec":"fin","partner":"confluent"},{"sec":"tel","partner":"confluent"},{"sec":"sau","partner":"confluent"},{"sec":"var","partner":"confluent"},{"sec":"log","partner":"confluent"},{"sec":"fin","partner":"confluent"},{"sec":"var","partner":"confluent"},{"sec":"var","partner":"confluent"},{"sec":"var","partner":"confluent"},{"sec":"fin","partner":"confluent"},{"sec":"log","partner":"lenses"},{"sec":"fin","partner":"lenses"},{"sec":"fin","partner":"lenses"},{"sec":"tec","partner":"lenses"}]).length === 0, resetFilters: () => this.setState({ partner: 'all', sector: 'all' })}; }
+}
+</script>
+</body>
+</html>

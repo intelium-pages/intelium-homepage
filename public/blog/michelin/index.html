@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../scenes.js"></script>
+<script src="../../support.js"></script>
+<script src="../../viz.js" data-early=""></script>
+<script src="../../lead-api.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Michelin: 35% de economia ao levar Kafka para o Confluent Cloud · Intelium Blog</title>
+<meta name="description" content="Como a fabricante de pneus escalou o Kafka, adotou streaming cloud-native e passou a operar inventário em tempo real.">
+<link rel="canonical" href="https://intelium.ai/blog/michelin/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/blog/michelin/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/blog/michelin/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/blog/michelin/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Michelin: 35% de economia ao levar Kafka para o Confluent Cloud · Intelium Blog">
+<meta property="og:description" content="Como a fabricante de pneus escalou o Kafka, adotou streaming cloud-native e passou a operar inventário em tempo real.">
+<meta property="og:url" content="https://intelium.ai/blog/michelin/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Michelin: 35% de economia ao levar Kafka para o Confluent Cloud","description":"Como a fabricante de pneus escalou o Kafka, adotou streaming cloud-native e passou a operar inventário em tempo real.","inLanguage":"pt-BR","url":"https://intelium.ai/blog/michelin/","author":{"@type":"Organization","name":"Intelium"},"publisher":{"@type":"Organization","name":"Intelium","url":"https://intelium.ai/"},"citation":"https://www.confluent.io/customers/michelin/"}</script>
+<script>document.documentElement.lang='pt-BR'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../assets/ds/styles.css">
+
+<script src="../../assets/ds/ds-bundle.js"></script>
+<script src="../../viz.js"></script>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-240}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../sobre/index.html" style="color:var(--color-neutral-200)">Sobre</a>
+<a href="../../servicos/index.html" style="color:var(--color-neutral-200)">Serviços</a>
+<a href="../../cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../labs/index.html" style="color:var(--color-neutral-200)">Labs</a>
+<a href="../../eventos/index.html" style="color:var(--color-neutral-200)">Eventos</a>
+<a href="../../academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../blog/index.html" style="color:var(--color-text)">Blog</a>
+<a href="../../contato/index.html" style="color:var(--color-neutral-200)">Contato</a>
+<span style="display:flex;gap:6px;align-items:center"><span title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></span><a href="../../en/blog/index.html" title="English (US)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></a></span>
+</div>
+</nav>
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:20px">
+<a href="../../blog/negocio/index.html" style="font-size:14px;animation:rise 1s cubic-bezier(.2,.7,.2,1) both">← Use cases de negócio</a>
+<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;animation:rise 1s cubic-bezier(.2,.7,.2,1) .05s both"><span class="tag tag-accent">Modernização de legado</span><span class="tag tag-neutral">Indústria · França</span><span style="font-size:12px;color:var(--color-neutral-400)">5 min de leitura</span></div>
+<h1 style="margin:0 0 0 -.03em;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.12;letter-spacing:-.02em;max-width:880px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Michelin: 35% de economia ao levar Kafka para o Confluent Cloud</h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:720px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .3s both">Como a fabricante de pneus escalou o Kafka, adotou streaming cloud-native e passou a operar inventário em tempo real.</p>
+</div>
+</header>
+<article style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(64px,8vw,104px);display:flex;flex-direction:column;gap:40px">
+<div style="position:relative;width:100%;max-width:880px;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);background:var(--color-neutral-800)">{{ cover }}</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:40px;max-width:720px">
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Contexto</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">A Michelin é uma das maiores fabricantes de pneus do mundo e vem se reposicionando como empresa de soluções de mobilidade sustentável, com serviços baseados em dados como a previsão de quando um pneu precisa ser trocado e as melhores rotas para economizar combustível.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">O problema</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">A empresa já usava Kafka, mas operar a plataforma por conta própria em escala global consumia tempo e custo do time. Cada nova aplicação dependia de capacidade, upgrades e suporte que competiam com o trabalho de produto.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">A solução</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">Segundo a Confluent, a Michelin levou suas implantações de Kafka para o Confluent Cloud e passou a tratar o streaming como peça essencial da infraestrutura de dados, liberando dados para circular em tempo real entre sistemas. Com essa base, a empresa sustenta gestão de inventário em tempo real e uma experiência omnichannel, e caminha para um sistema de informação orientado a eventos.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">Resultados</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">A Confluent documenta 35% de economia com o Kafka no Confluent Cloud em comparação à operação anterior, além do inventário em tempo real e da experiência omnichannel. O CIO digital do grupo descreve o Confluent Cloud como parte essencial da infraestrutura de dados da empresa.</p></section>
+<section style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-weight:500;font-size:22px;line-height:30px;letter-spacing:-.01em">O que isso diz para quem opera no Brasil</h2><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">A conta da Michelin é a que mais aparece nos nossos assessments: o custo do Kafka self-managed não está só nas máquinas, e sim nas horas de engenharia gastas em upgrade, capacidade e incidente. Quando esse custo é colocado lado a lado com o serviço gerenciado, a migração costuma se pagar.</p><p style="margin:0;font-size:17px;line-height:28px;color:var(--color-neutral-100)">O ponto de atenção é o caminho: migrar com Cluster Linking, sem janela de parada e com os consumidores trocando de cluster por etapas.</p></section>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:24px;background:linear-gradient(to right,var(--color-neutral-700),transparent) top/100% 1px no-repeat"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Fonte</span><a href="https://www.confluent.io/customers/michelin/" target="_blank" rel="noopener" style="font-size:14px;word-break:break-all">www.confluent.io/customers/michelin/ ↗</a><span style="font-size:13px;line-height:20px;color:var(--color-neutral-400)">Caso público documentado pela Confluent. Resumo e leitura da Intelium.</span></div>
+<div class="card" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px"><span style="font-size:16px;font-weight:500">Quer aplicar isso no seu contexto?</span><a href="../../contato/index.html" class="btn btn-primary">Falar com o CoE →</a></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:20px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Mais use cases</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ more }}" as="u" hint-placeholder-count="3">
+<a href="{{ u.href }}" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ u.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent" style="white-space:nowrap">{{ u.tag }}</span><span style="font-size:12px;color:var(--color-neutral-400);white-space:nowrap">{{ u.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ u.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ u.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Ler use case<span aria-hidden="true">→</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+</article>
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Mensal: o que mudou em Confluent, Kafka e Flink e o que isso significa para quem roda streaming em produção.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="voce@empresa.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Assinar</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Obrigado. Você está na lista para a próxima edição.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../sobre/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Sobre</a><a href="../../servicos/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Serviços</a><a href="../../cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../eventos/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Eventos</a><a href="../../labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contato</span>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="../../contato/index.html" style="font-size:15px;margin-top:6px">Fale com o CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return pt; }
+  scene(name, pt) { return window.InteliumScene ? window.InteliumScene(name, pt, React) : null; }
+  cover(kind, seed) { return window.InteliumCover ? window.InteliumCover(kind, seed, React) : null; }
+  renderVals() { return { cover: this.scene('mobility', true), more: [{"href":"../../blog/deutsche-bahn/index.html","scene":"rail","tag":"Logística","meta":"Ferrovias · Alemanha","t":"Deutsche Bahn: 180 milhões de eventos por dia para informar 5,7 milhões de passageiros","d":"Como a ferrovia alemã criou uma fonte única da verdade para horários, plataformas e atrasos com Kafka e Kafka Streams."},{"href":"../../blog/bri/index.html","scene":"credit","tag":"Crédito em tempo real","meta":"Bancos · Indonésia","t":"Bank Rakyat Indonesia: empréstimo liberado em dois minutos com score de crédito em tempo real","d":"Como o maior banco da Indonésia usou sistemas orientados a eventos para decidir crédito no momento do pedido."},{"href":"../../blog/bt-group/index.html","scene":"eventmesh","tag":"Malha de eventos","meta":"Telecom · Reino Unido","t":"BT Group: uma malha de eventos para toda a nuvem híbrida de uma telecom","d":"Como a operadora britânica construiu um backbone de streaming governado entre on-premises, AWS, GCP e SaaS."}].map(u => ({ ...u, cover: this.scene(u.scene, true) })) }; }
+}
+</script>
+</body>
+</html>
