@@ -42,6 +42,29 @@ Para aplicar uma exportação sem publicar: `npm run sync-site -- /caminho/da/ex
 
 Um push direto na `main` do GitLab publica em produção na hora. Use sempre os comandos acima.
 
+## O que a publicação faz com as páginas
+
+As páginas em `public/` ficam como o Claude Design exportou: um template que um script (`support.js`) monta no navegador. No build, `scripts/site-transform.mjs` gera em `out/` a versão publicada, nos dois ambientes:
+
+| Etapa | O que faz |
+|---|---|
+| Links internos | `./pasta/index.html` vira `./pasta/`, igual ao canonical e ao sitemap |
+| Títulos e descrições | vêm de `seo/meta.json` (até 60 e 155 caracteres) |
+| Dados estruturados | `BreadcrumbList` em todas as páginas internas; `Service`, `AboutPage`, `ContactPage` e `CollectionPage` conforme `seo/schema.json` |
+| `<head>` | título, meta, canonical, hreflang, CSS e JSON-LD saem do `<body>` e vão para o `<head>` |
+| React | servido de `/vendor/`, não mais do `unpkg.com` |
+| Prerender | o HTML já renderizado vira o conteúdo real da página; o template fica num `<template>` e o script assume ao carregar |
+
+O prerender precisa de um navegador, então é feito na publicação, não no build:
+
+```bash
+npm run prerender     # renderiza as 62 páginas e grava prerender/**/page.json
+```
+
+Os snapshots são versionados. Os builds do GitHub, do GitLab e da Hostinger só encaixam o snapshot na página, sem abrir navegador. Cada snapshot guarda o hash da página que o gerou: se `public/`, `seo/` ou os transforms mudarem, a página sai sem prerender e **os testes falham** até rodar `npm run prerender` de novo. Requer Playwright (`npm i -g playwright && npx playwright install chromium`); o `publicar:teste` roda esse passo sozinho quando o Playwright está instalado.
+
+Para mudar um título ou uma descrição, edite `seo/meta.json`, rode `npm run prerender` e publique.
+
 ## Desenvolvimento
 
 ```bash
@@ -83,7 +106,13 @@ public/
 scripts/
   postbuild.mjs       bloqueia buscadores no build de teste
   sync-site.mjs       troca o conteúdo de public/ por uma exportação nova
+  site-transform.mjs  links, títulos, dados estruturados, head, React e prerender (roda no build)
+  prerender.mjs       gera os snapshots de prerender (precisa de navegador)
   publicar.sh         publicação em teste e em produção (npm run publicar:*)
+seo/
+  meta.json           títulos e descrições por rota
+  schema.json         dados estruturados
+prerender/            snapshots das páginas renderizadas (gerados, versionados)
 tests/
   export.test.mjs     testes do export (node:test)
 .github/workflows/    deploy de teste no GitHub Pages
@@ -100,4 +129,18 @@ tests/
 - A 404 existe e nunca é indexada
 - A indexação bate com o ambiente (liberada em produção, bloqueada no teste)
 - Cada ambiente grava os formulários no seu próprio banco; o teste nunca alcança o de produção
+- Toda página está prerenderizada, sem `{{ }}` no HTML visível
+- Título (até 60) e descrição (70 a 155) estão no `<head>`, com canonical
+- Nenhum link interno termina em `index.html`
+- Os dados estruturados são JSON válido e cobrem todas as páginas
+- O React vem do próprio site, com os arquivos esperados
 - Nada de fora do site vaza para `out/` (código-fonte, `CNAME`, `.dc.html`)
+
+## Medição (Google Analytics 4 e Search Console)
+
+O que é do repositório, e não da exportação do Claude Design, fica em `scripts/site/` e entra no site pelo build (`scripts/postbuild.mjs`):
+
+- `analytics.js`: aviso de cookies (PT/EN) e Google Analytics 4 (propriedade `intelium.ai`, ID `G-ZTHPL4J2MH`, tag `GTM-W48G224G`). Nada do Google carrega antes de o visitante aceitar. Eventos: `generate_lead` (formulário de contato), `sign_up` (newsletter) e `contact_click` (telefone e e-mail), sem dados pessoais. No site de teste o tráfego vai marcado como `traffic_type=internal`.
+- `google7123c91c7fc011d3.html`: prova de propriedade do Search Console (`https://intelium.ai/`). Só vai para produção e não pode ser removido.
+
+Para o visitante rever a escolha de cookies: `InteliumConsent.open()`.

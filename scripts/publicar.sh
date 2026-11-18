@@ -87,7 +87,17 @@ apply_export() {
   return 0
 }
 
+# Refaz os snapshots de prerender quando há Playwright nesta máquina. Sem ele,
+# segue adiante: os testes acusam se algum snapshot estiver desatualizado.
+prerender() {
+  if node -e "require.resolve('playwright')" >/dev/null 2>&1 || node -e "require.resolve('playwright-core')" >/dev/null 2>&1; then
+    say "Prerender das páginas"
+    node scripts/prerender.mjs
+  fi
+}
+
 validate() {
+  prerender
   say "Lint"
   npm run --silent lint
   say "Build e testes no modo produção"

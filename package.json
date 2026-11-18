@@ -13,7 +13,8 @@
     "sync-site": "node scripts/sync-site.mjs",
     "publicar:teste": "bash scripts/publicar.sh teste",
     "publicar:prd": "bash scripts/publicar.sh prd",
-    "publicar:sync": "bash scripts/publicar.sh sync"
+    "publicar:sync": "bash scripts/publicar.sh sync",
+    "prerender": "node scripts/prerender.mjs"
   },
   "dependencies": {
     "next": "16.4.5",
