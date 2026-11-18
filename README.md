@@ -8,36 +8,39 @@ Site da Intelium (PT-BR e EN, 62 páginas) em Next.js 16 com export estático. O
 | Endereço | https://intelium-pages.github.io/intelium-homepage/ | https://intelium.ai |
 | Quem publica | GitHub Actions (`.github/workflows/pages.yml`) | Hostinger, a cada push na `main` |
 | Buscadores | bloqueados (`noindex` + `robots.txt` Disallow) | liberados |
+| Formulários | gravam no branch `dsv` do Neon | gravam no branch `production` do Neon |
 
 Os dois repositórios têm os mesmos commits. **Toda mudança passa primeiro pelo GitHub** e só depois vai para o GitLab.
 
-## De onde vem o conteúdo
+## Como atualizar o site
 
-As páginas são desenhadas no Claude Design e exportadas como HTML estático. Elas ficam em `public/` e o Next apenas as copia para `out/`. **Não edite as páginas à mão em `public/`**: a próxima exportação apaga a mudança.
+O conteúdo é desenhado no Claude Design e exportado como HTML estático para `public/`. **Não edite as páginas à mão em `public/`**: a próxima exportação apaga a mudança.
 
-Para atualizar o conteúdo com uma exportação nova:
-
-```bash
-npm run sync-site -- /caminho/da/exportacao/docs
-npm run build && npm test
-```
-
-O `sync-site` preserva o `public/.htaccess` e as imagens da página 404, e ignora `CNAME`, `README.md`, `.nojekyll` e `404.html` da exportação.
-
-## Fluxo de publicação
+São três comandos, sempre nesta ordem:
 
 ```bash
-# 1. Teste: publica no GitHub Pages
-git push github main
+# 1. Teste: valida e publica no GitHub Pages
+npm run publicar:teste -- "content: o que mudou"
 
-# 2. Confira links e imagens em https://intelium-pages.github.io/intelium-homepage/
+# 2. Confira em https://intelium-pages.github.io/intelium-homepage/
 
-# 3. Produção: o mesmo commit, por merge request
-git push gitlab main:feat/minha-mudanca
-#    abra o MR no GitLab; o merge na main dispara o deploy na Hostinger
+# 3. Produção: abre o merge request no GitLab com o mesmo commit do teste
+npm run publicar:prd
+#    o merge do MR publica no intelium.ai
+
+# 4. Depois do merge: iguala os dois repositórios
+npm run publicar:sync
 ```
 
-Um push direto na `main` do GitLab publica em produção na hora. Use sempre MR.
+O que cada um faz:
+
+- **`publicar:teste`** traz as duas origens, aplica a exportação nova se houver uma em `.export/` (um `.zip` ou a pasta exportada), roda lint, build e testes nos modos produção e teste, faz o commit e envia para a `main` do GitHub. Mudanças feitas direto no repositório (README, testes, `.htaccess`) entram no mesmo commit.
+- **`publicar:prd`** só funciona se a versão local for exatamente a que está no teste. Cria uma branch `release/AAAAMMDD-HHMM` no GitLab e abre o MR. Se já houver um MR de release aberto com uma versão anterior, atualiza esse mesmo MR. Nunca envia para a `main` do GitLab.
+- **`publicar:sync`** leva o commit de merge do GitLab para o GitHub e mostra se os dois estão iguais. Só envia para o GitHub o que já está em produção: commits locais que não passaram pelo teste são recusados. Se o MR foi aceito com squash, realinha os dois repositórios com a `main` do GitLab, desde que o conteúdo seja idêntico.
+
+Para aplicar uma exportação sem publicar: `npm run sync-site -- /caminho/da/exportacao`. O `sync-site` preserva o `public/.htaccess` e as imagens da página 404, e ignora `CNAME`, `README.md`, `.nojekyll` e `404.html` da exportação.
+
+Um push direto na `main` do GitLab publica em produção na hora. Use sempre os comandos acima.
 
 ## Desenvolvimento
 
@@ -55,7 +58,7 @@ Para reproduzir o build de teste: `SITE_ENV=dsv npm run build && SITE_ENV=dsv np
 
 O repositório guarda a versão de produção. As diferenças são aplicadas no build, por variáveis que só o GitHub Actions define:
 
-- `SITE_ENV=dsv`: depois do build, `scripts/postbuild.mjs` troca o `robots.txt` por `Disallow: /` e inclui `noindex, nofollow` em todas as páginas de `out/`.
+- `SITE_ENV=dsv`: depois do build, `scripts/postbuild.mjs` troca o `robots.txt` por `Disallow: /` e inclui `noindex, nofollow` em todas as páginas de `out/`. Também aponta os formulários de contato e newsletter para o branch `dsv` do projeto no Neon, uma cópia isolada do banco: um envio feito no site de teste grava de verdade, mas nunca chega à produção. Se o endereço de produção não for reconhecido no `lead-api.js` (por exemplo, depois de mudar numa exportação nova), o build cai para um modo simulado, em que nada é gravado.
 - `BASE_PATH` e `NEXT_PUBLIC_BASE_PATH`: a subpasta do GitHub Pages (`/intelium-homepage`), usada pela página 404. As páginas do site usam só caminhos relativos e funcionam em qualquer pasta.
 
 O GitHub Pages ignora o `.htaccess`. Cache e compressão só podem ser conferidos na Hostinger.
@@ -80,6 +83,7 @@ public/
 scripts/
   postbuild.mjs       bloqueia buscadores no build de teste
   sync-site.mjs       troca o conteúdo de public/ por uma exportação nova
+  publicar.sh         publicação em teste e em produção (npm run publicar:*)
 tests/
   export.test.mjs     testes do export (node:test)
 .github/workflows/    deploy de teste no GitHub Pages
@@ -95,4 +99,5 @@ tests/
 - Os `hreflang` apontam para páginas que existem
 - A 404 existe e nunca é indexada
 - A indexação bate com o ambiente (liberada em produção, bloqueada no teste)
+- Cada ambiente grava os formulários no seu próprio banco; o teste nunca alcança o de produção
 - Nada de fora do site vaza para `out/` (código-fonte, `CNAME`, `.dc.html`)

@@ -10,7 +10,10 @@
     "package": "next build && rm -f intelium-site.zip && cd out && zip -qr ../intelium-site.zip . -x \".DS_Store\"",
     "preview": "npx --yes serve out -l 4173",
     "test": "node --test \"tests/**/*.test.mjs\"",
-    "sync-site": "node scripts/sync-site.mjs"
+    "sync-site": "node scripts/sync-site.mjs",
+    "publicar:teste": "bash scripts/publicar.sh teste",
+    "publicar:prd": "bash scripts/publicar.sh prd",
+    "publicar:sync": "bash scripts/publicar.sh sync"
   },
   "dependencies": {
     "next": "16.4.5",

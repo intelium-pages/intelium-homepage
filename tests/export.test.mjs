@@ -125,6 +125,20 @@ test(`indexing matches the environment (${ENV})`, () => {
   }
 });
 
+test(`forms write to the database of their own environment (${ENV})`, () => {
+  const PRD = "ep-fragrant-wind-b4p39gso"; // Neon branch "production"
+  const DSV = "ep-delicate-morning-b4z5k1rn"; // Neon branch "dsv"
+  const src = read("lead-api.js");
+  const simulated = src.includes("intelium:test-leads");
+  if (ENV === "dsv") {
+    assert.ok(simulated || !src.includes(PRD), "the test build must not reach the production database");
+    assert.ok(simulated || src.includes(DSV), "the test build must use the dsv branch or simulate the forms");
+  } else {
+    assert.ok(src.includes(PRD), "the production build must use the production database");
+    assert.ok(!src.includes(DSV) && !simulated, "the production build must not use the test database");
+  }
+});
+
 test("nothing that does not belong to the site leaks into the export", () => {
   const leaked = walk(OUT)
     .map(rel)
