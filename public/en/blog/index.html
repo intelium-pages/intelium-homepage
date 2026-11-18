@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../scenes.js"></script>
+<script src="../../support.js"></script>
+<script src="../../viz.js" data-early=""></script>
+<script src="../../lead-api.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Intelium Blog · Data Streaming use cases by industry and technical articles</title>
+<meta name="description" content="Business use cases of Data Streaming (iFood, Stone, Walmart, Sainsbury’s, Instacart, Capital One) and technical articles on Kafka, Confluent and Flink.">
+<link rel="canonical" href="https://intelium.ai/en/blog/">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/blog/">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/blog/">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/blog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Intelium Blog · Data Streaming use cases by industry and technical articles">
+<meta property="og:description" content="Business use cases of Data Streaming (iFood, Stone, Walmart, Sainsbury’s, Instacart, Capital One) and technical articles on Kafka, Confluent and Flink.">
+<meta property="og:url" content="https://intelium.ai/en/blog/">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Intelium Blog","url":"https://intelium.ai/en/blog/","inLanguage":"en","publisher":{"@type":"Organization","name":"Intelium","url":"https://intelium.ai/"},"blogPost":[{"@type":"BlogPosting","headline":"iFood: from batch pipelines to 60 million real-time orders a month","url":"https://intelium.ai/en/blog/ifood/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Stone: from a patchwork of systems to one event platform for 1,500 developers","url":"https://intelium.ai/en/blog/stone/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Walmart: real-time inventory and replenishment on 500 million events a day","url":"https://intelium.ai/en/blog/walmart/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Sainsbury’s: the real-time supply chain that doubled engineering efficiency","url":"https://intelium.ai/en/blog/sainsburys/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Instacart: ten years of growth in six weeks without redoing the architecture","url":"https://intelium.ai/en/blog/instacart/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Capital One: real-time banking experiences for 100 million customers","url":"https://intelium.ai/en/blog/capital-one/","inLanguage":"en","author":{"@type":"Organization","name":"Intelium"}},{"@type":"BlogPosting","headline":"Data Lineage: Tracking Data End to End","url":"https://mateus-oliveira.medium.com/data-lineage-rastreando-dados-de-ponta-a-ponta-7e8d16350e38","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Data Catalog: Discovering and Documenting Streaming Data","url":"https://mateus-oliveira.medium.com/data-catalog-descoberta-e-documenta%C3%A7%C3%A3o-de-dados-em-streaming-521bae75c45b","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Lenses: Developer Experience for Apache Kafka","url":"https://mateus-oliveira.medium.com/lenses-developer-experience-para-apache-kafka-c0446416ae93","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Data Contracts: The Foundation of Streaming Governance","url":"https://mateus-oliveira.medium.com/data-contracts-o-alicerce-da-governan%C3%A7a-em-streaming-d226d6611138","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Confluent Platform: The enterprise ecosystem for Kafka","url":"https://mateus-oliveira.medium.com/confluent-o-ecossistema-enterprise-para-apache-kafka-da7cb215cc48","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Kafka Architecture: Brokers, Topics, Partitions and Offsets","url":"https://mateus-oliveira.medium.com/arquitetura-kafka-brokers-topics-partitions-e-offset-be4d95512924","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Apache Kafka: The heart of modern streaming","url":"https://mateus-oliveira.medium.com/apache-kafka-o-cora%C3%A7%C3%A3o-do-streaming-moderno-ef0f7a5ac6e5","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}},{"@type":"BlogPosting","headline":"Producing Data to Apache Kafka with Python","url":"https://mateus-oliveira.medium.com/produzindo-dados-no-apache-kafka-com-python-d072b6aae298","inLanguage":"pt-BR","author":{"@type":"Person","name":"Mateus Oliveira"}}]}</script>
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../assets/ds/styles.css">
+
+<script src="../../assets/ds/ds-bundle.js"></script>
+<script src="../../viz.js"></script>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-240}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../en/about/index.html" style="color:var(--color-neutral-200)">About</a>
+<a href="../../en/services/index.html" style="color:var(--color-neutral-200)">Services</a>
+<a href="../../en/cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../en/labs/index.html" style="color:var(--color-neutral-200)">Labs</a>
+<a href="../../en/events/index.html" style="color:var(--color-neutral-200)">Events</a>
+<a href="../../en/academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../en/blog/index.html" style="color:var(--color-text)">Blog</a>
+<a href="../../en/contact/index.html" style="color:var(--color-neutral-200)">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="../../blog/index.html" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:center;gap:32px 48px">
+<div style="display:flex;flex-direction:column;gap:28px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Blog</span>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:620px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">Streaming from the business side <span style="color:var(--color-accent-300)">and from engineering.</span></h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">Use cases by industry, for decision makers. Technical articles on Medium, for builders.</p>
+</div>
+<div class="lighten" style="animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .5s both"><img src="../../assets/blog-tecnico.webp" width="1600" height="900" fetchpriority="high" decoding="async" alt="Intelium team writing technical Data Streaming articles" style="display:block;width:100%;height:auto;max-width:640px;margin-left:auto;border-radius:var(--radius-lg);-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)"></div>
+</div>
+</header>
+<section style="max-width:1200px;margin:0 auto;padding:clamp(24px,3vw,40px) clamp(20px,5vw,72px) 0;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 32px"><div style="display:flex;flex-direction:column;gap:10px;max-width:720px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Business use cases</span><h2 style="margin:0;font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.015em">What changes for the business when data arrives in seconds.</h2><p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Public cases of companies running data streaming in production, read from the decision maker’s point of view.</p></div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ useCases }}" as="u" hint-placeholder-count="6">
+<a href="{{ u.href }}" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ u.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">{{ u.tag }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ u.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ u.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ u.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Read use case<span aria-hidden="true">→</span></div>
+</a>
+</sc-for>
+</div>
+<a href="../../en/blog/business/index.html" class="btn btn-secondary" style="align-self:flex-start">See all use cases →</a>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px);display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 32px"><div style="display:flex;flex-direction:column;gap:10px;max-width:720px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Technical blogs</span><h2 style="margin:0;font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.015em">Written by engineers, for engineers.</h2><p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Articles from our team published on Medium.</p></div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(clamp(calc(33.33% - 11px),calc((960px - 100%) * 999),calc(50% - 8px)),calc((520px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
+<a href="{{ p.href }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);color:var(--color-text);overflow:hidden;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 0 0 1px var(--color-accent-700),var(--shadow-md)">
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--color-neutral-800)">{{ p.cover }}</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 22px 20px;flex:1">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px"><span class="tag tag-accent">{{ p.tag }}</span><span style="font-size:12px;color:var(--color-neutral-400)">{{ p.meta }}</span></div>
+<h2 style="margin:0;font-weight:500;font-size:18px;line-height:24px">{{ p.t }}</h2>
+<p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-300)">{{ p.d }}</p>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:14px;color:var(--color-accent-300);background:linear-gradient(to right,var(--color-neutral-700),var(--color-neutral-700)) top/100% 1px no-repeat">Read on Medium<span aria-hidden="true">↗</span></div>
+</a>
+</sc-for>
+</div>
+<a href="../../en/blog/technical/index.html" class="btn btn-secondary" style="align-self:flex-start">See all technical blogs →</a>
+</section>
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Monthly: what changed in Confluent, Kafka and Flink, and what it means for teams running streaming in production.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="you@company.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Subscribe</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Thanks. You are on the list for the next issue.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP</span>
+<a href="../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return en; }
+  scene(name, pt) { return window.InteliumScene ? window.InteliumScene(name, pt, React) : null; }
+  cover(kind, seed) { return window.InteliumCover ? window.InteliumCover(kind, seed, React) : null; }
+  renderVals() { return { useCases: [{"href":"../../en/blog/ifood/index.html","scene":"delivery","tag":"Event-driven pipelines","meta":"Delivery · Brazil","t":"iFood: from batch pipelines to 60 million real-time orders a month","d":"How iFood decoupled 2,000 microservices, left MSK and started tracking deliveries and orders per second with Confluent Cloud."},{"href":"../../en/blog/stone/index.html","scene":"payments","tag":"Streaming platform","meta":"Payments · Brazil","t":"Stone: from a patchwork of systems to one event platform for 1,500 developers","d":"How Stone’s platform team standardized card, PIX and virtual-payment streaming on Confluent Cloud."},{"href":"../../en/blog/walmart/index.html","scene":"retail","tag":"Real-time analytics","meta":"Retail · global","t":"Walmart: real-time inventory and replenishment on 500 million events a day","d":"How the world’s largest retailer replaced batch inventory and replenishment with streaming so stores never run out."},{"href":"../../en/blog/sainsburys/index.html","scene":"supply","tag":"Legacy modernization","meta":"Grocery · UK","t":"Sainsbury’s: the real-time supply chain that doubled engineering efficiency","d":"How the UK’s second-largest grocer freed data from legacy systems and now forecasts demand on 600 billion records."},{"href":"../../en/blog/instacart/index.html","scene":"scale","tag":"Streaming platform","meta":"E-commerce · US","t":"Instacart: ten years of growth in six weeks without redoing the architecture","d":"How the streaming platform absorbed half a million new customers in weeks and kept inventory accurate across 59,000 locations."},{"href":"../../en/blog/capital-one/index.html","scene":"fraud","tag":"Real-Time AI","meta":"Banking · US","t":"Capital One: real-time banking experiences for 100 million customers","d":"How a tech-first bank uses data streaming for personalization, fraud detection and cybersecurity."}].map(u => ({ ...u, cover: this.scene(u.scene, false) })), posts: [{"href":"https://mateus-oliveira.medium.com/data-lineage-rastreando-dados-de-ponta-a-ponta-7e8d16350e38","tag":"Governance","meta":"Medium","t":"Data Lineage: Tracking Data End to End","d":"How to implement full traceability in streaming pipelines for governance, compliance and trust in data."},{"href":"https://mateus-oliveira.medium.com/data-catalog-descoberta-e-documenta%C3%A7%C3%A3o-de-dados-em-streaming-521bae75c45b","tag":"Governance","meta":"Medium","t":"Data Catalog: Discovering and Documenting Streaming Data","d":"How to catalog, document and discover data in Kafka architectures to speed up development and ensure governance."},{"href":"https://mateus-oliveira.medium.com/lenses-developer-experience-para-apache-kafka-c0446416ae93","tag":"Tooling","meta":"Medium","t":"Lenses: Developer Experience for Apache Kafka","d":"Working with the Lenses team and how the platform changes the day-to-day of developers building on Kafka."}].map((p, j) => ({ ...p, cover: this.cover(['diagonal','grid','flow','nodes','rings','bars','waves','dots'][j % 8], j + 20) })) }; }
+}
+</script>
+</body>
+</html>

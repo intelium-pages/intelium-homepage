@@ -1,19 +1,27 @@
-# Hostinger (Apache/LiteSpeed) config for the Next.js static export.
+# Hostinger (Apache/LiteSpeed) config for the static export in out/.
+# The GitHub Pages test environment ignores this file.
 
 Options -Indexes
 DirectoryIndex index.html
+DirectorySlash On
 ErrorDocument 404 /404.html
 
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json application/xml image/svg+xml
 </IfModule>
 
 <IfModule mod_headers.c>
-  # Hashed build assets never change.
-  <FilesMatch "\.(js|css|woff2)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
+  # The site's own scripts and styles have no hash in the file name
+  # (support.js, assets/ds/styles.css), so they must not be cached for long:
+  # visitors would keep the old version after a content update.
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
-  <FilesMatch "\.html$">
+  # Images and fonts change rarely; a new image gets a new file name.
+  <FilesMatch "\.(webp|png|jpe?g|svg|ico|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>

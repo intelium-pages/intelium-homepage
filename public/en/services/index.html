@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin="">
+<script src="../../support.js"></script>
+<script src="../../viz.js" data-early=""></script>
+<script src="../../lead-api.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Apache Kafka and Confluent Services · Intelium</title>
+<meta name="description" content="Assessment, architecture, implementation, migration and support for Apache Kafka and Confluent, with Forward Deployed Engineers (FDE) embedded in your team.">
+<link rel="canonical" href="https://intelium.ai/en/services">
+<link rel="alternate" hreflang="pt-BR" href="https://intelium.ai/servicos">
+<link rel="alternate" hreflang="en" href="https://intelium.ai/en/services">
+<link rel="alternate" hreflang="x-default" href="https://intelium.ai/servicos">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Intelium">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Apache Kafka and Confluent Services · Intelium">
+<meta property="og:description" content="Assessment, architecture, implementation, migration and support for Apache Kafka and Confluent, with Forward Deployed Engineers (FDE) embedded in your team.">
+<meta property="og:url" content="https://intelium.ai/en/services">
+<meta property="og:image" content="https://intelium.ai/assets/og-intelium-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.lang='en'</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../assets/ds/styles.css">
+
+<script src="../../assets/ds/ds-bundle.js"></script>
+<script src="../../viz.js"></script>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(../../assets/fonts/inter-latin.woff2) format('woff2')}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;font-family:var(--font-body);color:var(--color-text);text-wrap:pretty;background:var(--color-bg)}
+a{color:var(--color-accent-300);text-decoration:none}a:hover{color:var(--color-accent-100)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,80px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
+@keyframes bar{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+@keyframes npulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes dash{to{stroke-dashoffset:-250}}
+@keyframes grow{from{transform:scaleX(.15)}to{transform:scaleX(1)}}
+@keyframes ringstep{0%{opacity:0}3%,16%{opacity:1}22%,100%{opacity:0}}
+@keyframes winfill{from{transform:scaleX(0)}95%{transform:scaleX(1);opacity:1}to{transform:scaleX(1);opacity:0}}
+@keyframes barnew{0%,8%{transform:scaleY(0)}30%,100%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+.nav-links{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;gap:24px;white-space:nowrap;font-size:14px}
+.nav-toggle{display:none}
+.nav-burger{display:none;flex:0 0 auto;width:40px;height:40px;align-items:center;justify-content:center;border-radius:var(--radius-md);cursor:pointer;color:var(--color-neutral-200)}
+.nav-burger:hover{background:var(--color-neutral-800)}
+.nav-burger svg{width:22px;height:22px}
+.nav-burger .ic-x{display:none}
+@media (max-width:900px){
+.nav-links{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:8px 20px 20px;background:var(--color-bg);box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent),var(--shadow-lg);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;font-size:16px;white-space:normal}
+.nav-links>a{padding:14px 4px;background:linear-gradient(to right,var(--color-neutral-700),transparent) bottom/100% 1px no-repeat}
+.nav-links>a.btn{margin-top:12px;background:none;justify-content:center}
+.nav-links>span{padding-top:16px;justify-content:center}
+.nav-burger{display:flex;margin-left:auto}
+.nav-toggle:checked~.nav-links{transform:none;opacity:1;pointer-events:auto}
+.nav-toggle:checked~.nav-burger .ic-menu{display:none}
+.nav-toggle:checked~.nav-burger .ic-x{display:block}
+.nav-toggle:focus-visible~.nav-burger{outline:2px solid var(--color-accent);outline-offset:2px}
+}
+/*mobile-a11y*/@media (max-width:720px){
+.btn,button[aria-pressed]{min-height:44px}
+a[title="English (US)"],a[title="Português (Brasil)"],a[title="English"],a[title="Português"]{min-width:44px;min-height:44px;justify-content:center;align-items:center;box-sizing:border-box}
+footer a:not(.btn){padding-block:11px;margin-block:-4px}
+a:not(.btn):not([style*="padding"]):not([style*="margin"]):not([style*="background"]):not([style*="border"]):not(footer a):not(.nav-links>a):not([title]){padding-block:11px;margin-block:-11px}
+span[style*="font-size:10px"],span[style*="font-size:10.5px"],span[style*="font-size:11px"],span[style*="font-size: 10px"],span[style*="font-size: 10.5px"],span[style*="font-size: 11px"]{font-size:12px!important}
+svg[viewBox="0 0 1200 540"] text{display:none}
+}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-form .input{flex:1 1 220px;min-width:0}
+.nl-fields{display:flex}
+.nl-done{display:none}
+.nl-form:has(.nl-check:checked) .nl-fields{display:none}
+.nl-form:has(.nl-check:checked) .nl-done{display:flex}
+</style>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
+</helmet>
+<nav class="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;box-sizing:border-box;height:56px;margin:0;border-bottom:0;box-shadow:0 1px 0 color-mix(in srgb,var(--color-text) 6%,transparent);display:flex;align-items:center;gap:24px;padding:14px clamp(20px,5vw,72px);background:color-mix(in srgb,var(--color-bg) 82%,transparent);backdrop-filter:blur(8px)">
+<a href="../../en/index.html" style="flex:0 0 auto"><span role="img" aria-label="Intelium" style="display:block;height:24px;width:156px;background:var(--img-logo,url(../../assets/ui/logo.png)) center/contain no-repeat"></span></a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu">
+<label for="nav-toggle" class="nav-burger" aria-hidden="true"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></label>
+<div class="nav-links">
+<a href="../../en/about/index.html" style="color:var(--color-neutral-200)">About</a>
+<a href="../../en/services/index.html" style="color:var(--color-text)">Services</a>
+<a href="../../en/cases/index.html" style="color:var(--color-neutral-200)">Cases</a>
+<a href="../../en/labs/index.html" style="color:var(--color-neutral-200)">Labs</a>
+<a href="../../en/events/index.html" style="color:var(--color-neutral-200)">Events</a>
+<a href="../../en/academy/index.html" style="color:var(--color-neutral-200)">Academy</a>
+<a href="../../en/blog/index.html" style="color:var(--color-neutral-200)">Blog</a>
+<a href="../../en/contact/index.html" class="btn btn-primary" style="padding:6px 14px;font-size:14px">Contact</a>
+<span style="display:flex;gap:6px;align-items:center"><a href="../../servicos/index.html" title="Português (Brasil)" style="display:flex;padding:3px;border-radius:5px;opacity:.55;transition:opacity .2s" style-hover="opacity:1"><span role="img" aria-label="Português (Brasil)" style="display:block;width:22px;height:16px;background:var(--img-flag-br,url(../../assets/ui/flag-br.svg)) center/contain no-repeat"></span></a><span title="English (US)" style="display:flex;padding:3px;border-radius:5px;box-shadow:0 0 0 1px var(--color-accent-500)"><span role="img" aria-label="English (US)" style="display:block;width:22px;height:16px;background:var(--img-flag-us,url(../../assets/ui/flag-us.svg)) center/contain no-repeat"></span></span></span>
+</div>
+</nav>
+<div aria-hidden="true" style="height:56px"></div>
+
+<header style="position:relative;overflow:hidden">
+<div style="position:absolute;right:-200px;top:-260px;width:900px;height:700px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--color-accent-700) 55%,transparent),transparent);animation:drift 18s ease-in-out infinite;will-change:transform;pointer-events:none"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,5vw,72px) clamp(24px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:center;gap:32px 48px">
+<div style="display:flex;flex-direction:column;gap:28px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent);animation:rise 1s cubic-bezier(.2,.7,.2,1) both">Services</span>
+<h1 style="margin:0 0 0 -.05em;font-weight:500;font-size:clamp(36px,6vw,72px);line-height:1.1;letter-spacing:-.02em;max-width:620px;animation:rise 1s cubic-bezier(.2,.7,.2,1) .15s both">From event to insight, <span style="color:var(--color-accent-300)">in production.</span></h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:640px;color:var(--color-neutral-200);animation:rise 1s cubic-bezier(.2,.7,.2,1) .35s both">Six services for companies that need data in motion to operate and to feed their AI. From architecture design to real-time decisions, with the technology license included when it makes sense.</p>
+</div>
+<div class="lighten" style="animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .5s both"><img src="../../assets/servicos-discovery.webp" width="1600" height="900" fetchpriority="high" decoding="async" alt="Intelium Data Streaming discovery meeting with a customer" style="display:block;width:100%;height:auto;max-width:640px;margin-left:auto;border-radius:var(--radius-lg);-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)"></div>
+</div>
+</header>
+<section id="architecture" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">01</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Architecture for Event-Driven solutions</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Point-to-point integrations, duplicated data and teams that don’t share a language about the business. We design the event architecture before the first line of code.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Event Storming with business and technology</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Domain map, bounded contexts and event catalog</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Topic, partition and key design</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Data contracts with Schema Registry and evolution rules</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Governance model: ownership, naming and RBAC</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Event Storming</span><span class="tag tag-neutral">Apache Kafka</span><span class="tag tag-neutral">Schema Registry</span><span class="tag tag-neutral">Avro · Protobuf</span><span class="tag tag-neutral">Data Contracts</span><span class="tag tag-neutral">Stream Governance</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag0 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section id="pipelines" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">02</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Event-Driven Pipelines</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Data locked in legacy databases and batch jobs that arrive late. We build pipelines that capture change the moment it happens and deliver data ready to consume.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Change data capture (CDC) from Oracle, DB2, SQL Server, Postgres and mainframe</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Source and sink Kafka Connect connectors</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Processing with Apache Flink: enrichment, joins and filters</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Data contracts enforced at the source (shift-left)</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Pipelines as code, with CI/CD and tests</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Kafka Connect</span><span class="tag tag-neutral">Debezium · CDC</span><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Confluent Cloud</span><span class="tag tag-neutral">Terraform</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag1 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section id="analytics" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">03</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Real-Time Analytics</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Yesterday’s dashboards for today’s decisions. We take data from event to dashboard in seconds, with the same stream feeding the lakehouse.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Continuous metrics and aggregations with Flink SQL</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Tableflow: topics as Iceberg tables in the lakehouse</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Serving layer for dashboards and alerts</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Anomaly detection and real-time rules</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Reconciliation between stream and batch</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Flink SQL</span><span class="tag tag-neutral">Tableflow</span><span class="tag tag-neutral">Apache Iceberg</span><span class="tag tag-neutral">Databricks · Snowflake · BigQuery</span><span class="tag tag-neutral">Grafana</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag2 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section id="platform" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">04</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Streaming Platform</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">The platform must be secure, observable and cost-controlled before it scales. We deploy and assess Confluent and Kafka in the cloud, on-prem or hybrid.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Confluent Cloud, Platform (CFK on Kubernetes) and Private Cloud setup</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Security: RBAC, mTLS, BYOK and auditing</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Observability: metrics, lag, alerts and tracing</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>FinOps: sizing, Tiered Storage and cluster types</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Health Check and Assessment with a technical report</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Confluent Cloud</span><span class="tag tag-neutral">Confluent Platform</span><span class="tag tag-neutral">CFK</span><span class="tag tag-neutral">Confluent Private Cloud</span><span class="tag tag-neutral">Lenses.io</span><span class="tag tag-neutral">Prometheus · Grafana</span><span class="tag tag-neutral">Terraform</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag3 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section id="assessment" style="max-width:1200px;margin:0 auto;padding:40px clamp(20px,5vw,72px) 0">
+<div class="card" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:28px 64px;padding:clamp(24px,3vw,36px)">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">Streaming Platform · Assessment</span>
+<h3 style="margin:0;font-weight:500;font-size:clamp(22px,2.4vw,28px);line-height:1.25">Streaming platform Health Check</h3>
+<p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Diagnosis of Confluent and Kafka clusters, on Platform or Cloud. The deliverable is a technical report.</p>
+<a href="../../en/contact/index.html#assessment" style="font-size:15px;margin-top:4px">Request an assessment →</a>
+</div>
+<div style="flex:1 1 360px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:20px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:16px;font-weight:500">Scorecard</span><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Rating for each dimension of the platform.</span></div><div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:16px;font-weight:500">Findings</span><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Issues ranked by severity.</span></div><div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat"><span style="font-size:16px;font-weight:500">Action plan</span><span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Prioritized fixes, from quick wins to roadmap.</span></div>
+</div>
+</div>
+</section>
+
+<section id="modernization" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">05</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Legacy Modernization</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">MQ, Tibco and batch ETL keep the business running but block evolution. We migrate in waves, with no big bang and no downtime.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Legacy assessment and wave plan</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Coexistence: MQ ↔ Kafka bridges during the transition</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Mainframe decoupling through CDC and events</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>IBM Event Streams → Confluent migration with our own framework</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Decommissioning with evidence</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">IBM MQ</span><span class="tag tag-neutral">Tibco</span><span class="tag tag-neutral">IBM Event Streams</span><span class="tag tag-neutral">Kafka Connect</span><span class="tag tag-neutral">Cluster Linking</span><span class="tag tag-neutral">CDC</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag4 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section id="real-time-ai" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:15px;color:var(--color-accent);font-feature-settings:'tnum' 1">06</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Real-Time AI</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Models trained on yesterday’s data decide with stale context. We deliver features, inference and LLM context at the moment of the event.</p>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Deliverables</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Real-time feature store fed by streams</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Low-latency inference in the event flow</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Streaming RAG: always-fresh context for LLMs</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Drift monitoring and feedback loop</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Technologies</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag tag-neutral">Apache Flink</span><span class="tag tag-neutral">Confluent</span><span class="tag tag-neutral">Feature store</span><span class="tag tag-neutral">Vector DB</span></div></div>
+</div>
+</div>
+<div style="border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-md);padding:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:12px;overflow-x:auto">{{ diag5 }}
+<span style="font-size:12px;color:var(--color-neutral-400)">Illustrative diagram</span>
+</div>
+</div>
+</section>
+<section aria-label="Training and enablement" style="max-width:1200px;margin:0 auto;padding:clamp(48px,6vw,72px) clamp(20px,5vw,72px) 0">
+<div class="card" style="display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;padding:clamp(20px,2.6vw,28px)">
+<div style="flex:1 1 420px;display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-300)">Training and enablement</span><p style="margin:0;font-size:15px;line-height:24px;color:var(--color-neutral-200)">Apache Kafka, Confluent and Flink tracks so your team can own the operation: from fundamentals to advanced, in workshops or dedicated cohorts.</p></div>
+<a href="../../en/academy/index.html" class="btn btn-secondary">See Academy →</a>
+</div>
+</section>
+<section id="licensing" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) 0;scroll-margin-top:72px">
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Service and licensing</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">Not just services. The license comes with us, end to end.</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Intelium also resells the technology. One counterpart from sizing to the signed contract, so the customer does not have to coordinate consultancy, vendor and distributor separately.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px">
+<div class="card" style="display:flex;flex-direction:column;gap:10px;padding:22px"><span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">01</span><span style="font-size:18px;font-weight:500;line-height:1.3">Sizing</span><p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-200)">We measure volume, retention and growth and translate it into CKUs, brokers or Flink capacity. Nothing oversized, nothing short.</p></div>
+<div class="card" style="display:flex;flex-direction:column;gap:10px;padding:22px"><span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">02</span><span style="font-size:18px;font-weight:500;line-height:1.3">Commercial proposal</span><p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-200)">We build the proposal together with the vendor (IBM Confluent, Lenses.io): licensing, support tier and term, in one document.</p></div>
+<div class="card" style="display:flex;flex-direction:column;gap:10px;padding:22px"><span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">03</span><span style="font-size:18px;font-weight:500;line-height:1.3">Procurement</span><p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-200)">Purchase through IBM or TD Synnex, the distributor of the IBM Confluent ecosystem in Brazil, or via cloud marketplace when the customer prefers to consume committed spend.</p></div>
+<div class="card" style="display:flex;flex-direction:column;gap:10px;padding:22px"><span style="font-size:13px;color:var(--color-accent);font-feature-settings:'tnum' 1">04</span><span style="font-size:18px;font-weight:500;line-height:1.3">Delivery and operation</span><p style="margin:0;font-size:14px;line-height:22px;color:var(--color-neutral-200)">The same squad that sized and sold deploys, migrates and hands over. The license and the service have one owner.</p></div>
+</div>
+<span style="font-size:13px;color:var(--color-neutral-400)">Applies to Confluent Cloud, Confluent Platform and Lenses.io.</span>
+</div>
+</section>
+<section id="fde" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)">
+<div style="border-radius:var(--radius-lg);padding:clamp(28px,4vw,48px);background:radial-gradient(800px 360px at 90% -30%,color-mix(in srgb,var(--color-section-glow) 70%,transparent),transparent 64%),var(--color-section);display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-wrap:wrap;gap:24px 64px;align-items:flex-end;justify-content:space-between">
+<div style="flex:1 1 420px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-100)">Delivery model · Forward Deployed Engineer</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">We leave behind built-in capability, not dependency.</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:color-mix(in srgb,var(--color-text) 82%,transparent)">Senior engineers work inside your environment, embedded in your squad.</p>
+</div>
+<div style="display:flex;gap:40px">
+<div><p style="margin:0;font-size:44px;line-height:1.05;font-weight:500">70%</p><p style="margin:6px 0 0;font-size:13px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">faster delivery</p></div>
+<div><p style="margin:0;font-size:44px;line-height:1.05;font-weight:500">85%</p><p style="margin:6px 0 0;font-size:13px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">fewer failures</p></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc(33.33% - 11px),calc((760px - 100%) * 999))),1fr));gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--color-bg) 55%,transparent)"><span style="font-size:13px;color:var(--color-accent-100);font-feature-settings:'tnum' 1">01</span><h3 style="margin:0;font-weight:500;font-size:20px;line-height:26px">Full Immersion</h3><p style="margin:0;font-size:14px;line-height:22px;color:color-mix(in srgb,var(--color-text) 80%,transparent)">We step into your environment and your squad to understand systems, teams and constraints.</p></div><div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--color-bg) 55%,transparent)"><span style="font-size:13px;color:var(--color-accent-100);font-feature-settings:'tnum' 1">02</span><h3 style="margin:0;font-weight:500;font-size:20px;line-height:26px">Hands-on Execution</h3><p style="margin:0;font-size:14px;line-height:22px;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Senior engineers build alongside your team, in production.</p></div><div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--color-bg) 55%,transparent)"><span style="font-size:13px;color:var(--color-accent-100);font-feature-settings:'tnum' 1">03</span><h3 style="margin:0;font-weight:500;font-size:20px;line-height:26px">Knowledge Transfer</h3><p style="margin:0;font-size:14px;line-height:22px;color:color-mix(in srgb,var(--color-text) 80%,transparent)">Your team takes over operations with capability in place.</p></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px 48px;padding-top:28px;background:linear-gradient(to right,transparent,color-mix(in srgb,var(--color-text) 22%,transparent) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-100)">When FDE is the right fit</span><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><li style="display:flex;gap:12px;align-items:baseline;font-size:15px;line-height:24px"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent-100);transform:translateY(-5px)"></span>A new platform or a critical migration where mistakes are expensive</li><li style="display:flex;gap:12px;align-items:baseline;font-size:15px;line-height:24px"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent-100);transform:translateY(-5px)"></span>A small internal team that needs to learn by operating, not by watching</li><li style="display:flex;gap:12px;align-items:baseline;font-size:15px;line-height:24px"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent-100);transform:translateY(-5px)"></span>A business deadline that doesn’t fit a traditional diagnostic consultancy</li></ul></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-100)">How it works in practice</span><div style="display:flex;flex-direction:column;gap:10px"><div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:15px;line-height:24px"><span style="color:var(--color-accent-100);font-weight:500">Squad</span><span style="color:color-mix(in srgb,var(--color-text) 85%,transparent)">1 to 3 senior engineers, backed by a reference architect from the CoE</span></div><div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:15px;line-height:24px"><span style="color:var(--color-accent-100);font-weight:500">Where</span><span style="color:color-mix(in srgb,var(--color-text) 85%,transparent)">Inside your environment, repositories, pipelines and rituals, no parallel setup</span></div><div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:15px;line-height:24px"><span style="color:var(--color-accent-100);font-weight:500">Cadence</span><span style="color:color-mix(in srgb,var(--color-text) 85%,transparent)">Weekly deliveries to production and a fortnightly architecture review</span></div><div style="display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:15px;line-height:24px"><span style="color:var(--color-accent-100);font-weight:500">Exit</span><span style="color:color-mix(in srgb,var(--color-text) 85%,transparent)">Runbooks, code, documentation and a team that operates on its own</span></div></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-100)">How it differs from staffing or consulting</span><div style="display:flex;flex-direction:column;gap:8px"><div style="display:grid;grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr);gap:8px;align-items:baseline;font-size:12px;line-height:22px;letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 60%,transparent)"><span style="">Staff augmentation</span><span aria-hidden="true" style="text-align:center;color:var(--color-accent-100)">→</span><span style="">FDE</span></div><div style="display:grid;grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr);gap:8px;align-items:baseline;font-size:15px;line-height:22px;"><span style="color:color-mix(in srgb,var(--color-text) 60%,transparent);text-decoration:line-through">Hours sold</span><span aria-hidden="true" style="text-align:center;color:var(--color-accent-100)">→</span><span style="font-weight:500">Outcomes in production</span></div><div style="display:grid;grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr);gap:8px;align-items:baseline;font-size:15px;line-height:22px;"><span style="color:color-mix(in srgb,var(--color-text) 60%,transparent);text-decoration:line-through">Depends on the person</span><span aria-hidden="true" style="text-align:center;color:var(--color-accent-100)">→</span><span style="font-weight:500">Depends on the CoE: method, accelerators and peer review</span></div><div style="display:grid;grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr);gap:8px;align-items:baseline;font-size:15px;line-height:22px;"><span style="color:color-mix(in srgb,var(--color-text) 60%,transparent);text-decoration:line-through">Stays forever</span><span aria-hidden="true" style="text-align:center;color:var(--color-accent-100)">→</span><span style="font-weight:500">Leaves when the team takes over</span></div></div></div>
+</div>
+<a href="../../en/contact/index.html#fde" class="btn btn-primary" style="align-self:flex-start">Talk about an FDE squad →</a>
+</div>
+</section>
+<section id="bolsa" style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;padding-top:40px;background:linear-gradient(to right,transparent,var(--color-neutral-700) 48px calc(100% - 48px),transparent) top/100% 1px no-repeat">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">After the project · Expert Retainer</span>
+<h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.015em">FDE to build, the Retainer to evolve.</h2>
+<p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">A monthly bank of hours with CoE engineers for evolution, troubleshooting and architecture support.</p>
+<a href="../../en/contact/index.html#bolsa" style="font-size:15px">Talk about the Retainer →</a>
+</div>
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Platform evolution</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Troubleshooting</li><li style="display:flex;gap:12px;align-items:baseline;font-size:16px;line-height:24px;color:var(--color-neutral-100)"><span style="flex:0 0 auto;width:14px;height:1px;background:var(--color-accent);transform:translateY(-5px)"></span>Architecture support</li></ul>
+</div>
+</div>
+</section>
+<section aria-label="Intelium Labs" style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,5vw,72px) clamp(64px,8vw,104px)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px 48px;padding-top:24px;background:linear-gradient(to right,var(--color-accent) 0 44px,var(--color-neutral-700) 44px) top/100% 1px no-repeat">
+<div style="display:flex;flex-direction:column;gap:8px;max-width:720px"><span style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent)">Intelium Labs</span><p style="margin:0;font-size:16px;line-height:26px;color:var(--color-neutral-200)">Accelerators we use in our projects: the IBM Event Streams → Confluent migration framework and Infra Forge.</p></div>
+<a href="../../en/labs/index.html" style="font-size:15px">See Labs →</a>
+</div>
+</section>
+
+<footer style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
+<div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px calc(100% - 48px),transparent)"></div>
+<div style="padding:56px 0 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px 64px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;flex:1 1 320px;max-width:440px">
+<span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Newsletter</span>
+<span style="font-size:18px;font-weight:500;line-height:1.3">Intelium In Motion</span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">Monthly: what changed in Confluent, Kafka and Flink, and what it means for teams running streaming in production.</span>
+<form class="nl-form" data-newsletter="" action="#" onsubmit="return false">
+<div class="nl-fields" style="gap:8px;flex-wrap:wrap;flex:1 1 100%"><input type="email" class="input" required placeholder="you@company.com" aria-label="E-mail" style="flex:1 1 200px;min-width:0"><label class="btn btn-primary" style="cursor:pointer"><input type="checkbox" class="nl-check" style="position:absolute;opacity:0;width:0;height:0">Subscribe</label></div>
+<span class="nl-done" style="align-items:center;gap:8px;font-size:14px;color:var(--color-accent-300)">Thanks. You are on the list for the next issue.</span>
+</form>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<span role="img" aria-label="Intelium" style="display:block;width:40px;height:40px;background:var(--img-isotipo,url(../../assets/ui/isotipo.png)) center/contain no-repeat"></span>
+<span style="font-size:14px;line-height:22px;color:var(--color-neutral-300)">CoE Intelium.ai</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:32px 64px;font-size:14px;line-height:22px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Intelium</span>
+<a href="../../en/about/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">About</a><a href="../../en/services/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Services</a><a href="../../en/cases/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Cases</a><a href="../../en/events/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Events</a><a href="../../en/labs/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Labs</a><a href="../../en/academy/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Academy</a><a href="../../en/blog/index.html" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">Blog</a></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-400)">Contact</span>
+<a href="mailto:contato@intelium.ai" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">contato@intelium.ai</a><a href="tel:+551128448000" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">+55 (11) 2844-8000</a><a href="https://www.linkedin.com/company/inteliumai/" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">LinkedIn ↗</a><a href="https://www.youtube.com/@inteliumai" target="_blank" rel="noopener" style="color:var(--color-neutral-200)" style-hover="color:var(--color-text)">YouTube ↗</a>
+<span style="color:var(--color-neutral-300)">Av. Pres. Juscelino Kubitschek, 2041, Bloco B<br>São Paulo · SP · Brazil</span>
+<a href="../../en/contact/index.html" style="font-size:15px;margin-top:6px">Talk to the CoE →</a></div>
+</div>
+</div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  t(pt, en) { return en; }
+  h(...a) { return React.createElement(...a); }
+  svg(key, label, kids) { return this.h('svg', { key, viewBox: '0 0 400 200', width: '100%', role: 'img', 'aria-label': label, style: { display: 'block', height: 'auto' } }, ...kids); }
+  txt(k, x, y, s, anchor, color) { return this.h('text', { key: k, x, y, textAnchor: anchor || 'start', style: { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.12em', fill: color || 'var(--color-neutral-400)' } }, s); }
+  dot(k, path, dur, begin, r) { return this.h('circle', { key: k, r: r || 2.6, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 4px var(--color-accent))' } }, this.h('animateMotion', { dur: dur + 's', begin: begin + 's', repeatCount: 'indefinite', path })); }
+  box(k, x, y, w, hh, label, hi, anim) { return this.h('g', { key: k }, this.h('rect', { x, y, width: w, height: hh, rx: 6, style: { fill: hi ? 'var(--color-accent-900)' : 'var(--color-neutral-800)', stroke: hi ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', animation: anim || 'none' } }), this.h('text', { x: x + w / 2, y: y + hh / 2 + 4, textAnchor: 'middle', style: { fontFamily: 'var(--font-body)', fontSize: 10.5, letterSpacing: '.08em', fill: hi ? 'var(--color-accent-100)' : 'var(--color-neutral-200)' } }, label)); }
+  build() {
+    if (this._d) return this._d;
+    const h = this.h.bind(this), T = this.t.bind(this); let n = 0; const k = () => 'e' + n++;
+    const ln = { fill: 'none', stroke: 'var(--color-accent-700)', strokeWidth: 1 };
+    const a = [this.txt(k(), 70, 22, 'EVENT STORMING', 'middle'), this.txt(k(), 300, 22, T('DOMÍNIOS E TÓPICOS', 'DOMAINS AND TOPICS'), 'middle')];
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) { const i = r * 4 + c; a.push(h('rect', { key: k(), x: 18 + c * 28, y: 38 + r * 34, width: 22, height: 22, rx: 3, style: { fill: 'var(--color-accent-800)', stroke: 'var(--color-accent-600)', strokeWidth: .8, animation: `npulse ${2.2 + (i % 3) * .4}s ease-in-out ${(i * .17).toFixed(2)}s infinite` } })); }
+    [[36, T('Pedidos', 'Orders')], [90, T('Pagamentos', 'Payments')], [144, T('Clientes', 'Customers')]].forEach(([y, lb], j) => { const p = `M132 ${50 + j * 44} C 190 ${50 + j * 44}, 190 ${y + 17}, 230 ${y + 17}`;
+      a.push(h('path', { key: k(), d: p, style: ln }), this.dot(k(), p, 2.4 + j * .3, -j * .8), this.box(k(), 230, y, 150, 34, lb, true, `npulse 2.6s ease-in-out ${j * .4}s infinite`));
+      [0, 1, 2].forEach(q => a.push(h('rect', { key: k(), x: 240 + q * 10, y: y + 26, width: 6, height: 3, rx: 1, style: { fill: 'var(--color-accent-300)' } }))); });
+    const b = [this.txt(k(), 40, 22, T('LEGADO', 'LEGACY'), 'middle'), this.txt(k(), 200, 22, 'KAFKA · FLINK', 'middle'), this.txt(k(), 360, 22, T('DESTINOS', 'SINKS'), 'middle')];
+    [50, 100, 150].forEach((y, j) => { b.push(h('ellipse', { key: k(), cx: 40, cy: y - 10, rx: 22, ry: 6, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-500)' } }), h('path', { key: k(), d: `M18 ${y - 10} v 20 a 22 6 0 0 0 44 0 v -20`, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-500)' } }));
+      const p = `M62 ${y} C 100 ${y}, 100 100, 140 100`; b.push(h('path', { key: k(), d: p, style: ln }), this.dot(k(), p, 2 + j * .4, -j * .5)); });
+    b.push(this.box(k(), 140, 84, 56, 32, 'CDC', false), this.box(k(), 214, 84, 60, 32, 'Flink', true, 'npulse 2.4s ease-in-out infinite'));
+    [0, 1, 2, 3].forEach(i => b.push(h('line', { key: k(), x1: 196, x2: 214, y1: 90 + i * 7, y2: 90 + i * 7, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2, strokeDasharray: '2 3', animation: `dash ${1 + i * .2}s linear infinite` } })));
+    [['API', 50], ['Lakehouse', 100], [T('Sistemas', 'Systems'), 150]].forEach(([lb, y], j) => { const p = `M274 100 C 306 100, 306 ${y}, 324 ${y}`; b.push(h('path', { key: k(), d: p, style: ln }), this.dot(k(), p, 1.8 + j * .3, -j * .6), this.box(k(), 324, y - 14, 70, 28, lb, false)); });
+    const c = [this.txt(k(), 16, 22, T('EVENTOS EM JANELAS DE 1 MIN', 'EVENTS IN 1-MIN WINDOWS')), this.txt(k(), 384, 22, 'FLINK SQL', 'end')];
+    const an = (attr, values, keyTimes) => h('animate', { attributeName: attr, values, keyTimes, dur: '4s', repeatCount: 'indefinite' });
+    const cnt = [5, 8, 6, 7, 11], base = 166, sc = 7.5, thr = base - 9 * sc;
+    cnt.forEach((n, i) => { const wx = 16 + i * 76, cur = i === 4;
+      c.push(h('rect', { key: k(), x: wx, y: 34, width: 68, height: 32, rx: 5, style: { fill: cur ? 'var(--color-accent-900)' : 'var(--color-neutral-800)', stroke: cur ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', strokeDasharray: cur ? '3 3' : 'none' } }, cur ? an('stroke-dasharray', '3 3;3 3;none;none', '0;.76;.78;1') : null));
+      for (let j = 0; j < n; j++) { const cx = wx + 8 + ((j * 37 + i * 11) % 52), cy = 41 + ((j * 23 + i * 7) % 18);
+        c.push(h('circle', { key: k(), cx, cy, r: 2.2, style: { fill: cur ? 'var(--color-accent-100)' : 'var(--color-neutral-400)' } }, cur ? an('opacity', '0;0;1;1;0', `0;${(j * .065).toFixed(3)};${(j * .065 + .02).toFixed(3)};.97;1`) : null)); }
+      const bx = wx + 22, bh = n * sc;
+      c.push(h('path', { key: k(), d: `M${wx + 34} 70 L${wx + 34} 78`, style: { fill: 'none', stroke: cur ? 'var(--color-accent-500)' : 'var(--color-neutral-600)' } }));
+      if (!cur) c.push(h('rect', { key: k(), x: bx, y: base - bh, width: 24, height: bh, rx: 2, style: { fill: 'var(--color-neutral-600)' } }));
+      else c.push(h('rect', { key: k(), x: bx, width: 24, rx: 2, style: { fill: 'var(--color-accent-400)' } }, an('height', `0;0;${bh};${bh};0`, '0;.78;.86;.97;1'), an('y', `${base};${base};${base - bh};${base - bh};${base}`, '0;.78;.86;.97;1')));
+      c.push(this.txt(k(), wx + 34, 180, cur ? T('agora', 'now') : 't-' + (4 - i), 'middle', cur ? 'var(--color-accent-300)' : null)); });
+    c.push(h('line', { key: k(), x1: 16, x2: 384, y1: base, y2: base, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 16, x2: 384, y1: thr, y2: thr, style: { stroke: 'var(--color-accent-300)', strokeDasharray: '4 4', opacity: .7 } }), this.txt(k(), 16, thr - 5, T('LIMITE', 'THRESHOLD'), 'start', 'var(--color-accent-300)'));
+    c.push(h('g', { key: k(), style: { opacity: 0 } }, an('opacity', '0;0;1;1;0', '0;.86;.88;.97;1'), h('rect', { x: 318, y: 74, width: 52, height: 16, rx: 8, style: { fill: 'var(--color-accent-700)', stroke: 'var(--color-accent-300)' } }), h('text', { x: 344, y: 85.5, textAnchor: 'middle', style: { fontFamily: 'var(--font-body)', fontSize: 9, fontWeight: 500, letterSpacing: '.08em', fill: 'var(--color-accent-100)' } }, T('ALERTA', 'ALERT'))));
+    c.push(this.txt(k(), 200, 196, T('CADA JANELA FECHADA VIRA UM PONTO NO PAINEL', 'EACH CLOSED WINDOW BECOMES A POINT ON THE DASHBOARD'), 'middle'));
+    const d = [this.txt(k(), 200, 22, 'CONFLUENT · CLOUD · PLATFORM · CFK', 'middle')];
+    d.push(h('circle', { key: k(), cx: 200, cy: 108, r: 48, style: { fill: 'none', stroke: 'var(--color-accent-500)', strokeDasharray: '3 5' } }));
+    [[-14, -12], [14, -12], [0, 12]].forEach(([dx, dy], i) => d.push(h('rect', { key: k(), x: 200 + dx - 10, y: 108 + dy - 8, width: 20, height: 16, rx: 3, style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-300)', animation: `npulse 2.4s ease-in-out ${i * .5}s infinite` } })));
+    const sat = [[60, 60, T('Segurança', 'Security')], [340, 60, T('Observabilidade', 'Observability')], [60, 160, T('Governança', 'Governance')], [340, 160, 'FinOps']];
+    sat.forEach(([x, y, lb], i) => { const p = `M${x} ${y} L200 108`; d.push(h('line', { key: k(), x1: x, y1: y, x2: 200, y2: 108, style: { stroke: 'var(--color-accent-700)', strokeWidth: 1 } }), this.dot(k(), p, 2.2 + i * .3, -i * .6), h('circle', { key: k(), cx: x, cy: y, r: 9, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-accent-300)' } }), this.txt(k(), x, y + (y < 108 ? -16 : 24), lb.toUpperCase(), 'middle')); });
+    const orb = 'M152 108 a 48 48 0 1 0 96 0 a 48 48 0 1 0 -96 0'; d.push(this.dot(k(), orb, 7, 0, 2.2), this.dot(k(), orb, 7, -3.5, 2.2));
+    const e = [this.txt(k(), 16, 22, T('LEGADO · MQ · TIBCO', 'LEGACY · MQ · TIBCO')), this.txt(k(), 384, 22, 'CONFLUENT', 'end')];
+    [0, 1, 2].forEach(j => { const y = 50 + j * 46, pct = [1, .66, .33][j];
+      e.push(this.txt(k(), 16, y + 4, T('ONDA ', 'WAVE ') + (j + 1)), h('rect', { key: k(), x: 80, y: y - 8, width: 240, height: 16, rx: 8, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }),
+        h('rect', { key: k(), x: 80, y: y - 8, width: 240 * pct, height: 16, rx: 8, style: { fill: 'var(--color-accent-700)', transformBox: 'fill-box', transformOrigin: 'left', animation: `grow ${3 + j}s ease-in-out ${j * .6}s infinite alternate` } }));
+      const p = `M80 ${y} L${80 + 240 * pct} ${y}`; e.push(this.dot(k(), p, 2 + j * .5, -j * .4));
+      e.push(this.box(k(), 334, y - 13, 50, 26, j === 0 ? 'prod' : j === 1 ? 'hml' : 'dev', j === 0, j === 0 ? 'npulse 2.4s ease-in-out infinite' : 'none')); });
+    e.push(this.txt(k(), 200, 184, T('COEXISTÊNCIA · BRIDGES MQ ↔ KAFKA · SEM BIG BANG', 'COEXISTENCE · MQ ↔ KAFKA BRIDGES · NO BIG BANG'), 'middle'));
+    const f = [this.txt(k(), 16, 22, T('EVENTOS', 'EVENTS')), this.txt(k(), 384, 22, T('DECISÃO NO EVENTO', 'DECISION AT THE EVENT'), 'end')];
+    for (let i = 0; i < 7; i++) { const y = 40 + i * 18, p = `M0 ${y} C 90 ${y}, 110 100, 160 100`; f.push(h('path', { key: k(), d: p, style: { ...ln, opacity: .6 } }), h('path', { key: k(), d: p, style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.4, strokeLinecap: 'round', strokeDasharray: '2 22', animation: `dash ${2.2 + (i % 3) * .5}s linear ${-(i * .3)}s infinite` } })); }
+    f.push(this.box(k(), 160, 82, 60, 36, 'Flink', true, 'npulse 2.4s ease-in-out infinite'), this.box(k(), 240, 82, 100, 36, T('Modelo · LLM', 'Model · LLM'), true, 'npulse 2.4s ease-in-out .6s infinite'));
+    f.push(h('line', { key: k(), x1: 220, y1: 100, x2: 240, y2: 100, style: { stroke: 'var(--color-accent-300)', strokeWidth: 1.2 } }));
+    const out = 'M340 100 L384 100'; f.push(h('path', { key: k(), d: out, style: ln }), this.dot(k(), out, 1.4, 0), h('circle', { key: k(), cx: 384, cy: 100, r: 7, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent)', animation: 'npulse 1.6s ease-in-out infinite' } }));
+    const fb = 'M384 107 C 384 170, 190 170, 190 118'; f.push(h('path', { key: k(), d: fb, style: { ...ln, strokeDasharray: '3 4' } }), this.dot(k(), fb, 3.2, -1), this.txt(k(), 292, 178, 'FEEDBACK · DRIFT', 'middle'));
+    this._d = [this.svg('s0', T('Eventos descobertos no Event Storming organizados em domínios e tópicos', 'Events discovered in Event Storming organized into domains and topics'), a),
+      this.svg('s1', T('Bancos legados capturados via CDC, processados em Flink e entregues a APIs, lakehouse e sistemas', 'Legacy databases captured via CDC, processed in Flink and delivered to APIs, lakehouse and systems'), b),
+      this.svg('s2', T('Eventos agrupados em janelas de 1 minuto pelo Flink SQL; cada janela fechada vira uma barra no painel e dispara alerta quando passa do limite', 'Events grouped into 1-minute windows by Flink SQL; each closed window becomes a bar on the dashboard and fires an alert when it crosses the threshold'), c),
+      this.svg('s3', T('Cluster Confluent cercado por segurança, observabilidade, governança e FinOps', 'Confluent cluster surrounded by security, observability, governance and FinOps'), d),
+      this.svg('s4', T('Migração em ondas do legado para Confluent, com coexistência', 'Wave-based migration from legacy to Confluent, with coexistence'), e),
+      this.svg('s5', T('Eventos alimentam Flink e o modelo, que decide no evento e retroalimenta o ciclo', 'Events feed Flink and the model, which decides at the event and feeds back into the loop'), f)];
+    return this._d;
+  }
+
+  W(key, label, kids) { return this.h('svg', { key, viewBox: '0 0 800 440', width: '100%', role: 'img', 'aria-label': label, style: { display: 'block', height: 'auto', minWidth: '640px' } }, ...kids); }
+  tx(k, x, y, s, o) { o = o || {}; return this.h('text', { key: k, x, y, textAnchor: o.a || 'middle', style: { fontFamily: 'var(--font-body)', fontSize: o.s || 10.5, fontWeight: o.w || 400, letterSpacing: o.ls || 0, fill: o.c || 'var(--color-neutral-300)', fontStyle: o.i ? 'italic' : 'normal' } }, s); }
+  bx(k, x, y, w, hh, title, lines, hi, anim) { const h = this.h; const kids = [h('rect', { key: 'r', x, y, width: w, height: hh, rx: 10, style: { fill: hi ? 'var(--color-accent-900)' : 'var(--color-neutral-800)', stroke: hi ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', animation: anim || 'none' } })];
+    const n = lines.length, cy = y + hh / 2 - (n * 13) / 2 + 2; kids.push(this.tx('t', x + w / 2, cy + 5, title, { s: 14, w: 500, c: hi ? 'var(--color-accent-100)' : 'var(--color-text)' }));
+    lines.forEach((l, i) => kids.push(this.tx('l' + i, x + w / 2, cy + 22 + i * 13, l, { s: 9.5, c: hi ? 'var(--color-accent-300)' : 'var(--color-neutral-400)' }))); return h('g', { key: k }, ...kids); }
+  pill(k, x, y, w, hh, label, sub, dashed) { const h = this.h; return h('g', { key: k }, h('rect', { x, y, width: w, height: hh, rx: hh / 2, style: { fill: dashed ? 'none' : 'var(--color-neutral-800)', stroke: dashed ? 'var(--color-neutral-500)' : 'var(--color-neutral-700)', strokeDasharray: dashed ? '4 3' : 'none' } }), this.tx('a', x + w / 2, y + (sub ? hh / 2 - 2 : hh / 2 + 4), label, { s: sub ? 11 : 9.8, w: 500, c: 'var(--color-neutral-100)' }), sub ? this.tx('b', x + w / 2, y + hh / 2 + 12, sub, { s: 9.5, c: 'var(--color-neutral-400)' }) : null); }
+  arr(k, d, dur, begin, dotted) { const h = this.h; return h('g', { key: k }, h('path', { d, style: { fill: 'none', stroke: dotted ? 'var(--color-neutral-500)' : 'var(--color-accent-500)', strokeWidth: dotted ? 1 : 1.2, strokeDasharray: dotted ? '2 4' : 'none' } }), dotted ? null : this.dot('d', d, dur || 2.4, begin || 0)); }
+  wide() {
+    if (this._w) return this._w;
+    const h = this.h.bind(this), T = this.t.bind(this); let n = 0; const k = () => 'w' + n++;
+    const lab = (x, y, s, a) => this.tx(k(), x, y, s, { s: 10, ls: '.12em', c: 'var(--color-neutral-400)', a });
+    // A · Event-driven architecture
+    const A = [lab(400, 22, T('GOVERNANÇA TRANSVERSAL', 'CROSS-CUTTING GOVERNANCE'))];
+    [T('RBAC · identidade', 'RBAC · identity'), T('contratos · catálogo', 'contracts · catalog'), T('observabilidade', 'observability'), T('plataforma como código', 'platform as code')].forEach((s, i) => A.push(this.pill(k(), 60 + i * 180, 32, 160, 24, s, null, true)));
+    A.push(lab(20, 86, T('PRODUTORES', 'PRODUCERS'), 'start'), lab(780, 86, T('CONSUMIDORES', 'CONSUMERS'), 'end'));
+    const P = [[T('Microsserviços', 'Microservices'), T('eventos de domínio via outbox', 'domain events via outbox')], [T('Sistemas core e legado', 'Core and legacy systems'), T('CDC: sem alterar a origem', 'CDC: no change at the source')], [T('APIs e canais', 'APIs and channels'), 'sync → async'], [T('SaaS · parceiros · IoT', 'SaaS · partners · IoT'), T('conectores source', 'source connectors')]];
+    const C = [[T('Microsserviços', 'Microservices'), T('reagem ao evento, escalam por partição', 'react to events, scale per partition')], [T('Projeções e APIs', 'Projections and APIs'), T('CQRS: leitura em tempo real', 'CQRS: real-time reads')], [T('Lakehouse e analytics', 'Lakehouse and analytics'), T('Tableflow → Iceberg, sem ETL', 'Tableflow → Iceberg, no ETL')], ['Real-time AI', T('decisão em segundos', 'decisions in seconds')]];
+    P.forEach(([t, s], i) => { const y = 96 + i * 72, cy = y + 28, ty = 168 + i * 40, p = `M210 ${cy} C 255 ${cy}, 255 ${ty}, 300 ${ty}`; A.push(this.bx(k(), 20, y, 190, 56, t, [s], false), this.arr(k(), p, 2 + i * .3, -i * .5)); });
+    C.forEach(([t, s], i) => { const y = 96 + i * 72, cy = y + 28, ty = 168 + i * 40, p = `M500 ${ty} C 545 ${ty}, 545 ${cy}, 590 ${cy}`; A.push(this.bx(k(), 590, y, 190, 56, t, [s], false), this.arr(k(), p, 2 + i * .3, -i * .5 - 1)); });
+    A.push(h('rect', { key: k(), x: 300, y: 104, width: 200, height: 270, rx: 14, style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-500)', animation: 'npulse 3s ease-in-out infinite' } }),
+      this.tx(k(), 400, 134, T('Plataforma de Eventos', 'Event Platform'), { s: 16, w: 500, c: 'var(--color-accent-100)' }), this.tx(k(), 400, 152, 'Confluent · Apache Kafka', { s: 10.5, c: 'var(--color-accent-300)' }));
+    [['Schema Registry', T('contratos · evolução segura', 'contracts · safe evolution')], ['Flink', T('processamento em tempo real', 'real-time processing')], ['Kafka Connect', T('integração sem código', 'no-code integration')]].forEach(([t, s], i) => { const y = 168 + i * 60; A.push(h('rect', { key: k(), x: 314, y, width: 172, height: 48, rx: 8, style: { fill: 'var(--color-accent-800)', stroke: 'var(--color-accent-600)' } }), this.tx(k(), 400, y + 21, t, { s: 12.5, w: 500, c: 'var(--color-accent-100)' }), this.tx(k(), 400, y + 37, s, { s: 9.5, c: 'var(--color-accent-300)' })); });
+    A.push(this.tx(k(), 400, 362, T('retry · DLQ · exactly-once · DR multi-região', 'retry · DLQ · exactly-once · multi-region DR'), { s: 9.5, c: 'var(--color-accent-300)' }));
+    A.push(lab(400, 396, T('GARANTIAS DE PRODUÇÃO', 'PRODUCTION GUARANTEES')));
+    [T('idempotência por chave do agregado', 'idempotency by aggregate key'), T('retry em tiers + DLQ monitorada', 'tiered retry + monitored DLQ'), T('exactly-once no processamento', 'exactly-once processing'), T('RPO/RTO definidos · Cluster Linking', 'defined RPO/RTO · Cluster Linking')].forEach((s, i) => A.push(this.pill(k(), 14 + i * 194, 406, 186, 26, s)));
+    // B · Legacy modernization waves
+    const B = []; const F = [[T('F1 · Capturar', 'P1 · Capture'), T('CDC e MQ bridge: o legado nem percebe', 'CDC and MQ bridge: legacy never notices')], [T('F2 · Coexistir', 'P2 · Coexist'), T('novos serviços consomem os eventos', 'new services consume the events')], [T('F3 · Inverter', 'P3 · Invert'), T('o novo serviço vira dono da entidade', 'the new service owns the entity')], [T('F4 · Descomissionar', 'P4 · Decommission'), T('ESB, batch e MIPS desligados onda a onda', 'ESB, batch and MIPS switched off wave by wave')]];
+    F.forEach(([t, s], i) => { const x = 110 + i * 195; B.push(this.tx(k(), x, 32, t, { s: 14, w: 500, c: 'var(--color-accent-100)' }), this.tx(k(), x, 50, s, { s: 9.5, c: 'var(--color-neutral-400)' })); if (i) B.push(h('line', { key: k(), x1: x - 97, x2: x - 97, y1: 64, y2: 372, style: { stroke: 'var(--color-neutral-700)', strokeDasharray: '2 5' } })); });
+    B.push(h('rect', { key: k(), x: 20, y: 92, width: 760, height: 250, rx: 4, style: { fill: 'var(--color-neutral-800)', opacity: .45, stroke: 'var(--color-neutral-600)', strokeDasharray: '4 4' } }));
+    B.push(h('polygon', { key: k(), points: '20,230 780,120 780,342 20,342', style: { fill: 'var(--color-accent-800)', opacity: .35 } }));
+    B.push(h('polygon', { key: k(), points: '20,230 780,120 780,215 20,325', style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-500)' } }));
+    B.push(h('g', { key: k(), transform: 'rotate(-8.2 400 220)' }, this.tx('a', 400, 206, T('PLATAFORMA DE EVENTOS · CONFLUENT', 'EVENT PLATFORM · CONFLUENT'), { s: 10, ls: '.14em', c: 'var(--color-accent-300)' }), this.tx('b', 400, 226, 'Kafka Connect · Flink · Schema Registry · Cluster Linking', { s: 14, w: 500, c: 'var(--color-accent-100)' }), this.tx('c', 400, 243, T('traduz para o modelo canônico · origem e destino não se acoplam', 'translates to the canonical model · source and target stay decoupled'), { s: 9.5, i: 1, c: 'var(--color-accent-300)' })));
+    const band = 'M20 300 L780 190'; [0, 1, 2, 3].forEach(i => B.push(this.dot(k(), band, 9, -i * 2.25, 2.4)));
+    B.push(lab(110, 134, T('LEGADO', 'LEGACY')), this.tx(k(), 110, 152, T('mainframe · core monolítico', 'mainframe · monolithic core'), { s: 10.5 }), this.tx(k(), 110, 166, T('ESB · cargas batch · Kafka antigo', 'ESB · batch loads · old Kafka'), { s: 10.5 }));
+    B.push(lab(690, 268, T('MODERNO · EVENT-DRIVEN', 'MODERN · EVENT-DRIVEN'), 'middle'), this.tx(k(), 690, 286, T('microsserviços · APIs em tempo real', 'microservices · real-time APIs'), { s: 10.5, c: 'var(--color-accent-100)' }), this.tx(k(), 690, 300, 'lakehouse · real-time AI', { s: 10.5, c: 'var(--color-accent-100)' }));
+    const tag = (x, y, s, hi) => h('g', { key: k() }, h('rect', { x: x - s.length * 3.1 - 8, y: y - 10, width: s.length * 6.2 + 16, height: 18, rx: 4, style: { fill: hi ? 'var(--color-accent-700)' : 'var(--color-neutral-700)' } }), this.tx('t', x, y + 3, s, { s: 9.5, w: 500, c: 'var(--color-text)' }));
+    B.push(this.arr(k(), 'M130 180 L130 222', 1.8, 0), tag(170, 220, T('CDC · MQ bridge', 'CDC · MQ bridge'), true));
+    B.push(this.arr(k(), 'M300 296 L300 334', 1.8, -.6), tag(300, 350, T('eventos canônicos', 'canonical events'), true), this.arr(k(), 'M250 258 L250 190', 0, 0, true), this.tx(k(), 250, 182, T('sync reverso controlado', 'controlled reverse sync'), { s: 9, i: 1, c: 'var(--color-neutral-400)' }));
+    B.push(this.arr(k(), 'M530 336 L530 266', 1.8, -1.2), tag(530, 350, T('novo serviço produz', 'new service produces'), true), this.arr(k(), 'M560 180 L560 118', 0, 0, true), this.tx(k(), 560, 110, T('legado só consome', 'legacy only consumes'), { s: 9, i: 1, c: 'var(--color-neutral-400)' }));
+    B.push(this.pill(k(), 650, 66, 90, 20, T('desligado', 'switched off'), null, true), this.tx(k(), 690, 112, T('resíduo a desligar', 'residue to switch off'), { s: 9.5, i: 1, c: 'var(--color-neutral-400)' }), this.tx(k(), 110, 350, T('primeiro consumidor', 'first consumer'), { s: 9.5, i: 1, c: 'var(--color-accent-300)' }));
+    B.push(lab(400, 388, T('COMO MEDIMOS CADA ONDA', 'HOW WE MEASURE EACH WAVE')));
+    [T('% de transações no caminho novo ↑', '% of transactions on the new path ↑'), T('MIPS e chamadas MQ ↓', 'MIPS and MQ calls ↓'), T('integrações do ESB desligadas ↑', 'ESB integrations switched off ↑'), T('jobs batch substituídos ↑', 'batch jobs replaced ↑')].forEach((s, i) => B.push(this.pill(k(), 14 + i * 194, 400, 186, 26, s)));
+    // C · Platform as code (GitOps)
+    const G = [this.tx(k(), 400, 34, T('O que não está no Git não existe.', 'If it is not in Git, it does not exist.'), { s: 18, w: 500, c: 'var(--color-text)' }), this.tx(k(), 400, 54, T('toda mudança de tópico, schema, permissão ou conector nasce em um pull request', 'every topic, schema, permission or connector change starts as a pull request'), { s: 10.5, c: 'var(--color-neutral-400)' })];
+    [[346, 330, 156], [526, 284, 166], [692, 176, 88]].forEach(([x, y, w]) => G.push(h('rect', { key: k(), x, y, width: w, height: 342 - y, style: { fill: 'var(--color-neutral-800)', opacity: .6 } })));
+    G.push(h('line', { key: k(), x1: 20, x2: 780, y1: 342, y2: 342, style: { stroke: 'var(--color-accent-500)', strokeWidth: 2 } }));
+    G.push(this.bx(k(), 20, 240, 128, 90, 'Git', [T('estado desejado', 'desired state'), 'topics · schemas · grants', 'connectors · flink'], false));
+    G.push(this.bx(k(), 172, 240, 150, 90, T('CI valida', 'CI validates'), [T('em cada pull request', 'on every pull request'), 'naming · compat BACKWARD', 'plan · contract tests'], true, 'npulse 2.8s ease-in-out infinite'));
+    G.push(this.bx(k(), 346, 250, 156, 80, 'DSV', [T('merge → apply automático', 'merge → automatic apply'), T('descartável: recriado do Git', 'disposable: rebuilt from Git')], false));
+    G.push(this.bx(k(), 526, 204, 166, 80, 'HML', [T('release → apply automático', 'release → automatic apply'), T('dados mascarados · rede privada', 'masked data · private network')], true));
+    G.push(this.bx(k(), 640, 96, 140, 80, 'PRD', [T('aprovação → apply manual', 'approval → manual apply'), T('auditoria por PR', 'audit trail per PR')], true, 'npulse 2.4s ease-in-out .5s infinite'));
+    const lbl = (x, y, s, a) => this.tx(k(), x, y, s, { s: 9.5, w: 500, c: 'var(--color-accent-200)', a });
+    G.push(this.arr(k(), 'M148 285 L172 285', 1.4, 0), lbl(160, 234, 'PR'), this.arr(k(), 'M322 285 L346 285', 1.4, -.5), lbl(334, 232, 'merge'), this.arr(k(), 'M502 262 L526 248', 1.6, -1), lbl(476, 240, T('tag de release', 'release tag')), this.arr(k(), 'M670 204 L670 176', 1.4, -1.5), lbl(700, 194, T('aprovação humana', 'human approval'), 'start'));
+    G.push(this.pill(k(), 604, 181, 54, 18, 'GATE', null, true), this.pill(k(), 182, 352, 130, 20, T('falhou → PR bloqueado', 'failed → PR blocked'), null, true));
+    const drift = 'M710 96 L710 84 L84 84 L84 240'; G.push(this.arr(k(), drift, 0, 0, true), this.dot(k(), drift, 6, 0, 2.2), this.tx(k(), 400, 76, T('drift detectado no cluster → vira pull request, nunca correção manual', 'drift detected in the cluster → becomes a pull request, never a manual fix'), { s: 9.5, i: 1, c: 'var(--color-neutral-400)' }));
+    G.push(lab(400, 392, T('APPLIER · O MESMO ESTADO DESEJADO, APLICADO PELO MECANISMO CERTO', 'APPLIER · THE SAME DESIRED STATE, APPLIED BY THE RIGHT MECHANISM')));
+    [['Terraform · provider Confluent', 'Confluent Cloud'], ['CFK · CRDs', T('Confluent Platform em Kubernetes', 'Confluent Platform on Kubernetes')], ['cp-ansible + CLI', T('Confluent Platform em bare-metal', 'Confluent Platform on bare-metal')]].forEach(([a, b], i) => G.push(this.pill(k(), 20 + i * 256, 402, 248, 32, a, b)));
+    // D · Real-time AI (agent loop)
+    const D = [], R = 140, RX = 190, cx0 = 400, cy0 = 222;
+    D.push(h('ellipse', { key: k(), cx: cx0, cy: cy0, rx: RX, ry: R, style: { fill: 'none', stroke: 'var(--color-accent-700)', strokeDasharray: '2 6' } }));
+    const ring = `M${cx0} ${cy0 - R} a${RX} ${R} 0 1 1 0 ${2 * R} a${RX} ${R} 0 1 1 0 -${2 * R}`; D.push(this.dot(k(), ring, 10, 0, 3.2), this.dot(k(), ring, 10, -5, 3.2));
+    D.push(h('circle', { key: k(), cx: cx0, cy: cy0, r: 56, style: { fill: 'var(--color-accent-900)', stroke: 'var(--color-accent-500)', animation: 'npulse 3s ease-in-out infinite' } }), this.tx(k(), cx0, cy0 - 4, 'Streaming Agent', { s: 14, w: 500, c: 'var(--color-accent-100)' }), this.tx(k(), cx0, cy0 + 13, T('nativo no Flink', 'native to Flink'), { s: 9.5, c: 'var(--color-accent-300)' }), this.tx(k(), cx0, cy0 + 26, T('sempre ligado', 'always on'), { s: 9.5, c: 'var(--color-accent-300)' }));
+    const N = [[T('1 · Perceber', '1 · Sense'), [T('evento chega do Kafka', 'event arrives from Kafka')]], [T('2 · Contextualizar', '2 · Contextualize'), ['Real-Time Context Engine', T('consulta via MCP', 'queried via MCP')]], [T('3 · Raciocinar', '3 · Reason'), [T('LLM · modelo de escolha', 'LLM · model of choice')]], [T('4 · Agir', '4 · Act'), [T('tool calling via MCP', 'tool calling via MCP')]], [T('5 · Aprender', '5 · Learn'), [T('resultado volta como evento', 'outcome returns as an event')]]];
+    const pos = N.map((_, i) => { const a = (-90 + i * 72) * Math.PI / 180; return [cx0 + RX * Math.cos(a), cy0 + R * Math.sin(a)]; });
+    N.forEach(([t, ls], i) => { const [x, y] = pos[i], w = 150, hh = 56; D.push(h('rect', { key: k(), x: x - w / 2 - 3, y: y - hh / 2 - 3, width: w + 6, height: hh + 6, rx: 12, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${(i * 2 - .3).toFixed(1)}s infinite` } }), this.bx(k(), x - w / 2, y - hh / 2, w, hh, t, ls, i === 1)); });
+    D.push(lab(20, 30, T('STREAM DE EVENTOS', 'EVENT STREAM'), 'start'));
+    const lane = `M20 ${pos[0][1]} L${pos[0][0] - 75} ${pos[0][1]}`; D.push(h('path', { key: k(), d: lane, style: { fill: 'none', stroke: 'var(--color-accent-700)' } }));
+    [0, 1, 2, 3].forEach(i => D.push(this.dot(k(), lane, 2.4, -i * .6, 2.4)));
+    [T('pedidos', 'orders'), T('pagamentos', 'payments'), T('sessões', 'sessions'), T('sensores', 'sensors')].forEach((s, i) => D.push(this.tx(k(), 24 + i * 70, pos[0][1] - 10, s, { s: 9.5, a: 'start', c: 'var(--color-neutral-400)' })));
+    const px = 680, py = 96; D.push(h('rect', { key: k(), x: px, y: py, width: 108, height: 150, rx: 10, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), px + 12, py + 20, T('CONTEXTO VIVO', 'LIVE CONTEXT'), { s: 9.5, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    [T('cliente 360', 'customer 360'), T('saldo e limites', 'balance and limits'), T('últimas sessões', 'recent sessions'), T('pedidos abertos', 'open orders')].forEach((s, i) => { const y = py + 36 + i * 24; D.push(h('rect', { key: k(), x: px + 10, y, width: 88, height: 18, rx: 4, style: { fill: 'var(--color-accent-900)', animation: `npulse 2.4s ease-in-out ${(i * .6).toFixed(1)}s infinite` } }), this.tx(k(), px + 18, y + 12.5, s, { s: 9.5, a: 'start', c: 'var(--color-accent-100)' })); });
+    D.push(this.tx(k(), px + 54, py + 140, T('atualizado há 2 s', 'updated 2 s ago'), { s: 9, i: 1, c: 'var(--color-accent-300)' }));
+    const mcp = `M${px} ${pos[1][1]} L${pos[1][0] + 75} ${pos[1][1]}`; D.push(this.arr(k(), mcp, 1.2, 0), this.tx(k(), (px + pos[1][0] + 75) / 2, pos[1][1] - 6, 'MCP', { s: 9, w: 500, c: 'var(--color-accent-200)' }));
+    const gx = 20, gy = 250; D.push(this.tx(k(), gx, gy, T('GUARDRAILS', 'GUARDRAILS'), { s: 9.5, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    [T('RBAC por chamada', 'RBAC per call'), T('auditoria de cada decisão', 'audit of every decision'), T('humano no loop', 'human in the loop')].forEach((s, i) => D.push(this.pill(k(), gx, gy + 10 + i * 30, 150, 22, s, null, true)));
+    const act = `M${pos[3][0]} ${pos[3][1] + 28} L${pos[3][0]} 408`; D.push(this.arr(k(), act, 1.4, 0));
+    D.push(this.pill(k(), pos[3][0] - 110, 408, 220, 24, T('tópicos de ação · APIs · Lakehouse', 'action topics · APIs · Lakehouse')));
+    D.push(this.tx(k(), 780, 420, T('do evento à ação em segundos', 'from event to action in seconds'), { s: 10.5, a: 'end', i: 1, c: 'var(--color-neutral-300)' }));
+    // E · Pipeline: one record, station by station
+    const E = [lab(20, 24, T('UM UPDATE NO ORACLE, DA ORIGEM AO CONSUMO', 'ONE ORACLE UPDATE, FROM SOURCE TO CONSUMPTION'), 'start')];
+    const SX = [84, 242, 400, 558, 716], PY = 128;
+    const ST = [[T('Origem', 'Source'), 'Oracle · DB2 · mainframe'], ['CDC', 'Debezium · Kafka Connect'], [T('Contrato', 'Contract'), 'Schema Registry · shift-left'], ['Flink', T('enriquece · junta · filtra', 'enriches · joins · filters')], [T('Destinos', 'Sinks'), 'sink connectors']];
+    E.push(h('line', { key: k(), x1: 40, x2: 780, y1: PY, y2: PY, style: { stroke: 'var(--color-neutral-700)', strokeWidth: 6, strokeLinecap: 'round' } }), h('line', { key: k(), x1: 40, x2: 780, y1: PY, y2: PY, style: { stroke: 'var(--color-accent-500)', strokeWidth: 2, strokeDasharray: '2 10', animation: 'dash 8s linear infinite reverse' } }));
+    const CARDS = [[T('LINHA ALTERADA', 'ROW CHANGED'), [['UPDATE clientes'], ['SET limite = 8000', 1], ['WHERE id = 42']]], [T('EVENTO CDC', 'CDC EVENT'), [['op: u'], ['before.limite: 5000'], ['after.limite: 8000', 1], ['ts_ms: 12:04:07.381']]], [T('VALIDAÇÃO', 'VALIDATION'), [['schema v3 ✓', 1], ['compat. BACKWARD ✓', 1], [T('cpf tokenizado ✓', 'tax id tokenized ✓'), 1], [T('id obrigatório ✓', 'id required ✓'), 1]]], [T('ENRIQUECIDO', 'ENRICHED'), [['+ segmento: PJ', 1], ['+ score_risco: 0.82', 1], ['+ gerente: Ana L.', 1], [T('filtro: limite > 0', 'filter: limit > 0')]]], [T('ENTREGUE EM', 'DELIVERED TO'), [['• Snowflake'], ['• Elasticsearch'], [T('• API de crédito', '• Credit API')], ['• Lakehouse']]]];
+    SX.forEach((x, i) => { const dl = (i * 2 - .3).toFixed(1);
+      E.push(this.tx(k(), x, 50, '0' + (i + 1), { s: 10, c: 'var(--color-accent-300)' }), this.tx(k(), x, 70, ST[i][0], { s: 13, w: 500, c: 'var(--color-text)' }), this.tx(k(), x, 86, ST[i][1], { s: 9.5, c: 'var(--color-neutral-400)' }));
+      E.push(h('circle', { key: k(), cx: x, cy: PY, r: 19, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${dl}s infinite` } }), h('circle', { key: k(), cx: x, cy: PY, r: 11, style: { fill: 'var(--color-bg)', stroke: 'var(--color-accent-500)', strokeWidth: 1.5 } }), h('line', { key: k(), x1: x, x2: x, y1: PY + 12, y2: 158, style: { stroke: 'var(--color-neutral-600)' } }));
+      const [hd, ls] = CARDS[i], cxl = x - 72;
+      E.push(h('rect', { key: k(), x: cxl, y: 158, width: 144, height: 118, rx: 8, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), h('rect', { key: k(), x: cxl - 2, y: 156, width: 148, height: 122, rx: 9, style: { fill: 'none', stroke: 'var(--color-accent-300)', strokeWidth: 1.5, opacity: 0, animation: `ringstep 10s linear ${dl}s infinite` } }), this.tx(k(), cxl + 12, 177, hd, { s: 9, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+      ls.forEach(([s, hi], j) => E.push(this.tx(k(), cxl + 12, 199 + j * 18, s, { s: 10.5, a: 'start', c: hi ? 'var(--color-accent-200)' : 'var(--color-neutral-200)' }))); });
+    E.push(h('rect', { key: k(), x: -8, y: -5, width: 16, height: 10, rx: 3, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 5px var(--color-accent))' } }, h('animateMotion', { dur: '10s', repeatCount: 'indefinite', path: `M84 ${PY} L874 ${PY}` })));
+    E.push(this.arr(k(), 'M400 276 L400 312', 0, 0, true), this.pill(k(), 315, 312, 170, 22, T('inválido → DLQ monitorada', 'invalid → monitored DLQ'), null, true));
+    E.push(h('line', { key: k(), x1: 84, x2: 716, y1: 368, y2: 368, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 84, x2: 84, y1: 362, y2: 374, style: { stroke: 'var(--color-neutral-600)' } }), h('line', { key: k(), x1: 716, x2: 716, y1: 362, y2: 374, style: { stroke: 'var(--color-neutral-600)' } }));
+    E.push(h('rect', { key: k(), x: 290, y: 358, width: 220, height: 20, rx: 10, style: { fill: 'var(--color-surface)' } }), this.tx(k(), 400, 372, T('≈ 800 ms da origem ao destino', '≈ 800 ms from source to sink'), { s: 10.5, i: 1, c: 'var(--color-neutral-300)' }));
+    [T('zero alteração na origem', 'zero change at the source'), T('contrato antes do consumo', 'contract before consumption'), T('reprocessável a partir do offset', 'replayable from any offset'), T('pipeline como código · CI/CD', 'pipeline as code · CI/CD')].forEach((s, i) => E.push(this.pill(k(), 14 + i * 194, 402, 186, 26, s)));
+    // L · Analytics: hot path + cold path
+    const L = [lab(20, 24, T('HOT PATH · SEGUNDOS', 'HOT PATH · SECONDS'), 'start')];
+    const LN = [[T('pedidos', 'orders'), 70], [T('pagamentos', 'payments'), 98], [T('cancelamentos', 'cancellations'), 126]], WX = [110, 190, 270, 350], cnt = [[5, 4, 1], [4, 5, 1], [6, 4, 1], [5, 3, 3]];
+    LN.forEach(([s, y]) => L.push(this.tx(k(), 20, y + 3, s, { s: 9.5, a: 'start', c: 'var(--color-neutral-400)' }), h('line', { key: k(), x1: 110, x2: 430, y1: y, y2: y, style: { stroke: 'var(--color-neutral-700)' } })));
+    const ani = (attr, values, keyTimes) => h('animate', { attributeName: attr, values, keyTimes, dur: '6s', repeatCount: 'indefinite' });
+    WX.forEach((x, w) => { const open = w === 3;
+      L.push(h('rect', { key: k(), x: x + 2, y: 54, width: 76, height: 88, rx: 5, style: { fill: open ? 'var(--color-accent-900)' : 'none', stroke: open ? 'var(--color-accent-500)' : 'var(--color-neutral-600)', strokeDasharray: open ? '3 3' : 'none' } }));
+      LN.forEach(([, y], l) => { for (let j = 0; j < cnt[w][l]; j++) { const cx = x + 10 + ((j * 29 + l * 13 + w * 7) % 60); const ft = (j * .12 + l * .04).toFixed(2);
+        L.push(h('circle', { key: k(), cx, cy: y, r: 2.6, style: { fill: open ? (l === 2 ? 'var(--color-accent-300)' : 'var(--color-accent-100)') : 'var(--color-neutral-400)' } }, open ? ani('opacity', '0;0;1;1;0', `0;${ft};${(+ft + .02).toFixed(2)};.96;1`) : null)); } });
+      L.push(this.tx(k(), x + 40, 158, ['12:01', '12:02', '12:03', T('12:04 · aberta', '12:04 · open')][w], { s: 9.5, c: open ? 'var(--color-accent-200)' : 'var(--color-neutral-400)' })); });
+    L.push(this.arr(k(), 'M230 166 L230 190', 1, 0));
+    L.push(h('rect', { key: k(), x: 20, y: 190, width: 420, height: 116, rx: 8, style: { fill: 'var(--color-bg)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), 34, 210, 'FLINK SQL', { s: 9, a: 'start', ls: '.1em', c: 'var(--color-neutral-400)' }));
+    const KW = 'var(--color-accent-300)', TXC = 'var(--color-neutral-100)';
+    const code = (y, x, parts) => h('text', { key: k(), x, y, style: { fontFamily: 'var(--font-body)', fontSize: 10.5, fontFeatureSettings: "'tnum' 1" } }, ...parts.map(([s, kw], i) => h('tspan', { key: i, style: { fill: kw ? KW : TXC } }, s)));
+    L.push(code(232, 34, [['SELECT ', 1], ['window_end, loja, '], ['COUNT', 1], ['(*) pedidos, '], ['SUM', 1], ['(valor) receita,']]), code(249, 74, [['AVG', 1], ['(cancelado) taxa_cancel']]), code(266, 34, [['FROM TABLE', 1], ['('], ['TUMBLE', 1], ['('], ['TABLE ', 1], ['pedidos, '], ['DESCRIPTOR', 1], ['(ts), '], ["INTERVAL '1' MINUTE", 1], ['))']]), code(283, 34, [['GROUP BY ', 1], ['window_start, window_end, loja']]));
+    L.push(this.arr(k(), 'M440 248 L480 248', 1.2, 0), this.tx(k(), 460, 229, T('a cada', 'every'), { s: 8.5, c: 'var(--color-accent-300)' }), this.tx(k(), 460, 240, T('janela', 'window'), { s: 8.5, c: 'var(--color-accent-300)' }));
+    const DX = 480; L.push(h('rect', { key: k(), x: DX, y: 44, width: 300, height: 262, rx: 10, style: { fill: 'var(--color-neutral-800)', stroke: 'var(--color-neutral-600)' } }), this.tx(k(), DX + 16, 66, T('Painel · operação', 'Dashboard · operations'), { s: 12, w: 500, a: 'start', c: 'var(--color-text)' }), h('circle', { key: k(), cx: DX + 284, cy: 62, r: 4, style: { fill: 'var(--color-accent-300)', animation: 'npulse 1.4s ease-in-out infinite' } }), this.tx(k(), DX + 274, 66, T('ao vivo', 'live'), { s: 9.5, a: 'end', c: 'var(--color-accent-300)' }));
+    [[T('Pedidos/min', 'Orders/min'), '1.284', '▲ 6%'], [T('Receita/min', 'Revenue/min'), T('R$ 212 mil', 'R$ 212k'), '▲ 4%'], [T('Cancelamento', 'Cancellation'), '1,9%', T('limite 1,5%', 'limit 1.5%')]].forEach(([a, v, d], i) => { const x = DX + 16 + i * 92, al = i === 2;
+      L.push(h('rect', { key: k(), x, y: 80, width: 84, height: 62, rx: 6, style: { fill: al ? 'var(--color-accent-900)' : 'var(--color-bg)', stroke: al ? 'var(--color-accent-500)' : 'var(--color-neutral-700)', animation: al ? 'npulse 1.6s ease-in-out infinite' : 'none' } }), this.tx(k(), x + 10, 98, a, { s: 9, a: 'start', c: 'var(--color-neutral-400)' }), this.tx(k(), x + 10, 120, v, { s: 14, w: 500, a: 'start', c: al ? 'var(--color-accent-100)' : 'var(--color-text)' }), this.tx(k(), x + 10, 134, d, { s: 9, a: 'start', c: al ? 'var(--color-accent-300)' : 'var(--color-neutral-400)' })); });
+    L.push(this.tx(k(), DX + 16, 164, T('cancelamento por minuto', 'cancellation per minute'), { s: 9, a: 'start', c: 'var(--color-neutral-400)' }));
+    const vals = [1.1, 1.2, 1.0, 1.3, 1.2, 1.1, 1.4, 1.3, 1.2, 1.5, 1.7, 1.9], yv = v => 258 - (v - .8) * 62, xv = i => DX + 16 + i * 24.4;
+    L.push(h('line', { key: k(), x1: DX + 16, x2: DX + 284, y1: yv(1.5), y2: yv(1.5), style: { stroke: 'var(--color-accent-300)', strokeDasharray: '4 4', opacity: .7 } }), this.tx(k(), DX + 16, yv(1.5) - 5, T('limite', 'limit'), { s: 8.5, a: 'start', c: 'var(--color-accent-300)' }));
+    L.push(h('polyline', { key: k(), points: vals.map((v, i) => xv(i).toFixed(1) + ',' + yv(v).toFixed(1)).join(' '), style: { fill: 'none', stroke: 'var(--color-accent-200)', strokeWidth: 1.6, strokeLinejoin: 'round' } }), h('circle', { key: k(), cx: xv(11), cy: yv(1.9), r: 4, style: { fill: 'var(--color-accent-100)', filter: 'drop-shadow(0 0 5px var(--color-accent))', animation: 'npulse 1.4s ease-in-out infinite' } }));
+    L.push(h('rect', { key: k(), x: DX + 16, y: 272, width: 268, height: 22, rx: 11, style: { fill: 'var(--color-accent-700)' } }), this.tx(k(), DX + 150, 287, T('alerta → squad de operações em 4 s', 'alert → operations squad in 4 s'), { s: 10, w: 500, c: 'var(--color-text)' }));
+    L.push(lab(20, 338, T('COLD PATH · HISTÓRICO SEM ETL', 'COLD PATH · HISTORY WITHOUT ETL'), 'start'));
+    L.push(this.bx(k(), 20, 350, 180, 50, T('Tópico pedidos', 'Orders topic'), ['Kafka · Confluent'], false), this.arr(k(), 'M200 375 L240 375', 1.4, 0), this.bx(k(), 240, 350, 200, 50, 'Tableflow', [T('o tópico vira tabela', 'the topic becomes a table')], true), this.arr(k(), 'M440 375 L480 375', 1.4, -.7), this.bx(k(), 480, 350, 300, 50, 'Apache Iceberg', ['Databricks · Snowflake · BigQuery · BI'], false));
+    L.push(this.tx(k(), 400, 428, T('o mesmo tópico alimenta o painel em segundos e o histórico para BI e modelos', 'the same topic feeds the dashboard in seconds and the history for BI and models'), { s: 10, i: 1, c: 'var(--color-neutral-400)' }));
+    this._w = { eda: this.W('wa', T('Produtores, plataforma de eventos Confluent e consumidores, com governança transversal e garantias de produção', 'Producers, Confluent event platform and consumers, with cross-cutting governance and production guarantees'), A),
+      legacy: this.W('wb', T('Quatro fases de modernização: capturar, coexistir, inverter e descomissionar', 'Four modernization phases: capture, coexist, invert and decommission'), B),
+      pipe: this.W('we', T('Um UPDATE no Oracle passa por CDC, validação de contrato no Schema Registry e enriquecimento no Flink até os destinos, em cerca de 800 ms', 'An Oracle UPDATE passes through CDC, Schema Registry contract validation and Flink enrichment to the sinks, in about 800 ms'), E),
+      live: this.W('wf', T('Hot path: eventos em janelas de 1 minuto no Flink SQL alimentam um painel ao vivo com alerta; cold path: o mesmo tópico vira tabela Iceberg via Tableflow', 'Hot path: events in 1-minute Flink SQL windows feed a live dashboard with alerting; cold path: the same topic becomes an Iceberg table via Tableflow'), L),
+      rtai: this.W('wd', T('Ciclo de um Streaming Agent: percebe o evento, busca contexto vivo no Real-Time Context Engine via MCP, raciocina com o LLM, age e devolve o resultado ao stream', 'A Streaming Agent loop: senses the event, pulls live context from the Real-Time Context Engine via MCP, reasons with the LLM, acts and returns the outcome to the stream'), D),
+      gitops: this.W('wc', T('Fluxo GitOps: Git, CI, DSV, HML e PRD, com applier por ambiente', 'GitOps flow: Git, CI, DSV, HML and PRD, with an applier per environment'), G) };
+    return this._w;
+  }
+  renderVals() { const d = this.build(), w = this.wide(); return { diag0: w.eda, diag1: w.pipe, diag2: w.live, diag3: w.gitops, diag4: w.legacy, diag5: w.rtai }; }
+}
+</script>
+</body>
+</html>
