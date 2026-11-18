@@ -8,7 +8,8 @@
        generate_lead  form_type=contato     formulário de contato gravado
        sign_up        method=newsletter     assinatura da newsletter gravada
        contact_click  method=telefone|email clique em telefone ou e-mail
-   - window.InteliumConsent.open() reabre o aviso para o visitante mudar a escolha. */
+   - O link do rodapé com href="#cookies" (e window.InteliumConsent.open()) reabre o aviso
+     para o visitante mudar a escolha. */
 (function () {
   "use strict";
 
@@ -20,13 +21,15 @@
   const TEXT = {
     "pt-BR": {
       label: "Aviso de cookies",
-      body: "Usamos cookies de medição (Google Analytics) para entender como o site é usado e melhorar o conteúdo. Nenhum dado é usado para publicidade.",
+      title: "Podemos medir a sua visita?",
+      body: "Usamos o Google Analytics para saber quais páginas são úteis e melhorar o conteúdo. Nada é usado para publicidade, e o site funciona igual se você recusar. Para mudar de ideia depois, use o link “Cookies” no rodapé.",
       accept: "Aceitar",
       refuse: "Recusar",
     },
     en: {
       label: "Cookie notice",
-      body: "We use measurement cookies (Google Analytics) to understand how the site is used and improve its content. No data is used for advertising.",
+      title: "May we measure your visit?",
+      body: "We use Google Analytics to learn which pages are useful and improve our content. Nothing is used for advertising, and the site works the same if you decline. To change your mind later, use the “Cookies” link in the footer.",
       accept: "Accept",
       refuse: "Decline",
     },
@@ -103,8 +106,11 @@
       "background:#232532;color:#e9e9ed;border-radius:14px;box-shadow:0 0 0 1px #595d6c,0 6px 18px rgba(0,0,0,.55);" +
       'font:14px/1.45 "Inter",system-ui,sans-serif';
     const p = document.createElement("p");
-    p.textContent = TEXT.body;
     p.style.cssText = "margin:0;flex:1 1 320px";
+    const title = document.createElement("strong");
+    title.textContent = TEXT.title;
+    title.style.cssText = "display:block;margin-bottom:4px;font-size:15px;font-weight:600";
+    p.append(title, TEXT.body);
     const actions = document.createElement("div");
     actions.style.cssText = "display:flex;gap:8px;margin-left:auto";
     const btn = function (label, value, primary) {
@@ -168,6 +174,12 @@
       const a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
       if (!a) return;
       const href = a.getAttribute("href") || "";
+      // Link "Cookies" do rodapé: reabre o aviso para o visitante mudar a escolha.
+      if (href === "#cookies") {
+        e.preventDefault();
+        openBanner();
+        return;
+      }
       if (href.indexOf("tel:") === 0) track("contact_click", { method: "telefone" });
       else if (href.indexOf("mailto:") === 0 || href.indexOf("/cdn-cgi/l/email-protection") >= 0)
         track("contact_click", { method: "email" });
