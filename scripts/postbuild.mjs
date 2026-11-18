@@ -14,6 +14,7 @@
 import { copyFileSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, relative } from "node:path";
+import { transformSite } from "./site-transform.mjs";
 
 const OUT = fileURLToPath(new URL("../out/", import.meta.url));
 const env = (process.env.SITE_ENV || "prd").toLowerCase();
@@ -54,6 +55,14 @@ function walk(dir) {
 }
 
 const pages = walk(OUT).filter((f) => f.endsWith(".html"));
+
+// Publication transforms (links, titles, structured data, head, React, prerender).
+const seo = transformSite(OUT);
+console.log(
+  `postbuild: ${seo.pages} pages transformed, ${seo.prerendered} prerendered` +
+    (seo.stale.length ? `, ${seo.stale.length} WITHOUT an up-to-date snapshot (run: npm run prerender)` : "") +
+    `, React ${seo.vendor ? "served from /vendor/" : "still loaded from the CDN"}.`,
+);
 
 // Measurement: out/analytics.js, loaded by every page. Site pages use a relative
 // path (they must work under the test sub-folder); Next's own pages (404) are

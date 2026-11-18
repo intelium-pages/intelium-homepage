@@ -4,6 +4,7 @@
 
 import { before, test } from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, normalize, relative } from "node:path";
@@ -50,7 +51,7 @@ before(() => {
 
 test("index.html is the site home page", () => {
   const html = read("index.html");
-  assert.match(html, /<title>Intelium · Centro de excelência em Data Streaming/);
+  assert.match(headOf(html), /<title>Intelium · Data Streaming/);
   assert.doesNotMatch(html, /Novo site em construção/);
 });
 
@@ -151,6 +152,73 @@ test(`measurement is installed behind consent (${ENV})`, () => {
     assert.doesNotMatch(read(page), /googletagmanager\.com|google-analytics\.com/, `${page} loads Google before consent`);
   // Search Console ownership is proven only by the production site.
   assert.equal(existsSync(join(OUT, "google7123c91c7fc011d3.html")), ENV !== "dsv");
+});
+
+// The part of a page a crawler reads without running JavaScript: everything
+// except the runtime's template and the scripts.
+const visible = (html) => html.replace(/<template id="dc-src">[\s\S]*<\/template>/, "").replace(/<script[\s\S]*?<\/script>/g, "");
+const headOf = (html) => html.slice(0, html.indexOf("</head>"));
+const attr = (s) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&amp;/g, "&");
+
+test("every page is prerendered: real HTML, no template placeholders", () => {
+  const notPrerendered = [];
+  const placeholders = [];
+  for (const page of sitePages()) {
+    const html = read(page);
+    if (!html.includes('<div id="dc-pre"') || !html.includes('<template id="dc-src">')) notPrerendered.push(page);
+    else if (visible(html).includes("{{")) placeholders.push(page);
+  }
+  assert.deepEqual(notPrerendered, [], "pages without an up-to-date snapshot: run `npm run prerender`");
+  assert.deepEqual(placeholders, []);
+});
+
+test("title, description and canonical are in <head>, within the size limits", () => {
+  const problems = [];
+  for (const page of sitePages()) {
+    const head = headOf(read(page));
+    const title = attr((/<title>([^<]*)<\/title>/.exec(head) || [])[1] || "");
+    const description = attr((/<meta name="description" content="([^"]*)"/.exec(head) || [])[1] || "");
+    if (!title || title.length > 60) problems.push(`${page}: title has ${title.length} characters`);
+    if (description.length < 70 || description.length > 155) problems.push(`${page}: description has ${description.length} characters`);
+    if (!/<link rel="canonical" href="https:\/\/intelium\.ai\/[^"]*"/.test(head)) problems.push(`${page}: canonical not in <head>`);
+    if ((read(page).match(/<title>/g) || []).length !== 1) problems.push(`${page}: more than one <title>`);
+  }
+  assert.deepEqual(problems, []);
+});
+
+test("internal links use the clean URL, never /index.html", () => {
+  assert.deepEqual(sitePages().filter((p) => read(p).includes("index.html")), []);
+});
+
+test("structured data is valid JSON and covers every page", () => {
+  const problems = [];
+  for (const page of sitePages()) {
+    const types = [];
+    for (const m of headOf(read(page)).matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+      try {
+        const data = JSON.parse(m[1]);
+        for (const node of data["@graph"] || [data]) types.push(node["@type"]);
+      } catch {
+        problems.push(`${page}: invalid JSON-LD`);
+      }
+    }
+    const home = page === "index.html" || page === "en/index.html";
+    if (!home && !types.includes("BreadcrumbList")) problems.push(`${page}: no BreadcrumbList`);
+    if (home && !types.includes("Organization")) problems.push(`${page}: no Organization`);
+    if (/^(en\/services|servicos)\//.test(page) && types.filter((t) => t === "Service").length !== 6) problems.push(`${page}: expected 6 Service`);
+  }
+  assert.deepEqual(problems, []);
+});
+
+test("React is served from the site itself, with the expected files", () => {
+  assert.doesNotMatch(read("support.js"), /unpkg\.com\/react/);
+  const expected = {
+    "vendor/react-18.3.1.production.min.js": "DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z",
+    "vendor/react-dom-18.3.1.production.min.js": "gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1",
+  };
+  for (const [file, sri] of Object.entries(expected)) {
+    assert.equal(createHash("sha384").update(readFileSync(join(OUT, file))).digest("base64"), sri, file);
+  }
 });
 
 test("nothing that does not belong to the site leaks into the export", () => {

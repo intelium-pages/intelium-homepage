@@ -11,7 +11,13 @@ import { fileURLToPath } from "node:url";
 import { join, relative, resolve } from "node:path";
 
 const PUBLIC = fileURLToPath(new URL("../public/", import.meta.url));
-const KEEP = new Set([".htaccess", "assets/isotipo.png", "assets/logo.png"]);
+const KEEP = new Set([
+  ".htaccess",
+  "assets/isotipo.png",
+  "assets/logo.png",
+  "vendor/react-18.3.1.production.min.js",
+  "vendor/react-dom-18.3.1.production.min.js",
+]);
 const SKIP = new Set(["CNAME", "README.md", ".nojekyll", "404.html", ".DS_Store"]);
 
 const src = process.argv[2] && resolve(process.argv[2]);
@@ -52,4 +58,4 @@ function prune(dir) {
 }
 prune(PUBLIC.replace(/\/$/, ""));
 
-console.log(`sync-site: ${copied} files copied, ${removed} stale files removed. Now run: npm run build && npm test`);
+console.log(`sync-site: ${copied} files copied, ${removed} stale files removed. Now run: npm run prerender && npm run build && npm test`);
