@@ -1,23 +1,63 @@
 {
-  "organization": { "@type": "Organization", "@id": "https://intelium.ai/#organization", "name": "Intelium", "url": "https://intelium.ai/" },
+  "organization": {
+    "@type": "Organization",
+    "@id": "https://intelium.ai/#organization",
+    "name": "Intelium",
+    "url": "https://intelium.ai/",
+    "sameAs": [
+      "https://www.linkedin.com/company/inteliumai/",
+      "https://www.youtube.com/@inteliumai",
+      "https://www.instagram.com/inttelium/"
+    ]
+  },
   "sections": {
-    "/": "Início", "/sobre/": "Sobre", "/servicos/": "Serviços", "/cases/": "Cases", "/labs/": "Labs", "/eventos/": "Eventos",
-    "/academy/": "Academy", "/blog/": "Blog", "/blog/negocio/": "Use cases de negócio", "/blog/tecnico/": "Artigos técnicos", "/contato/": "Contato",
-    "/en/": "Home", "/en/about/": "About", "/en/services/": "Services", "/en/cases/": "Cases", "/en/labs/": "Labs", "/en/events/": "Events",
-    "/en/academy/": "Academy", "/en/blog/": "Blog", "/en/blog/business/": "Business use cases", "/en/blog/technical/": "Technical articles", "/en/contact/": "Contact"
+    "/": "Início",
+    "/sobre/": "Sobre",
+    "/servicos/": "Serviços",
+    "/cases/": "Cases",
+    "/labs/": "Labs",
+    "/eventos/": "Eventos",
+    "/academy/": "Academy",
+    "/blog/": "Blog",
+    "/blog/negocio/": "Use cases de negócio",
+    "/blog/tecnico/": "Artigos técnicos",
+    "/contato/": "Contato",
+    "/en/": "Home",
+    "/en/about/": "About",
+    "/en/services/": "Services",
+    "/en/cases/": "Cases",
+    "/en/labs/": "Labs",
+    "/en/events/": "Events",
+    "/en/academy/": "Academy",
+    "/en/blog/": "Blog",
+    "/en/blog/business/": "Business use cases",
+    "/en/blog/technical/": "Technical articles",
+    "/en/contact/": "Contact"
   },
   "pageTypes": {
-    "/sobre/": "AboutPage", "/en/about/": "AboutPage", "/contato/": "ContactPage", "/en/contact/": "ContactPage",
-    "/cases/": "CollectionPage", "/en/cases/": "CollectionPage"
+    "/sobre/": "AboutPage",
+    "/en/about/": "AboutPage",
+    "/contato/": "ContactPage",
+    "/en/contact/": "ContactPage",
+    "/cases/": "CollectionPage",
+    "/en/cases/": "CollectionPage"
   },
   "services": {
     "/servicos/": [
-      "Arquitetura para soluções Event-Driven", "Pipelines Event-Driven", "Analytics em Tempo Real",
-      "Plataforma de Streaming", "Modernização de Legado", "Real-Time AI"
+      "Arquitetura para soluções Event-Driven",
+      "Pipelines Event-Driven",
+      "Analytics em Tempo Real",
+      "Plataforma de Streaming",
+      "Modernização de Legado",
+      "Real-Time AI"
     ],
     "/en/services/": [
-      "Architecture for Event-Driven solutions", "Event-Driven Pipelines", "Real-Time Analytics",
-      "Streaming Platform", "Legacy Modernization", "Real-Time AI"
+      "Architecture for Event-Driven solutions",
+      "Event-Driven Pipelines",
+      "Real-Time Analytics",
+      "Streaming Platform",
+      "Legacy Modernization",
+      "Real-Time AI"
     ]
   }
 }
