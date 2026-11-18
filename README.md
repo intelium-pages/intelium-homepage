@@ -35,8 +35,8 @@ npm run publicar:sync
 O que cada um faz:
 
 - **`publicar:teste`** traz as duas origens, aplica a exportação nova se houver uma em `.export/` (um `.zip` ou a pasta exportada), roda lint, build e testes nos modos produção e teste, faz o commit e envia para a `main` do GitHub. Mudanças feitas direto no repositório (README, testes, `.htaccess`) entram no mesmo commit.
-- **`publicar:prd`** só funciona se a versão local for exatamente a que está no teste. Cria uma branch `release/AAAAMMDD-HHMM` no GitLab e abre o MR. Nunca envia para a `main` do GitLab.
-- **`publicar:sync`** leva o commit de merge do GitLab para o GitHub e mostra se os dois estão iguais.
+- **`publicar:prd`** só funciona se a versão local for exatamente a que está no teste. Cria uma branch `release/AAAAMMDD-HHMM` no GitLab e abre o MR. Se já houver um MR de release aberto com uma versão anterior, atualiza esse mesmo MR. Nunca envia para a `main` do GitLab.
+- **`publicar:sync`** leva o commit de merge do GitLab para o GitHub e mostra se os dois estão iguais. Só envia para o GitHub o que já está em produção: commits locais que não passaram pelo teste são recusados. Se o MR foi aceito com squash, realinha os dois repositórios com a `main` do GitLab, desde que o conteúdo seja idêntico.
 
 Para aplicar uma exportação sem publicar: `npm run sync-site -- /caminho/da/exportacao`. O `sync-site` preserva o `public/.htaccess` e as imagens da página 404, e ignora `CNAME`, `README.md`, `.nojekyll` e `404.html` da exportação.
 

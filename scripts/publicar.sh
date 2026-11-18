@@ -9,7 +9,8 @@
 # Regras que o script garante:
 #   - nada vai para o GitLab sem ter passado pelo GitHub (mesmo commit);
 #   - nada é publicado sem lint, build e testes nos modos produção e teste;
-#   - a main do GitLab nunca recebe push direto: produção é sempre por MR.
+#   - a main do GitLab nunca recebe push direto: produção é sempre por MR;
+#   - o sync só leva para o GitHub o que já está em produção.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -42,9 +43,27 @@ sync_main() {
     if git merge-base --is-ancestor main "$ref"; then
       git merge --quiet --ff-only "$ref"
     elif ! git merge-base --is-ancestor "$ref" main; then
-      fail "a main local e '$ref' divergiram. Não force nada: peça ajuda antes de continuar."
+      fail "a main local e '$ref' divergiram. Se o MR foi aceito com squash, rode: npm run publicar:sync. Senão, não force nada e peça ajuda."
     fi
   done
+}
+
+# Se o MR foi aceito com "squash", a main do GitLab ganha um commit novo com o
+# mesmo conteúdo e os históricos deixam de bater. Quando o conteúdo é idêntico
+# e não há nada pendente, adota a main do GitLab aqui e no GitHub.
+realign_after_squash() {
+  git fetch --quiet --prune github
+  git fetch --quiet --prune gitlab
+  git merge-base --is-ancestor main gitlab/main && return 0
+  git merge-base --is-ancestor gitlab/main main && return 0
+  [ -z "$(git status --porcelain)" ] || return 0
+  [ "$(git rev-parse main)" = "$(git rev-parse github/main)" ] || return 0
+  git diff --quiet main gitlab/main || return 0
+  say "O MR foi aceito com squash: realinhando com a main do GitLab (mesmo conteúdo)"
+  [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || git checkout --quiet main
+  git reset --quiet --hard gitlab/main
+  git push --quiet --force-with-lease=main:github/main github main
+  git fetch --quiet github
 }
 
 # Se houver uma exportação nova em .export/ (zip ou pasta), aplica em public/.
@@ -107,12 +126,24 @@ cmd_prd() {
     say "Produção já está igual ao teste. Nada a promover."
     exit 0
   fi
-  local open; open="$(git branch -r --contains main --list 'gitlab/release/*' | head -n 1 | tr -d ' ')"
-  [ -z "$open" ] || fail "já existe um MR aberto com esta versão (${open#gitlab/}). Faça o merge no GitLab e rode: npm run publicar:sync"
-  local branch="release/$(date +%Y%m%d-%H%M)"
   local title; title="$(git log -1 --format=%s main)"
+  # MR de release ainda aberto: se já tem esta versão, não há o que fazer;
+  # se tem uma versão anterior, atualiza o mesmo MR em vez de abrir outro.
+  local ref branch=""
+  for ref in $(git for-each-ref --format='%(refname:short)' 'refs/remotes/gitlab/release/'); do
+    git merge-base --is-ancestor "$ref" gitlab/main && continue
+    [ "$(git rev-parse "$ref")" != "$(git rev-parse main)" ] || fail "já existe um MR aberto com esta versão (${ref#gitlab/}). Faça o merge no GitLab e rode: npm run publicar:sync"
+    if git merge-base --is-ancestor "$ref" main; then branch="${ref#gitlab/}"; fi
+  done
   say "Commits que vão para produção"
   git --no-pager log --oneline gitlab/main..main
+  if [ -n "$branch" ]; then
+    say "Atualizando o MR que já está aberto ($branch)"
+    git push gitlab "main:refs/heads/$branch"
+    printf '\nMR atualizado com a versão nova. O merge publica no intelium.ai.\nDepois do merge: npm run publicar:sync\n'
+    return 0
+  fi
+  branch="release/$(date +%Y%m%d-%H%M)"
   say "Abrindo o MR no GitLab ($branch)"
   git push \
     -o merge_request.create \
@@ -124,10 +155,17 @@ cmd_prd() {
 }
 
 cmd_sync() {
+  realign_after_squash
   sync_main
   if [ "$(git rev-parse main)" != "$(git rev-parse github/main)" ]; then
-    say "Levando a main de produção para o GitHub"
-    git push --quiet github main
+    # Só leva para o GitHub o que já está em produção. Commits locais que não
+    # passaram pela validação vão pelo publicar:teste, nunca por aqui.
+    if [ "$(git rev-parse main)" = "$(git rev-parse gitlab/main)" ]; then
+      say "Levando a main de produção para o GitHub"
+      git push --quiet github main
+    else
+      fail "há commits locais que não passaram pelo teste. Rode: npm run publicar:teste"
+    fi
   fi
   say "Estado"
   printf 'local  %s\ngithub %s\ngitlab %s\n' "$(git rev-parse --short main)" "$(git rev-parse --short github/main)" "$(git rev-parse --short gitlab/main)"
