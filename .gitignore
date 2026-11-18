@@ -45,3 +45,6 @@ intelium-site.zip
 
 # oh-my-claudecode local state
 .omc/
+
+# exportação nova do site, aplicada por `npm run publicar:teste`
+.export/
