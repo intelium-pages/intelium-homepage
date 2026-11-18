@@ -101,3 +101,12 @@ tests/
 - A indexação bate com o ambiente (liberada em produção, bloqueada no teste)
 - Cada ambiente grava os formulários no seu próprio banco; o teste nunca alcança o de produção
 - Nada de fora do site vaza para `out/` (código-fonte, `CNAME`, `.dc.html`)
+
+## Medição (Google Analytics 4 e Search Console)
+
+O que é do repositório, e não da exportação do Claude Design, fica em `scripts/site/` e entra no site pelo build (`scripts/postbuild.mjs`):
+
+- `analytics.js`: aviso de cookies (PT/EN) e Google Analytics 4 (propriedade `intelium.ai`, ID `G-ZTHPL4J2MH`, tag `GTM-W48G224G`). Nada do Google carrega antes de o visitante aceitar. Eventos: `generate_lead` (formulário de contato), `sign_up` (newsletter) e `contact_click` (telefone e e-mail), sem dados pessoais. No site de teste o tráfego vai marcado como `traffic_type=internal`.
+- `google7123c91c7fc011d3.html`: prova de propriedade do Search Console (`https://intelium.ai/`). Só vai para produção e não pode ser removido.
+
+Para o visitante rever a escolha de cookies: `InteliumConsent.open()`.

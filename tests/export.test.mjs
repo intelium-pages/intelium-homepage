@@ -139,6 +139,20 @@ test(`forms write to the database of their own environment (${ENV})`, () => {
   }
 });
 
+test(`measurement is installed behind consent (${ENV})`, () => {
+  const src = read("analytics.js");
+  assert.match(src, /GTM-W48G224G/, "Google tag id missing");
+  assert.doesNotMatch(src, /__SITE_ENV__/, "build marker left in analytics.js");
+  assert.match(src, new RegExp(`const SITE_ENV = "${ENV === "dsv" ? "dsv" : "prd"}"`));
+  assert.match(src, /analytics_storage: "denied"/, "consent must default to denied");
+  const without = sitePages().filter((p) => !/<script src="(\.\/|(\.\.\/)+)analytics\.js" defer><\/script>/.test(read(p)));
+  assert.deepEqual(without, [], "pages without the measurement script");
+  for (const page of sitePages())
+    assert.doesNotMatch(read(page), /googletagmanager\.com|google-analytics\.com/, `${page} loads Google before consent`);
+  // Search Console ownership is proven only by the production site.
+  assert.equal(existsSync(join(OUT, "google7123c91c7fc011d3.html")), ENV !== "dsv");
+});
+
 test("nothing that does not belong to the site leaks into the export", () => {
   const leaked = walk(OUT)
     .map(rel)
